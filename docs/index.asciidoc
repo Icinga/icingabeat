@@ -1,0 +1,5 @@
+= Icingabeat Docs
+
+Welcome to the Icingabeat documentation.
+
+

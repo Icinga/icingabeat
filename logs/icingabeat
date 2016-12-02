@@ -1,0 +1,27 @@
+2016-12-02T11:47:19+01:00 INFO Setup Beat: icingabeat; Version: 6.0.0-alpha1
+2016-12-02T11:47:19+01:00 INFO Metrics logging every 30s
+2016-12-02T11:47:19+01:00 INFO Loading template enabled. Reading template file: /Users/bsheqa/go/src/github.com/icinga/icingabeat/icingabeat.template.json
+2016-12-02T11:47:19+01:00 INFO Loading template enabled for Elasticsearch 2.x. Reading template file: /Users/bsheqa/go/src/github.com/icinga/icingabeat/icingabeat.template-es2x.json
+2016-12-02T11:47:19+01:00 INFO Elasticsearch url: http://localhost:9200
+2016-12-02T11:47:19+01:00 INFO Activated elasticsearch as output plugin.
+2016-12-02T11:47:19+01:00 INFO Publisher name: Blerims-MacBook-Pro.local
+2016-12-02T11:47:19+01:00 INFO Flush Interval set to: 1s
+2016-12-02T11:47:19+01:00 INFO Max Bulk Size set to: 50
+2016-12-02T11:47:19+01:00 INFO icingabeat start running.
+2016-12-02T11:47:19+01:00 INFO icingabeat is running! Hit CTRL-C to stop it.
+2016-12-02T11:47:20+01:00 INFO Event sent
+2016-12-02T11:47:21+01:00 INFO Event sent
+2016-12-02T11:47:21+01:00 ERR Connecting error publishing events (retrying): Get http://localhost:9200: dial tcp 127.0.0.1:9200: getsockopt: connection refused
+2016-12-02T11:47:22+01:00 INFO Event sent
+2016-12-02T11:47:22+01:00 ERR Connecting error publishing events (retrying): Get http://localhost:9200: dial tcp 127.0.0.1:9200: getsockopt: connection refused
+2016-12-02T11:47:23+01:00 INFO Event sent
+2016-12-02T11:47:24+01:00 INFO Event sent
+2016-12-02T11:47:24+01:00 ERR Connecting error publishing events (retrying): Get http://localhost:9200: dial tcp 127.0.0.1:9200: getsockopt: connection refused
+2016-12-02T11:47:25+01:00 INFO Event sent
+2016-12-02T11:47:26+01:00 INFO Event sent
+2016-12-02T11:47:27+01:00 INFO Event sent
+2016-12-02T11:47:28+01:00 INFO Event sent
+2016-12-02T11:47:28+01:00 ERR Connecting error publishing events (retrying): Get http://localhost:9200: dial tcp 127.0.0.1:9200: getsockopt: connection refused
+2016-12-02T11:47:29+01:00 INFO Total non-zero values:  libbeat.publisher.messages_in_worker_queues=9 libbeat.publisher.published_events=9
+2016-12-02T11:47:29+01:00 INFO Uptime: 9.720728469s
+2016-12-02T11:47:29+01:00 INFO icingabeat stopped.
