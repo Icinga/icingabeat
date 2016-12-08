@@ -5,6 +5,14 @@
 icingabeat:
   # Defines how often an event is sent to the output
   period: 1s
+  # Icinga 2 API endpoint
+  host: "demo.icinga.com"
+  # Port of Icinga 2 API
+  port: 5665
+  # User for Icinga 2 API
+  user: "root"
+  # Password for the Icinga 2 API user
+  password: "icinga"
 
 #================================ General =====================================
 
@@ -29,7 +37,7 @@ icingabeat:
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+  hosts: ["demo.icinga.com:9200"]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"

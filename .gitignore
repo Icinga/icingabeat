@@ -5,3 +5,4 @@
 /icingabeat
 /icingabeat.test
 *.pyc
+logs/
