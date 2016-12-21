@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -21,6 +20,7 @@ import (
 
 // Icingabeat type
 type Icingabeat struct {
+	done   chan struct{}
 	config config.Config
 	client publisher.Client
 
@@ -28,7 +28,7 @@ type Icingabeat struct {
 	mutex  sync.Mutex
 }
 
-func requestURL(icingabeat *Icingabeat, method, path string) *http.Response {
+func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 	transport := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -37,35 +37,36 @@ func requestURL(icingabeat *Icingabeat, method, path string) *http.Response {
 		Transport: transport,
 	}
 
-	url := fmt.Sprintf("https://%s:%v%s", icingabeat.config.Host, icingabeat.config.Port, path)
+	url := fmt.Sprintf("https://%s:%v%s", bt.config.Host, bt.config.Port, path)
 
 	request, err := http.NewRequest(method, url, nil)
 
 	if err != nil {
-		log.Fatalln(err)
+		logp.Info("Request:", err)
 	}
 
 	request.Header.Add("Accept", "application/json")
-	request.SetBasicAuth(icingabeat.config.User, icingabeat.config.Password)
+	request.SetBasicAuth(bt.config.User, bt.config.Password)
 	response, err := client.Do(request)
+
 	if err != nil {
-		log.Fatalln(err)
+		return nil, err
 	}
 
-	return response
+	return response, err
 }
 
-func apiStatus(icingabeat *Icingabeat) bool {
+func connectionTest(icingabeat *Icingabeat) (bool, error) {
+	response, err := requestURL(icingabeat, "GET", "/v1")
 
-	response := requestURL(icingabeat, "GET", "/v1/status")
-
-	if response.StatusCode == 200 {
-		return true
+	if err != nil {
+		return false, err
 	}
 
-	log.Println("Request:", response.Request.URL)
-	log.Fatalln("Error:", response.Status)
-	return false
+	logp.Debug("Connection test request URL:", response.Request.URL.String())
+	logp.Debug("Connection test status:", response.Status)
+
+	return true, nil
 }
 
 // New beater
@@ -76,6 +77,7 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	}
 
 	bt := &Icingabeat{
+		done:   make(chan struct{}),
 		config: config,
 	}
 	return bt, nil
@@ -86,52 +88,62 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 	logp.Info("icingabeat is running! Hit CTRL-C to stop it.")
 
 	bt.client = b.Publisher.Connect()
-
-	if apiStatus(bt) {
-		logp.Info("API is here!!!")
-	} else {
-		logp.Info("API not available")
-	}
-
-	response := requestURL(bt, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
-	reader := bufio.NewReader(response.Body)
-	bt.mutex.Lock()
-	bt.closer = response.Body
-	bt.mutex.Unlock()
+	apiAvailable, connectionerr := connectionTest(bt)
 
 	for {
-		line, err := reader.ReadBytes('\n')
-		if err != nil {
+		ticker := time.NewTicker(2 * time.Second)
+
+		if apiAvailable {
+			logp.Info("API seems available")
+
+			response, _ := requestURL(bt, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
+			reader := bufio.NewReader(response.Body)
 			bt.mutex.Lock()
-			tst := bt.closer == nil
+			bt.closer = response.Body
 			bt.mutex.Unlock()
 
-			if tst {
-				break
+			for {
+				line, err := reader.ReadBytes('\n')
+				if err != nil {
+					bt.mutex.Lock()
+					tst := bt.closer == nil
+					bt.mutex.Unlock()
+
+					if tst {
+						break
+					}
+					logp.Err("Error reading line %#v", err)
+				}
+
+				var event common.MapStr
+
+				if err := json.Unmarshal(line, &event); err != nil {
+					logp.Info("Unmarshal problem %v", err)
+					bt.mutex.Lock()
+					tst := bt.closer == nil
+					bt.mutex.Unlock()
+
+					if tst {
+						break
+					}
+					continue
+				}
+				event["@timestamp"] = common.Time(time.Now())
+				event["type"] = b.Name
+				bt.client.PublishEvent(event)
+				logp.Info("Event sent")
 			}
-			logp.Err("Error reading line %#v", err)
+		} else {
+			logp.Info("Cannot connect to API", connectionerr)
 		}
 
-		var event common.MapStr
-
-		if err := json.Unmarshal(line, &event); err != nil {
-			logp.Info("Unmarshal problem %v", err)
-			bt.mutex.Lock()
-			tst := bt.closer == nil
-			bt.mutex.Unlock()
-
-			if tst {
-				break
-			}
-			continue
+		select {
+		case <-bt.done:
+			return nil
+		case <-ticker.C:
 		}
-		event["@timestamp"] = common.Time(time.Now())
-		event["type"] = b.Name
-		bt.client.PublishEvent(event)
-		logp.Info("Event sent")
 	}
-
-	return nil
+	//return nil
 }
 
 // Stop Icingabeat
@@ -143,4 +155,6 @@ func (bt *Icingabeat) Stop() {
 		bt.closer = nil
 	}
 	bt.mutex.Unlock()
+	close(bt.done)
+	logp.Info("CTRL+C hit!!!")
 }

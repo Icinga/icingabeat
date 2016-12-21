@@ -8,7 +8,7 @@ icingabeat:
   # Icinga 2 API endpoint
   host: "demo.icinga.com"
   # Port of Icinga 2 API
-  port: 5665
+  port: 5666
   # User for Icinga 2 API
   user: "root"
   # Password for the Icinga 2 API user
