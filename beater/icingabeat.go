@@ -56,19 +56,6 @@ func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 	return response, err
 }
 
-func connectionTest(icingabeat *Icingabeat) (bool, error) {
-	response, err := requestURL(icingabeat, "GET", "/v1")
-
-	if err != nil {
-		return false, err
-	}
-
-	logp.Debug("Connection test request URL:", response.Request.URL.String())
-	logp.Debug("Connection test status:", response.Status)
-
-	return true, nil
-}
-
 // New beater
 func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	config := config.DefaultConfig
@@ -87,16 +74,14 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 func (bt *Icingabeat) Run(b *beat.Beat) error {
 	logp.Info("icingabeat is running! Hit CTRL-C to stop it.")
 
-	bt.client = b.Publisher.Connect()
-	apiAvailable, connectionerr := connectionTest(bt)
-
 	for {
 		ticker := time.NewTicker(2 * time.Second)
 
-		if apiAvailable {
-			logp.Info("API seems available")
+		response, responseErr := requestURL(bt, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
+		if responseErr == nil {
 
-			response, _ := requestURL(bt, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
+			bt.client = b.Publisher.Connect()
+
 			reader := bufio.NewReader(response.Body)
 			bt.mutex.Lock()
 			bt.closer = response.Body
@@ -133,8 +118,14 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 				bt.client.PublishEvent(event)
 				logp.Info("Event sent")
 			}
+
+			select {
+			case <-bt.done:
+				return nil
+			default:
+			}
 		} else {
-			logp.Info("Cannot connect to API", connectionerr)
+			logp.Info("Error connecting to API:", responseErr)
 		}
 
 		select {
@@ -143,18 +134,16 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 		case <-ticker.C:
 		}
 	}
-	//return nil
 }
 
 // Stop Icingabeat
 func (bt *Icingabeat) Stop() {
-	bt.client.Close()
 	bt.mutex.Lock()
 	if bt.closer != nil {
 		bt.closer.Close()
 		bt.closer = nil
 	}
 	bt.mutex.Unlock()
+	bt.client.Close()
 	close(bt.done)
-	logp.Info("CTRL+C hit!!!")
 }
