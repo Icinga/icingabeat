@@ -17,7 +17,8 @@ type Config struct {
 
 // EventstreamConfig optoins
 type EventstreamConfig struct {
-	Types []string `config:"types"`
+	Types  []string `config:"types"`
+	Filter string   `config:"filter"`
 }
 
 // DefaultConfig values

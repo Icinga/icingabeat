@@ -43,6 +43,18 @@ icingabeat:
       - CheckResult
       - StateChange
 
+    # Event streams can be filtered by attributes using the prefix event.
+    #
+    # Example for the CheckResult type with the exit_code set to 2:
+    # filter: "event.check_result.exit_status==2"
+    #
+    # Example for the CheckResult type with the service matching the string
+    # pattern "mysql*":
+    # filter: 'match("mysql*", event.service)'
+    #
+    # Comment out this line if you don't want to set a filter at all
+    filter: ""
+
 #================================ General ======================================
 
 # The name of the shipper that publishes the network data. It can be used to group

@@ -40,7 +40,6 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 	bt.client = b.Publisher.Connect()
 
 	eventstream = NewEventstream(bt, bt.config)
-	logp.Info("hostname: %v", bt.config.Host)
 	go eventstream.Run()
 
 	for {

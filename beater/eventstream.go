@@ -4,7 +4,8 @@ import (
 	"bufio"
 	"encoding/json"
 	"io"
-	"strings"
+	"net/url"
+	"strconv"
 	"sync"
 	"time"
 
@@ -36,15 +37,34 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 
 // Run evenstream receiver
 func (es *Eventstream) Run() error {
-	types := strings.Join(es.config.Eventstream.Types, "&types=")
-	logp.Info(types)
+	queue := "icingabeat"
+	host := es.config.Host + ":" + strconv.Itoa(es.config.Port)
+	var URL *url.URL
+
+	URL, err := url.Parse("https://" + host)
+	if err != nil {
+		logp.Info("Invalid request URL")
+	}
+
+	URL.Path += "/v1/events/"
+
+	parameters := url.Values{}
+	parameters.Add("queue", queue)
+
+	if es.config.Eventstream.Filter != "" {
+		parameters.Add("filter", es.config.Eventstream.Filter)
+	}
+
+	for _, eventType := range es.config.Eventstream.Types {
+		parameters.Add("types", eventType)
+	}
+
+	URL.RawQuery = parameters.Encode()
+
 	for {
 
 		ticker := time.NewTicker(es.config.RetryInterval)
-		response, responseErr := requestURL(
-			es.icingabeat,
-			"POST",
-			"/v1/events?queue=icingabeat&types="+types)
+		response, responseErr := requestURL(es.icingabeat, "POST", URL)
 
 		if responseErr == nil {
 			reader := bufio.NewReader(response.Body)

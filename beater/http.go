@@ -3,13 +3,13 @@ package beater
 import (
 	"crypto/tls"
 	"errors"
-	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/elastic/beats/libbeat/logp"
 )
 
-func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
+func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, error) {
 	transport := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -18,12 +18,9 @@ func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 		Transport: transport,
 	}
 
-	url := fmt.Sprintf(
-		"https://%s:%v%s",
-		bt.config.Host,
-		bt.config.Port,
-		path)
-	request, err := http.NewRequest(method, url, nil)
+	logp.Info("Requested URL: %v", URL.String())
+
+	request, err := http.NewRequest(method, URL.String(), nil)
 
 	if err != nil {
 		logp.Info("Request: %v", err)
