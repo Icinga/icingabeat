@@ -3,16 +3,38 @@
 ############################# Icingabeat ######################################
 
 icingabeat:
-  # Defines how often an event is sent to the output
-  period: 1s
-  # Icinga 2 API endpoint
-  host: "demo.icinga.com"
-  # Port of Icinga 2 API
+
+  # Defines the Icina API endpoint
+  host: "demo"
+
+  # Defines the port of the API endpoint
   port: 5665
-  # User for Icinga 2 API
-  user: "root"
-  # Password for the Icinga 2 API user
+
+  # A user with sufficient permissions
+  user: "rooto"
+
+  # Password of the user
   password: "icinga"
+
+  # Defines how fast to reconnect to the API after a connection loss
+  retry_interval: 10s
+
+  # Decide which events to receive from the event stream.
+  # The following event stream types are available, at least one must be set:
+  # * CheckResult
+  # * StateChange
+  # * Notification
+  # * AcknowledgementSet
+  # * AcknowledgementCleared
+  # * CommentAdded
+  # * CommentRemoved
+  # * DowntimeAdded
+  # * DowntimeRemoved
+  # * DowntimeStarted
+  # * DowntimeTriggered
+  event_types:
+    - CheckResult
+    - StateChange
 
 #================================ General =====================================
 
@@ -37,7 +59,7 @@ icingabeat:
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["demo.icinga.com:9200"]
+  hosts: ["demo:9200"]
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"

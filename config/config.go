@@ -7,16 +7,17 @@ import "time"
 
 // Config options
 type Config struct {
-	Period   time.Duration `config:"period"`
-	Host     string        `config:"host"`
-	Port     int           `config:"port"`
-	User     string        `config:"user"`
-	Password string        `config:"password"`
+	Host          string        `config:"host"`
+	Port          int           `config:"port"`
+	User          string        `config:"user"`
+	Password      string        `config:"password"`
+	RetryInterval time.Duration `config:"retry_interval"`
+	EventTypes    []string      `config:"event_types"`
 }
 
 // DefaultConfig values
 var DefaultConfig = Config{
-	Period: 1 * time.Second,
-	Host:   "localhost",
-	Port:   5665,
+	RetryInterval: 1 * time.Second,
+	Host:          "localhost",
+	Port:          5665,
 }

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"io"
+	"strings"
 	"sync"
 	"time"
 
@@ -35,10 +36,15 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 
 // Run evenstream receiver
 func (es *Eventstream) Run() error {
+	types := strings.Join(es.icingabeat.config.EventTypes, "&types=")
+
 	for {
 
 		ticker := time.NewTicker(es.config.RetryInterval)
-		response, responseErr := requestURL(es.icingabeat, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
+		response, responseErr := requestURL(
+			es.icingabeat,
+			"POST",
+			"/v1/events?queue=icingabeat&types="+types)
 
 		if responseErr == nil {
 			reader := bufio.NewReader(response.Body)

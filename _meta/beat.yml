@@ -3,13 +3,35 @@
 ############################# Icingabeat ######################################
 
 icingabeat:
-  # Defines how often an event is sent to the output
-  period: 1s
-  # Icinga 2 API endpoint
+
+  # Defines the Icina API endpoint
   host: "localhost"
-  # Port of Icinga 2 API
+
+  # Defines the port of the API endpoint
   port: 5665
-  # User for Icinga 2 API
+
+  # A user with sufficient permissions
   user: "icinga"
-  # Password for the Icinga 2 API user
+
+  # Password of the user
   password: "icinga"
+
+  # Defines how fast to reconnect to the API after a connection loss
+  retry_interval: 10s
+
+  # Decide which events to receive from the event stream.
+  # The following event stream types are available, at least one must be set:
+  # * CheckResult
+  # * StateChange
+  # * Notification
+  # * AcknowledgementSet
+  # * AcknowledgementCleared
+  # * CommentAdded
+  # * CommentRemoved
+  # * DowntimeAdded
+  # * DowntimeRemoved
+  # * DowntimeStarted
+  # * DowntimeTriggered
+  event_types:
+    - CheckResult
+    - StateChange
