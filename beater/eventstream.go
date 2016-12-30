@@ -37,7 +37,7 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 func (es *Eventstream) Run() error {
 	for {
 
-		ticker := time.NewTicker(2 * time.Second)
+		ticker := time.NewTicker(es.config.RetryInterval)
 		response, responseErr := requestURL(es.icingabeat, "POST", "/v1/events?queue=icingabeat&types=CheckResult")
 
 		if responseErr == nil {
@@ -54,7 +54,7 @@ func (es *Eventstream) Run() error {
 					tst := es.closer == nil
 					es.mutex.Unlock()
 
-					if tst {
+					if tst || err == io.ErrUnexpectedEOF || err == io.EOF {
 						break
 					}
 					logp.Err("Error reading line %#v", err)
@@ -68,7 +68,7 @@ func (es *Eventstream) Run() error {
 					tst := es.closer == nil
 					es.mutex.Unlock()
 
-					if tst {
+					if tst || err == io.ErrUnexpectedEOF || err == io.EOF {
 						break
 					}
 					continue
@@ -86,7 +86,7 @@ func (es *Eventstream) Run() error {
 			default:
 			}
 		} else {
-			logp.Info("Error connecting to API:", responseErr)
+			logp.Info("Error connecting to API: %v", responseErr)
 		}
 
 		select {
