@@ -6,3 +6,5 @@
 /icingabeat.test
 *.pyc
 logs/
+
+icingabeat.test.yml

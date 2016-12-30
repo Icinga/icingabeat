@@ -18,7 +18,11 @@ func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 		Transport: transport,
 	}
 
-	url := fmt.Sprintf("https://%s:%v%s", bt.config.Host, bt.config.Port, path)
+	url := fmt.Sprintf(
+		"https://%s:%v%s",
+		bt.config.Host,
+		bt.config.Port,
+		path)
 	request, err := http.NewRequest(method, url, nil)
 
 	if err != nil {

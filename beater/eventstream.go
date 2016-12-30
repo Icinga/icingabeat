@@ -36,8 +36,8 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 
 // Run evenstream receiver
 func (es *Eventstream) Run() error {
-	types := strings.Join(es.icingabeat.config.EventTypes, "&types=")
-
+	types := strings.Join(es.config.Eventstream.Types, "&types=")
+	logp.Info(types)
 	for {
 
 		ticker := time.NewTicker(es.config.RetryInterval)

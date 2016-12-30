@@ -7,12 +7,17 @@ import "time"
 
 // Config options
 type Config struct {
-	Host          string        `config:"host"`
-	Port          int           `config:"port"`
-	User          string        `config:"user"`
-	Password      string        `config:"password"`
-	RetryInterval time.Duration `config:"retry_interval"`
-	EventTypes    []string      `config:"event_types"`
+	Host          string            `config:"host"`
+	Port          int               `config:"port"`
+	User          string            `config:"user"`
+	Password      string            `config:"password"`
+	RetryInterval time.Duration     `config:"retry_interval"`
+	Eventstream   EventstreamConfig `config:"eventstream"`
+}
+
+// EventstreamConfig optoins
+type EventstreamConfig struct {
+	Types []string `config:"types"`
 }
 
 // DefaultConfig values
