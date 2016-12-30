@@ -2,6 +2,7 @@ package beater
 
 import (
 	"crypto/tls"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -18,11 +19,10 @@ func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 	}
 
 	url := fmt.Sprintf("https://%s:%v%s", bt.config.Host, bt.config.Port, path)
-
 	request, err := http.NewRequest(method, url, nil)
 
 	if err != nil {
-		logp.Info("Request:", err)
+		logp.Info("Request: %v", err)
 	}
 
 	request.Header.Add("Accept", "application/json")
@@ -31,6 +31,11 @@ func requestURL(bt *Icingabeat, method, path string) (*http.Response, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	switch response.StatusCode {
+	case 401:
+		err = errors.New("Authentication failed for user " + bt.config.User)
 	}
 
 	return response, err
