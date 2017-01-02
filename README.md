@@ -47,7 +47,7 @@ read the data you want to collect. Learn more about `apiuser` permissions in the
 [Icinga 2 docs](https://docs.icinga.com/icinga2/latest/doc/module/icinga2/chapter/icinga2-api#icinga2-api-permissions).
 
 This user is allowed to receive all types of events and to query the status API:
-```
+```c++
 object ApiUser "icinga" {
   password: "icinga"
   permissions = ["events/*", "status/query"]
@@ -55,7 +55,7 @@ object ApiUser "icinga" {
 ```
 
 This user is only allowed to receive events of the type `CheckResult`
-```
+```c++
 object ApiUser "icinga" {
   password: "icinga"
   permissions = ["events/CheckResult"]
@@ -95,13 +95,13 @@ no filter is set.
 
 
 Only checkresults with exit status 2:
-```
+```yaml
 filter: "event.check_result.exit_status==2"
 ```
 
 Example for the CheckResult type with the service matching the string pattern
 `mysql*`:
-```
+```yaml
 filter: 'match("mysql*", event.service)'
 ```
 
@@ -111,7 +111,7 @@ StatusPoller is not implemented yet.
 ## Run
 To run Icingabeat with debugging output enabled, run:
 
-```
+```bash
 ./icingabeat -c icingabeat.yml -e -d "*"
 ```
 
@@ -125,7 +125,7 @@ To run Icingabeat with debugging output enabled, run:
 
 To clone Icingabeat from the git repository, run the following commands:
 
-```
+```shell
 mkdir -p ${GOPATH}/github.com/icinga
 cd ${GOPATH}/github.com/icinga
 git clone https://github.com/icinga/icingabeat
@@ -141,14 +141,14 @@ Ensure that this folder is at the following location:
 To build the binary for Icingabeat run the command below. This will generate a
 binary in the same directory with the name icingabeat.
 
-```
+```shell
 make
 ```
 
 ### Run
 To run Icingabeat with debugging output enabled, run:
 
-```
+```shell
 ./icingabeat -c icingabeat.yml -e -d "*"
 ```
 
@@ -156,12 +156,12 @@ To run Icingabeat with debugging output enabled, run:
 
 To test Icingabeat, run the following command:
 
-```
+```shell
 make testsuite
 ```
 
 alternatively:
-```
+```shell
 make unit-tests
 make system-tests
 make integration-tests
@@ -176,7 +176,7 @@ Each beat has a template for the mapping in elasticsearch and a documentation
 for the fields which is automatically generated based on `etc/fields.yml`.
 To generate etc/icingabeat.template.json and etc/icingabeat.asciidoc
 
-```
+```shell
 make update
 ```
 
@@ -184,14 +184,14 @@ make update
 
 To clean  Icingabeat source code, run the following commands:
 
-```
+```shell
 make fmt
 make simplify
 ```
 
 To clean up the build directory and generated artifacts, run:
 
-```
+```shell
 make clean
 ```
 
@@ -202,7 +202,7 @@ different platforms. This requires [docker](https://www.docker.com/) and
 vendoring as described above. To build packages of your beat, run the following
 command:
 
-```
+```shell
 make package
 ```
 

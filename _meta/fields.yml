@@ -1,6 +1,6 @@
 - key: icingabeat
   title: icingabeat
-  description:
+  description: Data received from the Icinga 2 API
   fields:
     - name: counter
       type: long
