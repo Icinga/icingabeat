@@ -1,0 +1,15 @@
+# Icingabeat CHANGELOG
+
+## v0.1.0
+
+### Features
+* Configure connection settings
+* Configure eventstream types
+* Configure eventstream filters
+* Subscribe to eventstream
+* Decument fields for eventstream types:
+  * CheckResult
+  * StateChange
+  * Notification
+  * AcknowledgementSet
+  * AcknowledgementCleared
