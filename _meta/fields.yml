@@ -2,8 +2,167 @@
   title: icingabeat
   description: Data received from the Icinga 2 API
   fields:
-    - name: counter
-      type: long
+    - name: type
+      type: keyword
       required: true
       description: >
-        PLEASE UPDATE DOCUMENTATION
+        Type of the document. Can either be icingabeat.event or icingabet.status
+
+    - name: host
+      type: keyword
+      description: >
+        Host that triggered the event
+
+    - name: service
+      type: keyword
+      description: >
+        Service that triggered the event
+
+    - name: state
+      type: integer
+      description: >
+        State of the check
+
+    - name: state_type
+      type: integer
+      description: >
+        State type of the check
+
+    - name: author
+      type: keyword
+      description: >
+        Author of a message
+
+    - name: notification_type
+      type: keyword
+      description: >
+        Type of notification
+
+    - name: text
+      type: text
+      description: >
+        Text of a message
+
+    - name: users
+      type: text
+      description: >
+        Affected users of a notification
+
+    - name: acknowledgement_type
+      type: integer
+      description: >
+        Type of the acknowledgement
+
+    - name: comment
+      type: text
+      description: >
+        Content of a comment message
+
+    - name: expiry
+      type: integer
+      description: >
+        If an acknowledgement or not
+
+    - name: notify
+      type: keyword
+      description: >
+        If users are notified
+
+    - name: check_result.active
+      type: keyword
+      description: >
+        If check was active or passive
+
+    - name: check_result.check_source
+      type: keyword
+      description: >
+        Icinga instance that scheduled the check
+
+    - name: check_result.command
+      type: text
+      description: >
+        Command that was executed
+
+    - name: check_result.execution_end
+      type: text
+      description: >
+        Time when execution of check ended
+
+    - name: check_result.execution_start
+      type: text
+      description: >
+        Time when execution of check started
+
+    - name: check_result.exit_status
+      type: integer
+      description: >
+        Exit status
+
+    - name: check_result.output
+      type: text
+      description: >
+        Output of check
+
+    - name: check_result.performance_data
+      type: text
+      description: >
+        Performance data in text format
+
+    - name: check_result.schedule_end
+      type: text
+      description: >
+        Time when scheduling of the check ended
+
+    - name: check_result.schedule_start
+      type: text
+      description: >
+        Time when check was scheduled
+    - name: check_result.state
+      type: integer
+      description: >
+        State of the check
+
+    - name: check_result.type
+      type: keyword
+      description: >
+        Type of this event
+
+    - name: check_result.vars_after.attempt
+      type: integer
+      description: >
+        Check attempt after check execution
+
+    - name: check_result.vars_after.reachable
+      type: keyword
+      description: >
+        Reachable state after check execution
+
+    - name: check_result.vars_after.state
+      type: integer
+      description: >
+        State of the check after execution
+
+    - name: check_result.vars_after.state_type
+      type: integer
+      description: >
+        State type after execution
+
+    - name: check_result.vars_before.attempt
+      type: integer
+      description: >
+        Check attempt before check execution
+
+    - name: check_result.vars_before.reachable
+      type: keyword
+      description: >
+        Reachable state before check execution
+
+    - name: check_result.vars_before.state
+      type: integer
+      description: >
+        Check state before check execution
+
+    - name: check_result.vars_before.state_type
+      type: integer
+      description: >
+        State type before check execution

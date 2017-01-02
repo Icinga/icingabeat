@@ -124,16 +124,272 @@ Region in which this host is running.
 [[exported-fields-icingabeat]]
 == icingabeat Fields
 
-None
+Data received from the Icinga 2 API
 
 
 [float]
-=== counter
+=== type
 
-type: long
+type: keyword
 
 required: True
 
-PLEASE UPDATE DOCUMENTATION
+Type of the document. Can either be icingabeat.event or icingabet.status
+
+
+[float]
+=== host
+
+type: keyword
+
+Host that triggered the event
+
+
+[float]
+=== service
+
+type: keyword
+
+Service that triggered the event
+
+
+[float]
+=== state
+
+type: integer
+
+State of the check
+
+
+[float]
+=== state_type
+
+type: integer
+
+State type of the check
+
+
+[float]
+=== author
+
+type: keyword
+
+Author of a message
+
+
+[float]
+=== notification_type
+
+type: keyword
+
+Type of notification
+
+
+[float]
+=== text
+
+type: text
+
+Text of a message
+
+
+[float]
+=== users
+
+type: text
+
+Affected users of a notification
+
+
+[float]
+=== acknowledgement_type
+
+type: integer
+
+Type of the acknowledgement
+
+
+[float]
+=== comment
+
+type: text
+
+Content of a comment message
+
+
+[float]
+=== expiry
+
+type: integer
+
+If an acknowledgement or not
+
+
+[float]
+=== notify
+
+type: keyword
+
+If users are notified
+
+
+[float]
+=== check_result.active
+
+type: keyword
+
+If check was active or passive
+
+
+[float]
+=== check_result.check_source
+
+type: keyword
+
+Icinga instance that scheduled the check
+
+
+[float]
+=== check_result.command
+
+type: text
+
+Command that was executed
+
+
+[float]
+=== check_result.execution_end
+
+type: text
+
+Time when execution of check ended
+
+
+[float]
+=== check_result.execution_start
+
+type: text
+
+Time when execution of check started
+
+
+[float]
+=== check_result.exit_status
+
+type: integer
+
+Exit status
+
+
+[float]
+=== check_result.output
+
+type: text
+
+Output of check
+
+
+[float]
+=== check_result.performance_data
+
+type: text
+
+Performance data in text format
+
+
+[float]
+=== check_result.schedule_end
+
+type: text
+
+Time when scheduling of the check ended
+
+
+[float]
+=== check_result.schedule_start
+
+type: text
+
+Time when check was scheduled
+
+
+[float]
+=== check_result.state
+
+type: integer
+
+State of the check
+
+
+[float]
+=== check_result.type
+
+type: keyword
+
+Type of this event
+
+
+[float]
+=== check_result.vars_after.attempt
+
+type: integer
+
+Check attempt after check execution
+
+
+[float]
+=== check_result.vars_after.reachable
+
+type: keyword
+
+Reachable state after check execution
+
+
+[float]
+=== check_result.vars_after.state
+
+type: integer
+
+State of the check after execution
+
+
+[float]
+=== check_result.vars_after.state_type
+
+type: integer
+
+State type after execution
+
+
+[float]
+=== check_result.vars_before.attempt
+
+type: integer
+
+Check attempt before check execution
+
+
+[float]
+=== check_result.vars_before.reachable
+
+type: keyword
+
+Reachable state before check execution
+
+
+[float]
+=== check_result.vars_before.state
+
+type: integer
+
+Check state before check execution
+
+
+[float]
+=== check_result.vars_before.state_type
+
+type: integer
+
+State type before check execution
 
 

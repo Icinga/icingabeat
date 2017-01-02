@@ -22,6 +22,13 @@
         "@timestamp": {
           "type": "date"
         },
+        "acknowledgement_type": {
+          "type": "long"
+        },
+        "author": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
         "beat": {
           "properties": {
             "hostname": {
@@ -38,8 +45,100 @@
             }
           }
         },
-        "counter": {
+        "check_result": {
+          "properties": {
+            "active": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "check_source": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "command": {
+              "norms": false,
+              "type": "text"
+            },
+            "execution_end": {
+              "norms": false,
+              "type": "text"
+            },
+            "execution_start": {
+              "norms": false,
+              "type": "text"
+            },
+            "exit_status": {
+              "type": "long"
+            },
+            "output": {
+              "norms": false,
+              "type": "text"
+            },
+            "performance_data": {
+              "norms": false,
+              "type": "text"
+            },
+            "schedule_end": {
+              "norms": false,
+              "type": "text"
+            },
+            "schedule_start": {
+              "norms": false,
+              "type": "text"
+            },
+            "state": {
+              "type": "long"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "vars_after": {
+              "properties": {
+                "attempt": {
+                  "type": "long"
+                },
+                "reachable": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "state": {
+                  "type": "long"
+                },
+                "state_type": {
+                  "type": "long"
+                }
+              }
+            },
+            "vars_before": {
+              "properties": {
+                "attempt": {
+                  "type": "long"
+                },
+                "reachable": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "state": {
+                  "type": "long"
+                },
+                "state_type": {
+                  "type": "long"
+                }
+              }
+            }
+          }
+        },
+        "comment": {
+          "norms": false,
+          "type": "text"
+        },
+        "expiry": {
           "type": "long"
+        },
+        "host": {
+          "ignore_above": 1024,
+          "type": "keyword"
         },
         "meta": {
           "properties": {
@@ -73,9 +172,39 @@
             }
           }
         },
+        "notification_type": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "notify": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "service": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "state": {
+          "type": "long"
+        },
+        "state_type": {
+          "type": "long"
+        },
         "tags": {
           "ignore_above": 1024,
           "type": "keyword"
+        },
+        "text": {
+          "norms": false,
+          "type": "text"
+        },
+        "type": {
+          "ignore_above": 1024,
+          "type": "keyword"
+        },
+        "users": {
+          "norms": false,
+          "type": "text"
         }
       }
     }

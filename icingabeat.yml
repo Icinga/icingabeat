@@ -31,19 +31,19 @@ icingabeat:
     # * Notification
     # * AcknowledgementSet
     # * AcknowledgementCleared
-    # * CommentAdded
-    # * CommentRemoved
-    # * DowntimeAdded
-    # * DowntimeRemoved
-    # * DowntimeStarted
-    # * DowntimeTriggered
+    # * CommentAdded (See https://github.com/Icinga/icingabeat/issues/1)
+    # * CommentRemoved (See https://github.com/Icinga/icingabeat/issues/1)
+    # * DowntimeAdded (See https://github.com/Icinga/icingabeat/issues/1)
+    # * DowntimeRemoved (See https://github.com/Icinga/icingabeat/issues/1)
+    # * DowntimeStarted (See https://github.com/Icinga/icingabeat/issues/1)
+    # * DowntimeTriggered (See https://github.com/Icinga/icingabeat/issues/1)
     #
     # At least one type must be set
     types:
       - CheckResult
       - StateChange
 
-    # Event streams can be filtered by attributes using the prefix event.
+    # Event streams can be filtered by attributes using the prefix 'event.'
     #
     # Example for the CheckResult type with the exit_code set to 2:
     # filter: "event.check_result.exit_status==2"
