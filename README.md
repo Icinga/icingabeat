@@ -117,6 +117,9 @@ To run Icingabeat with debugging output enabled, run:
 ./icingabeat -c icingabeat.yml -e -d "*"
 ```
 
+Icingabeat exports a bunch of fields. Have a look to the
+[fields.asciidoc](docs/fields.asciidoc) for details.
+
 ## Building and running manually
 
 ### Requirements
