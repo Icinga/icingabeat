@@ -5,7 +5,7 @@
         "norms": false
       },
       "_meta": {
-        "version": "6.0.0-alpha1"
+        "version": "5.1.1"
       },
       "dynamic_templates": [
         {
@@ -957,11 +957,42 @@
                   }
                 },
                 "partition": {
-                  "type": "long"
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "id": {
+                      "type": "long"
+                    },
+                    "insync_replica": {
+                      "type": "boolean"
+                    },
+                    "leader": {
+                      "type": "long"
+                    },
+                    "replica": {
+                      "type": "long"
+                    }
+                  }
                 },
                 "topic": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             }
