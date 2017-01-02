@@ -101,7 +101,7 @@ func (es *Eventstream) Run() error {
 				}
 
 				event["@timestamp"] = common.Time(time.Now())
-				event["type"] = "icingabeat"
+				event["type"] = "icingabeat.event"
 				es.icingabeat.client.PublishEvent(event)
 				logp.Info("Event sent")
 			}
