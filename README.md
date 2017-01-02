@@ -21,28 +21,26 @@ Example usage:
 * Information about zones and endpoints
 
 
-## Getting Started with Icingabeat
-
-### Installation
+## Installation
 There are no packages available yet. Please build and run Icingabeat manually.
 
-### Configuration
+## Configuration
 Before starting Icingabeat make sure you have set up your configuration properly.
 There are several general settings and some that are specific to the modes
 included.
 
-#### Connection
+### Connection
 These settings apply to both modes. They define the API endpoint to which
 Icingabeat connects to.
 
-##### `host`
+#### `host`
 Hostname of your Icinga 2 API. This can be either an IP address or domain.
 Defaults to `localhost`
 
-##### `port`
+#### `port`
 Defaults to `5665`
 
-##### `user`
+#### `user`
 Username for the API connection. In your Icinga 2 configuration, this is a user
 of the object type `apiuser`. Make sure that it has sufficient permissions to
 read the data you want to collect. Learn more about `apiuser` permissions in the
@@ -64,18 +62,18 @@ object ApiUser "icinga" {
 }
 ```
 
-##### `password`
+#### `password`
 Defaults to `icinga`
 
-##### `retry_interval`
+#### `retry_interval`
 Instead of stopping on connection loss, Icingabeat will try to reconnect to the
 API periodically. Defaults to `10s`
 
-#### Eventstream
+### Eventstream
 These settings are eventsream specific, they apply only to the eventstream. To
 disable evenstream completely, comment out the whole section.
 
-##### `types`
+#### `types`
 Decide which events you want to receive from the event stream. The following
 event stream types are available, at least one must be set:
 
@@ -91,7 +89,7 @@ event stream types are available, at least one must be set:
 * DowntimeStarted
 * DowntimeTriggered
 
-##### `filter`
+#### `filter`
 Event streams can be filtered by attributes using the prefix `event.` By default
 no filter is set.
 
@@ -107,10 +105,10 @@ Example for the CheckResult type with the service matching the string pattern
 filter: 'match("mysql*", event.service)'
 ```
 
-#### StatusPoller
+### StatusPoller
 StatusPoller is not implemented yet.
 
-### Run
+## Run
 To run Icingabeat with debugging output enabled, run:
 
 ```
