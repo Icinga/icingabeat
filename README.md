@@ -1,3 +1,5 @@
+![Travis CI Build](https://travis-ci.org/Icinga/icingabeat.svg?branch=master)
+
 # Icingabeat
 
 Icingabeat is a Beat to fetch data from the Icinga 2 API. Icingabeat has two
