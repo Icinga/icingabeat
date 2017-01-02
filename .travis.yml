@@ -6,7 +6,7 @@ services:
 language: go
 
 go:
-  - 1.6
+  - 1.7
 
 os:
   - linux
@@ -14,8 +14,7 @@ os:
 
 env:
   matrix:
-    - TARGETS="check"
-    - TARGETS="testsuite"
+    - TARGETS="ci"
 
   global:
     # Cross-compile for amd64 only to speed up testing.
@@ -32,6 +31,7 @@ before_install:
   - rsync -az ${TRAVIS_BUILD_DIR}/ $HOME/gopath/src/github.com/icinga/icingabeat/
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/icinga/icingabeat/
   - cd $HOME/gopath/src/github.com/icinga/icingabeat/
+  - go get github.com/Masterminds/glide
 
 install:
   - true
