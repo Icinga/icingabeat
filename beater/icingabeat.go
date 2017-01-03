@@ -34,14 +34,19 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 
 // Run Icingabeat
 func (bt *Icingabeat) Run(b *beat.Beat) error {
-	var eventstream *Eventstream
-
 	logp.Info("icingabeat is running! Hit CTRL-C to stop it.")
 	bt.client = b.Publisher.Connect()
 
 	if len(bt.config.Eventstream.Types) > 0 {
+		var eventstream *Eventstream
 		eventstream = NewEventstream(bt, bt.config)
 		go eventstream.Run()
+	}
+
+	if bt.config.Statuspoller.Interval > 0 {
+		var statuspoller *Statuspoller
+		statuspoller = NewStatuspoller(bt, bt.config)
+		go statuspoller.Run()
 	}
 
 	for {

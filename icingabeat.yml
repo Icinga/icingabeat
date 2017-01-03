@@ -58,6 +58,10 @@ icingabeat:
     # To disable filtering set an empty string or comment out the filter option
     filter: ""
 
+  statuspoller:
+    # Interval at which the status API is called. Set to 0 to disable polling.
+    interval: 60s
+
 #================================ General =====================================
 
 # The name of the shipper that publishes the network data. It can be used to group

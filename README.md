@@ -14,7 +14,7 @@ Example usage:
 * Create dashboards in Kibana with metrics collected by Icinga 2
 * Monitor notifications sent by Icinga 2
 
-**StatusPoller:** The Icinga 2 API exports lots of information about the state
+**Statuspoller:** The Icinga 2 API exports lots of information about the state
 of the Icinga daemon. These information can be polled periodically.
 
 Example usage:
@@ -110,8 +110,12 @@ Example for the CheckResult type with the service matching the string pattern
 filter: 'match("mysql*", event.service)'
 ```
 
-### StatusPoller
-StatusPoller is not implemented yet.
+### Statuspoller
+These settings are specific to the statuspoller mode.
+
+#### `interval`
+Interval at which the status API is called. Set to `0` to disable polling.
+Defaults to `60s`
 
 ## Run
 To run Icingabeat with debugging output enabled, run:
