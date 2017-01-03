@@ -24,11 +24,11 @@ icingabeat:
 
   # Icingabeat supports capturing of an evenstream and periodical polling of the
   # Icinga status data.
-  #
-  # To disable the eventstream, comment out the whole section
   eventstream:
+    #
     # Decide which events to receive from the event stream.
     # The following event stream types are available:
+    #
     # * CheckResult
     # * StateChange
     # * Notification
@@ -41,7 +41,7 @@ icingabeat:
     # * DowntimeStarted (See https://github.com/Icinga/icingabeat/issues/1)
     # * DowntimeTriggered (See https://github.com/Icinga/icingabeat/issues/1)
     #
-    # At least one type must be set
+    # To disable eventstream, leave the types empty or comment out the option
     types:
       - CheckResult
       - StateChange
@@ -55,7 +55,7 @@ icingabeat:
     # pattern "mysql*":
     # filter: 'match("mysql*", event.service)'
     #
-    # Comment out this line if you don't want to set a filter at all
+    # To disable filtering set an empty string or comment out the filter option
     filter: ""
 
 #================================ General ======================================

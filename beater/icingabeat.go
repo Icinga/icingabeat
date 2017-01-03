@@ -39,8 +39,10 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 	logp.Info("icingabeat is running! Hit CTRL-C to stop it.")
 	bt.client = b.Publisher.Connect()
 
-	eventstream = NewEventstream(bt, bt.config)
-	go eventstream.Run()
+	if len(bt.config.Eventstream.Types) > 0 {
+		eventstream = NewEventstream(bt, bt.config)
+		go eventstream.Run()
+	}
 
 	for {
 		select {
