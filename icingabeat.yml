@@ -19,6 +19,9 @@ icingabeat:
   # Defines how fast to reconnect to the API after a connection loss
   retry_interval: 10s
 
+  # Skip SSL verification
+  skip_ssl_verify: false
+
   # Icingabeat supports capturing of an evenstream and periodical polling of the
   # Icinga status data.
   #

@@ -71,6 +71,9 @@ Defaults to `icinga`
 Instead of stopping on connection loss, Icingabeat will try to reconnect to the
 API periodically. Defaults to `10s`
 
+#### `skip_ssl_verify`
+Skip verification of SSL certificates. Defaults to `false`
+
 ### Eventstream
 These settings are eventsream specific, they apply only to the eventstream. To
 disable evenstream completely, comment out the whole section.

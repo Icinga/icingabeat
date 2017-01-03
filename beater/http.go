@@ -11,7 +11,7 @@ import (
 
 func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, error) {
 	transport := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: bt.config.SkipSSLVerify},
 	}
 
 	client := &http.Client{

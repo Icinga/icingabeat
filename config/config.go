@@ -12,6 +12,7 @@ type Config struct {
 	User          string            `config:"user"`
 	Password      string            `config:"password"`
 	RetryInterval time.Duration     `config:"retry_interval"`
+	SkipSSLVerify bool              `config:"skip_ssl_verify"`
 	Eventstream   EventstreamConfig `config:"eventstream"`
 }
 
