@@ -16,9 +16,6 @@ icingabeat:
   # Password of the user
   password: "icinga"
 
-  # Defines how fast to reconnect to the API after a connection loss
-  retry_interval: 10s
-
   # Skip SSL verification
   skip_ssl_verify: false
 
@@ -57,6 +54,9 @@ icingabeat:
     #
     # To disable filtering set an empty string or comment out the filter option
     filter: ""
+
+    # Defines how fast to reconnect to the API on connection loss
+    retry_interval: 10s
 
   statuspoller:
     # Interval at which the status API is called. Set to 0 to disable polling.

@@ -11,7 +11,6 @@ type Config struct {
 	Port          int                `config:"port"`
 	User          string             `config:"user"`
 	Password      string             `config:"password"`
-	RetryInterval time.Duration      `config:"retry_interval"`
 	SkipSSLVerify bool               `config:"skip_ssl_verify"`
 	Eventstream   EventstreamConfig  `config:"eventstream"`
 	Statuspoller  StatuspollerConfig `config:"statuspoller"`
@@ -19,8 +18,9 @@ type Config struct {
 
 // EventstreamConfig optoins
 type EventstreamConfig struct {
-	Types  []string `config:"types"`
-	Filter string   `config:"filter"`
+	Types         []string      `config:"types"`
+	Filter        string        `config:"filter"`
+	RetryInterval time.Duration `config:"retry_interval"`
 }
 
 // StatuspollerConfig options
@@ -30,7 +30,6 @@ type StatuspollerConfig struct {
 
 // DefaultConfig values
 var DefaultConfig = Config{
-	RetryInterval: 1 * time.Second,
-	Host:          "localhost",
-	Port:          5665,
+	Host: "localhost",
+	Port: 5665,
 }

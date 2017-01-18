@@ -67,10 +67,6 @@ object ApiUser "icinga" {
 #### `password`
 Defaults to `icinga`
 
-#### `retry_interval`
-Instead of stopping on connection loss, Icingabeat will try to reconnect to the
-API periodically. Defaults to `10s`
-
 #### `skip_ssl_verify`
 Skip verification of SSL certificates. Defaults to `false`
 
@@ -109,6 +105,10 @@ Example for the CheckResult type with the service matching the string pattern
 ```yaml
 filter: 'match("mysql*", event.service)'
 ```
+
+#### `retry_interval`
+Instead of stopping on connection loss, Icingabeat will try to reconnect to the
+API periodically. Defaults to `10s`
 
 ### Statuspoller
 These settings are specific to the statuspoller mode.

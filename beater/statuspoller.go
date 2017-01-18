@@ -2,7 +2,6 @@ package beater
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"net/url"
@@ -70,8 +69,6 @@ func (sp *Statuspoller) Run() error {
 				case []interface{}:
 
 					for _, status := range statustype {
-						fmt.Println(status)
-
 						statusevent := common.MapStr{
 							"@timestamp": common.Time(time.Now()),
 							"type":       "icingabeat.status",
@@ -101,7 +98,7 @@ func (sp *Statuspoller) Run() error {
 	return nil
 }
 
-// Stop eventstream receiver
+// Stop statuspoller
 func (sp *Statuspoller) Stop() {
 	close(sp.done)
 }

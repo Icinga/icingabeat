@@ -63,7 +63,7 @@ func (es *Eventstream) Run() error {
 
 	for {
 
-		ticker := time.NewTicker(es.config.RetryInterval)
+		ticker := time.NewTicker(es.config.Eventstream.RetryInterval)
 		response, responseErr := requestURL(es.icingabeat, "POST", URL)
 
 		if responseErr == nil {
