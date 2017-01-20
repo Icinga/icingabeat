@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/icinga/icingabeat/config"
@@ -71,12 +72,15 @@ func (sp *Statuspoller) Run() error {
 					for _, status := range statustype {
 						statusevent := common.MapStr{
 							"@timestamp": common.Time(time.Now()),
-							"type":       "icingabeat.status",
 						}
-
 						for key, value := range status.(map[string]interface{}) {
 							if key != "perfdata" {
-								statusevent.Put(key, value)
+								if key == "name" {
+									documentType := strings.ToLower(value.(string))
+									statusevent.Put("type", "icingabeat.status."+documentType)
+								} else {
+									statusevent.Put(key, value)
+								}
 							}
 						}
 

@@ -6,7 +6,7 @@
       type: keyword
       required: true
       description: >
-        Type of the document. Can either be icingabeat.event or icingabet.status
+        Type of the document.
 
     - name: host
       type: keyword

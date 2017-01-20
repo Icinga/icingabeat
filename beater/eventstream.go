@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/url"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -101,7 +102,8 @@ func (es *Eventstream) Run() error {
 				}
 
 				event["@timestamp"] = common.Time(time.Now())
-				event["type"] = "icingabeat.event"
+				documentType := strings.ToLower(event["type"].(string))
+				event["type"] = "icingabeat.event." + documentType
 				es.icingabeat.client.PublishEvent(event)
 				logp.Info("Event sent")
 			}
