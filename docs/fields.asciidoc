@@ -128,13 +128,19 @@ Data received from the Icinga 2 API
 
 
 [float]
+=== timestamp
+
+type: date
+
+Timestamp of event occurrence
+
+
+[float]
 === type
 
 type: keyword
 
-required: True
-
-Type of the document.
+Type of the document
 
 
 [float]
@@ -206,23 +212,15 @@ Affected users of a notification
 
 type: integer
 
-Type of the acknowledgement
-
-
-[float]
-=== comment
-
-type: text
-
-Content of a comment message
+Type of an acknowledgement
 
 
 [float]
 === expiry
 
-type: integer
+type: date
 
-If an acknowledgement or not
+Expiry of an acknowledgement
 
 
 [float]
@@ -230,13 +228,13 @@ If an acknowledgement or not
 
 type: keyword
 
-If users are notified
+If has been sent out
 
 
 [float]
 === check_result.active
 
-type: keyword
+type: boolean
 
 If check was active or passive
 
@@ -260,7 +258,7 @@ Command that was executed
 [float]
 === check_result.execution_end
 
-type: text
+type: date
 
 Time when execution of check ended
 
@@ -268,7 +266,7 @@ Time when execution of check ended
 [float]
 === check_result.execution_start
 
-type: text
+type: date
 
 Time when execution of check started
 
@@ -300,7 +298,7 @@ Performance data in text format
 [float]
 === check_result.schedule_end
 
-type: text
+type: date
 
 Time when scheduling of the check ended
 
@@ -308,7 +306,7 @@ Time when scheduling of the check ended
 [float]
 === check_result.schedule_start
 
-type: text
+type: date
 
 Time when check was scheduled
 
@@ -340,7 +338,7 @@ Check attempt after check execution
 [float]
 === check_result.vars_after.reachable
 
-type: keyword
+type: boolean
 
 Reachable state after check execution
 
@@ -372,7 +370,7 @@ Check attempt before check execution
 [float]
 === check_result.vars_before.reachable
 
-type: keyword
+type: boolean
 
 Reachable state before check execution
 
@@ -391,5 +389,309 @@ Check state before check execution
 type: integer
 
 State type before check execution
+
+
+[float]
+=== comment.__name
+
+type: text
+
+Unique identifier of a comment
+
+
+[float]
+=== comment.author
+
+type: keyword
+
+Author of a comment
+
+
+[float]
+=== comment.entry_time
+
+type: date
+
+Entry time of a comment
+
+
+[float]
+=== comment.entry_type
+
+type: integer
+
+Entry type of a comment
+
+
+[float]
+=== comment.expire_time
+
+type: date
+
+Expire time of a comment
+
+
+[float]
+=== comment.host_name
+
+type: keyword
+
+Host name of a comment
+
+
+[float]
+=== comment.legacy_id
+
+type: integer
+
+Legacy ID of a comment
+
+
+[float]
+=== comment.name
+
+type: keyword
+
+Identifier of a comment
+
+
+[float]
+=== comment.package
+
+type: keyword
+
+Config package of a comment
+
+
+[float]
+=== comment.service_name
+
+type: keyword
+
+Service name of a comment
+
+
+[float]
+=== comment.templates
+
+type: text
+
+Templates used by a comment
+
+
+[float]
+=== comment.text
+
+type: text
+
+Text of a comment
+
+
+[float]
+=== comment.type
+
+type: keyword
+
+Comment type
+
+
+[float]
+=== comment.version
+
+type: keyword
+
+Config version of comment object
+
+
+[float]
+=== comment.zone
+
+type: keyword
+
+Zone where comment was generated
+
+
+[float]
+=== downtime.__name
+
+type: text
+
+Unique identifier of a downtime
+
+
+[float]
+=== downtime.author
+
+type: keyword
+
+Author of a downtime
+
+
+[float]
+=== downtime.comment
+
+type: text
+
+Text of a downtime
+
+
+[float]
+=== downtime.config_owner
+
+type: text
+
+Config owner
+
+
+[float]
+=== downtime.duration
+
+type: integer
+
+Duration of a downtime
+
+
+[float]
+=== downtime.end_time
+
+type: date
+
+Timestamp of downtime end
+
+
+[float]
+=== downtime.entry_time
+
+type: date
+
+Timestamp when downtime was created
+
+
+[float]
+=== downtime.fixed
+
+type: boolean
+
+If downtime is fixed or flexible
+
+
+[float]
+=== downtime.host_name
+
+type: keyword
+
+Hostname of a downtime
+
+
+[float]
+=== downtime.legacy_id
+
+type: integer
+
+The integer ID of a downtime
+
+
+[float]
+=== downtime.name
+
+type: keyword
+
+Downtime config identifier
+
+
+[float]
+=== downtime.package
+
+type: keyword
+
+Configuration package of downtime
+
+
+[float]
+=== downtime.scheduled_by
+
+type: text
+
+By whom downtime was scheduled
+
+
+[float]
+=== downtime.service_name
+
+type: keyword
+
+Service name of a downtime
+
+
+[float]
+=== downtime.start_time
+
+type: date
+
+Timestamp when downtime starts
+
+
+[float]
+=== downtime.templates
+
+type: text
+
+Templates used by this downtime
+
+
+[float]
+=== downtime.trigger_time
+
+type: date
+
+Timestamp when downtime was triggered
+
+
+[float]
+=== downtime.triggered_by
+
+type: text
+
+By whom downtime was triggered
+
+
+[float]
+=== downtime.triggers
+
+type: text
+
+Downtime triggers
+
+
+[float]
+=== downtime.type
+
+type: keyword
+
+Downtime type
+
+
+[float]
+=== downtime.version
+
+type: keyword
+
+Config version of downtime
+
+
+[float]
+=== downtime.was_cancelled
+
+type: boolean
+
+If downtime was cancelled
+
+
+[float]
+=== downtime.zone
+
+type: keyword
+
+Zone of downtime
 
 

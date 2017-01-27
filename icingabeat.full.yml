@@ -31,12 +31,12 @@ icingabeat:
     # * Notification
     # * AcknowledgementSet
     # * AcknowledgementCleared
-    # * CommentAdded (See https://github.com/Icinga/icingabeat/issues/1)
-    # * CommentRemoved (See https://github.com/Icinga/icingabeat/issues/1)
-    # * DowntimeAdded (See https://github.com/Icinga/icingabeat/issues/1)
-    # * DowntimeRemoved (See https://github.com/Icinga/icingabeat/issues/1)
-    # * DowntimeStarted (See https://github.com/Icinga/icingabeat/issues/1)
-    # * DowntimeTriggered (See https://github.com/Icinga/icingabeat/issues/1)
+    # * CommentAdded
+    # * CommentRemoved
+    # * DowntimeAdded
+    # * DowntimeRemoved
+    # * DowntimeStarted
+    # * DowntimeTriggered
     #
     # To disable eventstream, leave the types empty or comment out the option
     types:

@@ -55,9 +55,7 @@
         "check_result": {
           "properties": {
             "active": {
-              "ignore_above": 1024,
-              "index": "not_analyzed",
-              "type": "string"
+              "type": "boolean"
             },
             "check_source": {
               "ignore_above": 1024,
@@ -72,18 +70,10 @@
               "type": "string"
             },
             "execution_end": {
-              "index": "analyzed",
-              "norms": {
-                "enabled": false
-              },
-              "type": "string"
+              "type": "date"
             },
             "execution_start": {
-              "index": "analyzed",
-              "norms": {
-                "enabled": false
-              },
-              "type": "string"
+              "type": "date"
             },
             "exit_status": {
               "type": "long"
@@ -103,18 +93,10 @@
               "type": "string"
             },
             "schedule_end": {
-              "index": "analyzed",
-              "norms": {
-                "enabled": false
-              },
-              "type": "string"
+              "type": "date"
             },
             "schedule_start": {
-              "index": "analyzed",
-              "norms": {
-                "enabled": false
-              },
-              "type": "string"
+              "type": "date"
             },
             "state": {
               "type": "long"
@@ -130,9 +112,7 @@
                   "type": "long"
                 },
                 "reachable": {
-                  "ignore_above": 1024,
-                  "index": "not_analyzed",
-                  "type": "string"
+                  "type": "boolean"
                 },
                 "state": {
                   "type": "long"
@@ -148,9 +128,7 @@
                   "type": "long"
                 },
                 "reachable": {
-                  "ignore_above": 1024,
-                  "index": "not_analyzed",
-                  "type": "string"
+                  "type": "boolean"
                 },
                 "state": {
                   "type": "long"
@@ -163,14 +141,201 @@
           }
         },
         "comment": {
-          "index": "analyzed",
-          "norms": {
-            "enabled": false
-          },
-          "type": "string"
+          "properties": {
+            "__name": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "author": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "entry_time": {
+              "type": "date"
+            },
+            "entry_type": {
+              "type": "long"
+            },
+            "expire_time": {
+              "type": "date"
+            },
+            "host_name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "legacy_id": {
+              "type": "long"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "package": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "service_name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "templates": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "text": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "zone": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            }
+          }
+        },
+        "downtime": {
+          "properties": {
+            "__name": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "author": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "comment": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "config_owner": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "duration": {
+              "type": "long"
+            },
+            "end_time": {
+              "type": "date"
+            },
+            "entry_time": {
+              "type": "date"
+            },
+            "fixed": {
+              "type": "boolean"
+            },
+            "host_name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "legacy_id": {
+              "type": "long"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "package": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "scheduled_by": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "service_name": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "start_time": {
+              "type": "date"
+            },
+            "templates": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "trigger_time": {
+              "type": "date"
+            },
+            "triggered_by": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "triggers": {
+              "index": "analyzed",
+              "norms": {
+                "enabled": false
+              },
+              "type": "string"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            },
+            "was_cancelled": {
+              "type": "boolean"
+            },
+            "zone": {
+              "ignore_above": 1024,
+              "index": "not_analyzed",
+              "type": "string"
+            }
+          }
         },
         "expiry": {
-          "type": "long"
+          "type": "date"
         },
         "host": {
           "ignore_above": 1024,
@@ -247,6 +412,9 @@
             "enabled": false
           },
           "type": "string"
+        },
+        "timestamp": {
+          "type": "date"
         },
         "type": {
           "ignore_above": 1024,

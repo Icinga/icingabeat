@@ -48,8 +48,7 @@
         "check_result": {
           "properties": {
             "active": {
-              "ignore_above": 1024,
-              "type": "keyword"
+              "type": "boolean"
             },
             "check_source": {
               "ignore_above": 1024,
@@ -60,12 +59,10 @@
               "type": "text"
             },
             "execution_end": {
-              "norms": false,
-              "type": "text"
+              "type": "date"
             },
             "execution_start": {
-              "norms": false,
-              "type": "text"
+              "type": "date"
             },
             "exit_status": {
               "type": "long"
@@ -79,12 +76,10 @@
               "type": "text"
             },
             "schedule_end": {
-              "norms": false,
-              "type": "text"
+              "type": "date"
             },
             "schedule_start": {
-              "norms": false,
-              "type": "text"
+              "type": "date"
             },
             "state": {
               "type": "long"
@@ -99,8 +94,7 @@
                   "type": "long"
                 },
                 "reachable": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
+                  "type": "boolean"
                 },
                 "state": {
                   "type": "long"
@@ -116,8 +110,7 @@
                   "type": "long"
                 },
                 "reachable": {
-                  "ignore_above": 1024,
-                  "type": "keyword"
+                  "type": "boolean"
                 },
                 "state": {
                   "type": "long"
@@ -130,11 +123,155 @@
           }
         },
         "comment": {
-          "norms": false,
-          "type": "text"
+          "properties": {
+            "__name": {
+              "norms": false,
+              "type": "text"
+            },
+            "author": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "entry_time": {
+              "type": "date"
+            },
+            "entry_type": {
+              "type": "long"
+            },
+            "expire_time": {
+              "type": "date"
+            },
+            "host_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "legacy_id": {
+              "type": "long"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "package": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "service_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "templates": {
+              "norms": false,
+              "type": "text"
+            },
+            "text": {
+              "norms": false,
+              "type": "text"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "zone": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
+        },
+        "downtime": {
+          "properties": {
+            "__name": {
+              "norms": false,
+              "type": "text"
+            },
+            "author": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "comment": {
+              "norms": false,
+              "type": "text"
+            },
+            "config_owner": {
+              "norms": false,
+              "type": "text"
+            },
+            "duration": {
+              "type": "long"
+            },
+            "end_time": {
+              "type": "date"
+            },
+            "entry_time": {
+              "type": "date"
+            },
+            "fixed": {
+              "type": "boolean"
+            },
+            "host_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "legacy_id": {
+              "type": "long"
+            },
+            "name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "package": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "scheduled_by": {
+              "norms": false,
+              "type": "text"
+            },
+            "service_name": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "start_time": {
+              "type": "date"
+            },
+            "templates": {
+              "norms": false,
+              "type": "text"
+            },
+            "trigger_time": {
+              "type": "date"
+            },
+            "triggered_by": {
+              "norms": false,
+              "type": "text"
+            },
+            "triggers": {
+              "norms": false,
+              "type": "text"
+            },
+            "type": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "was_cancelled": {
+              "type": "boolean"
+            },
+            "zone": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            }
+          }
         },
         "expiry": {
-          "type": "long"
+          "type": "date"
         },
         "host": {
           "ignore_above": 1024,
@@ -197,6 +334,9 @@
         "text": {
           "norms": false,
           "type": "text"
+        },
+        "timestamp": {
+          "type": "date"
         },
         "type": {
           "ignore_above": 1024,

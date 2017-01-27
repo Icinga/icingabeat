@@ -36,6 +36,67 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 	return eventstream
 }
 
+// BuildEvent ...
+func BuildEvent(e []byte) common.MapStr {
+
+	var event common.MapStr
+	var icingaEvent map[string]interface{}
+
+	if err := json.Unmarshal(e, &icingaEvent); err != nil {
+		logp.Warn("Error decoding event: %v", err)
+	}
+
+	event = common.MapStr{
+		"@timestamp": common.Time(time.Now()),
+	}
+
+	for key, value := range icingaEvent {
+		event.Put(key, value)
+	}
+
+	logp.Debug("icingabeat", "Type: %v", icingaEvent["type"])
+	switch icingaEvent["type"] {
+	case "CheckResult", "StateChange", "Notification":
+		checkResult := icingaEvent["check_result"].(map[string]interface{})
+		event.Put("check_result.execution_start", FloatToTimestamp(checkResult["execution_start"].(float64)))
+		event.Put("check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
+		event.Put("check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
+		event.Put("check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
+		event.Delete("check_result.performance_data")
+
+	case "AcknowledgementSet":
+		event.Delete("comment")
+		event.Put("comment.text", icingaEvent["comment"])
+		event.Put("expiry", FloatToTimestamp(icingaEvent["expiry"].(float64)))
+
+	case "CommentAdded", "CommentRemoved":
+		comment := icingaEvent["comment"].(map[string]interface{})
+		event.Put("comment.entry_time", FloatToTimestamp(comment["entry_time"].(float64)))
+		event.Put("comment.expire_time", FloatToTimestamp(comment["expire_time"].(float64)))
+
+	case "DowntimeAdded", "DowntimeRemoved", "DowntimeStarted", "DowntimeTriggered":
+		downtime := icingaEvent["downtime"].(map[string]interface{})
+		event.Put("downtime.end_time", FloatToTimestamp(downtime["end_time"].(float64)))
+		event.Put("downtime.entry_time", FloatToTimestamp(downtime["entry_time"].(float64)))
+		event.Put("downtime.start_time", FloatToTimestamp(downtime["start_time"].(float64)))
+		event.Put("downtime.trigger_time", FloatToTimestamp(downtime["trigger_time"].(float64)))
+	}
+
+	event.Put("type", "icingabeat.event."+strings.ToLower(icingaEvent["type"].(string)))
+	event.Put("timestamp", FloatToTimestamp(icingaEvent["timestamp"].(float64)))
+
+	return event
+}
+
+// FloatToTimestamp ...
+func FloatToTimestamp(stamp float64) time.Time {
+	sec := int64(stamp)
+	nsec := int64((stamp - float64(int64(stamp))) * 1e9)
+	t := time.Unix(sec, nsec)
+
+	return t
+}
+
 // Run evenstream receiver
 func (es *Eventstream) Run() error {
 	queue := "icingabeat"
@@ -87,24 +148,7 @@ func (es *Eventstream) Run() error {
 					logp.Err("Error reading line %#v", err)
 				}
 
-				var event common.MapStr
-
-				if err := json.Unmarshal(line, &event); err != nil {
-					logp.Info("Unmarshal problem %v", err)
-					es.mutex.Lock()
-					tst := es.closer == nil
-					es.mutex.Unlock()
-
-					if tst || err == io.ErrUnexpectedEOF || err == io.EOF {
-						break
-					}
-					continue
-				}
-
-				event["@timestamp"] = common.Time(time.Now())
-				documentType := strings.ToLower(event["type"].(string))
-				event["type"] = "icingabeat.event." + documentType
-				es.icingabeat.client.PublishEvent(event)
+				es.icingabeat.client.PublishEvent(BuildEvent(line))
 				logp.Info("Event sent")
 			}
 
@@ -114,7 +158,7 @@ func (es *Eventstream) Run() error {
 			default:
 			}
 		} else {
-			logp.Info("Error connecting to API: %v", responseErr)
+			logp.Err("Error connecting to API: %v", responseErr)
 		}
 
 		select {

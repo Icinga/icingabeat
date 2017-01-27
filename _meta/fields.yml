@@ -2,11 +2,15 @@
   title: icingabeat
   description: Data received from the Icinga 2 API
   fields:
+    - name: timestamp
+      type: date
+      description: >
+        Timestamp of event occurrence
+
     - name: type
       type: keyword
-      required: true
       description: >
-        Type of the document.
+        Type of the document
 
     - name: host
       type: keyword
@@ -51,25 +55,20 @@
     - name: acknowledgement_type
       type: integer
       description: >
-        Type of the acknowledgement
-
-    - name: comment
-      type: text
-      description: >
-        Content of a comment message
+        Type of an acknowledgement
 
     - name: expiry
-      type: integer
+      type: date
       description: >
-        If an acknowledgement or not
+        Expiry of an acknowledgement
 
     - name: notify
       type: keyword
       description: >
-        If users are notified
+        If has been sent out
 
     - name: check_result.active
-      type: keyword
+      type: boolean
       description: >
         If check was active or passive
 
@@ -84,12 +83,12 @@
         Command that was executed
 
     - name: check_result.execution_end
-      type: text
+      type: date
       description: >
         Time when execution of check ended
 
     - name: check_result.execution_start
-      type: text
+      type: date
       description: >
         Time when execution of check started
 
@@ -109,14 +108,15 @@
         Performance data in text format
 
     - name: check_result.schedule_end
-      type: text
+      type: date
       description: >
         Time when scheduling of the check ended
 
     - name: check_result.schedule_start
-      type: text
+      type: date
       description: >
         Time when check was scheduled
+
     - name: check_result.state
       type: integer
       description: >
@@ -133,7 +133,7 @@
         Check attempt after check execution
 
     - name: check_result.vars_after.reachable
-      type: keyword
+      type: boolean
       description: >
         Reachable state after check execution
 
@@ -153,7 +153,7 @@
         Check attempt before check execution
 
     - name: check_result.vars_before.reachable
-      type: keyword
+      type: boolean
       description: >
         Reachable state before check execution
 
@@ -166,3 +166,193 @@
       type: integer
       description: >
         State type before check execution
+
+    - name: comment.__name
+      type: text
+      description: >
+        Unique identifier of a comment
+
+    - name: comment.author
+      type: keyword
+      description: >
+        Author of a comment
+
+    - name: comment.entry_time
+      type: date
+      description: >
+        Entry time of a comment
+
+    - name: comment.entry_type
+      type: integer
+      description: >
+        Entry type of a comment
+
+    - name: comment.expire_time
+      type: date
+      description: >
+        Expire time of a comment
+
+    - name: comment.host_name
+      type: keyword
+      description: >
+        Host name of a comment
+
+    - name: comment.legacy_id
+      type: integer
+      description: >
+        Legacy ID of a comment
+
+    - name: comment.name
+      type: keyword
+      description: >
+        Identifier of a comment
+
+    - name: comment.package
+      type: keyword
+      description: >
+        Config package of a comment
+
+    - name: comment.service_name
+      type: keyword
+      description: >
+        Service name of a comment
+
+    - name: comment.templates
+      type: text
+      description: >
+        Templates used by a comment
+
+    - name: comment.text
+      type: text
+      description: >
+        Text of a comment
+
+    - name: comment.type
+      type: keyword
+      description: >
+        Comment type
+
+    - name: comment.version
+      type: keyword
+      description: >
+        Config version of comment object
+
+    - name: comment.zone
+      type: keyword
+      description: >
+        Zone where comment was generated
+
+    - name: downtime.__name
+      type: text
+      description: >
+        Unique identifier of a downtime
+
+    - name: downtime.author
+      type: keyword
+      description: >
+        Author of a downtime
+
+    - name: downtime.comment
+      type: text
+      description: >
+        Text of a downtime
+
+    - name: downtime.config_owner
+      type: text
+      description: >
+        Config owner
+
+    - name: downtime.duration
+      type: integer
+      description: >
+        Duration of a downtime
+
+    - name: downtime.end_time
+      type: date
+      description: >
+        Timestamp of downtime end
+
+    - name: downtime.entry_time
+      type: date
+      description: >
+        Timestamp when downtime was created
+
+    - name: downtime.fixed
+      type: boolean
+      description: >
+        If downtime is fixed or flexible
+
+    - name: downtime.host_name
+      type: keyword
+      description: >
+        Hostname of a downtime
+
+    - name: downtime.legacy_id
+      type: integer
+      description: >
+        The integer ID of a downtime
+
+    - name: downtime.name
+      type: keyword
+      description: >
+        Downtime config identifier
+
+    - name: downtime.package
+      type: keyword
+      description: >
+        Configuration package of downtime
+
+    - name: downtime.scheduled_by
+      type: text
+      description: >
+        By whom downtime was scheduled
+
+    - name: downtime.service_name
+      type: keyword
+      description: >
+        Service name of a downtime
+
+    - name: downtime.start_time
+      type: date
+      description: >
+        Timestamp when downtime starts
+
+    - name: downtime.templates
+      type: text
+      description: >
+        Templates used by this downtime
+
+    - name: downtime.trigger_time
+      type: date
+      description: >
+        Timestamp when downtime was triggered
+
+    - name: downtime.triggered_by
+      type: text
+      description: >
+        By whom downtime was triggered
+
+    - name: downtime.triggers
+      type: text
+      description: >
+        Downtime triggers
+
+    - name: downtime.type
+      type: keyword
+      description: >
+        Downtime type
+
+    - name: downtime.version
+      type: keyword
+      description: >
+        Config version of downtime
+
+    - name: downtime.was_cancelled
+      type: boolean
+      description: >
+        If downtime was cancelled
+
+    - name: downtime.zone
+      type: keyword
+      description: >
+        Zone of downtime
