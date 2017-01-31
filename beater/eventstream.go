@@ -36,8 +36,8 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 	return eventstream
 }
 
-// BuildEvent ...
-func BuildEvent(e []byte) common.MapStr {
+// BuildEventstreamEvent ...
+func BuildEventstreamEvent(e []byte) common.MapStr {
 
 	var event common.MapStr
 	var icingaEvent map[string]interface{}
@@ -124,7 +124,6 @@ func (es *Eventstream) Run() error {
 	URL.RawQuery = parameters.Encode()
 
 	for {
-
 		ticker := time.NewTicker(es.config.Eventstream.RetryInterval)
 		response, responseErr := requestURL(es.icingabeat, "POST", URL)
 
@@ -148,7 +147,7 @@ func (es *Eventstream) Run() error {
 					logp.Err("Error reading line %#v", err)
 				}
 
-				es.icingabeat.client.PublishEvent(BuildEvent(line))
+				es.icingabeat.client.PublishEvent(BuildEventstreamEvent(line))
 				logp.Info("Event sent")
 			}
 
