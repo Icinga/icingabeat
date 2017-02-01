@@ -24,12 +24,12 @@ Example usage:
 
 
 ## Installation
-There are no packages available yet. Please build and run Icingabeat manually.
+Download and install your package from the [latest release](https://github.com/Icinga/icingabeat/releases/latest) page.
 
 ## Configuration
 Before starting Icingabeat make sure you have set up your configuration properly.
 There are several general settings and some that are specific to the modes
-included.
+included. On Linux configuration files are located at `/etc/icingabeat`
 
 ### Connection
 These settings apply to both modes. They define the API endpoint to which
@@ -117,13 +117,8 @@ These settings are specific to the statuspoller mode.
 Interval at which the status API is called. Set to `0` to disable polling.
 Defaults to `60s`
 
-## Run
-To run Icingabeat with debugging output enabled, run:
 
-```bash
-./icingabeat -c icingabeat.yml -e -d "*"
-```
-
+## Fields
 Icingabeat exports a bunch of fields. Have a look to the
 [fields.asciidoc](docs/fields.asciidoc) for details.
 
