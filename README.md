@@ -1,9 +1,14 @@
 [![Build Status](https://travis-ci.org/Icinga/icingabeat.svg?branch=master)](https://travis-ci.org/Icinga/icingabeat)
 
 # Icingabeat
+> The Beats are lightweight data shippers, written in Go, that you install on
+> your servers to capture all sorts of operational data (think of logs,
+> metrics, or network packet data). The Beats send the operational data to
+> Elasticsearch, either directly or via Logstash, so it can be visualized with
+> Kibana.
 
-Icingabeat is a Beat to fetch data from the Icinga 2 API. Icingabeat has two
-modes:
+Icingabeat fetches data from the Icinga 2 API and sends it either directly
+to Elasticsearch or Logstash. This Beat supports two modes:
 
 **Eventstream:** Receive an eventstream from the Icinga 2 API. Events are
 checkresults, notifications and many other types. See below for details. There
