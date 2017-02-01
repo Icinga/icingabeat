@@ -1,10 +1,13 @@
 BEATNAME=icingabeat
 BEAT_DIR=github.com/icinga/icingabeat
+BEAT_DESCRIPTION=Icingabeat ships Icinga 2 events and states to Elasticsearch or Logstash.
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false
 ES_BEATS?=./vendor/github.com/elastic/beats
 GOPACKAGES=$(shell glide novendor)
 PREFIX?=.
+
+SNAPSHOT=false
 
 # Path to the libbeat Makefile
 -include $(ES_BEATS)/libbeat/scripts/Makefile
