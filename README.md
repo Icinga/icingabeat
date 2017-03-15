@@ -108,7 +108,7 @@ To set multiple types, do the following:
 
 ##### `filter`
 Additionally to selecting the types of events, you can filter them  by
-attributes using the prefix `event.` and  By default no filter is set.
+attributes using the prefix `event.`. By default no filter is set.
 
 ###### Examples
 
@@ -135,8 +135,7 @@ Defaults to `60s`
 
 ### Run
 
-To start Icingabeat, use your operating systems default commands. On Linux this
-should be one of these commands, depending on the distribution you are using:
+On Linux systems, use one of the following commands to start Icingabeat:
 
 * `service icingabeat start`
 * `systemctl icingabeat start` or
