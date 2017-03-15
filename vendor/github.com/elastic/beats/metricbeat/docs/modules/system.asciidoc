@@ -48,6 +48,9 @@ metricbeat.modules:
   cpu_ticks: true
 ----
 
+It is strongly recommended to not run docker metricsets with a period smaller then 3 seconds. The request to the docker
+API already takes up to 2s seconds. Otherwise all the requests would timeout and no data is reported.
+
 [float]
 === Dashboard
 
@@ -93,6 +96,9 @@ metricbeat.modules:
 
     # Per process stats
     - process
+
+    # Sockets (linux only)
+    #- socket
   enabled: true
   period: 10s
   processes: ['.*']
@@ -121,6 +127,8 @@ The following metricsets are available:
 
 * <<metricbeat-metricset-system-process,process>>
 
+* <<metricbeat-metricset-system-socket,socket>>
+
 include::system/core.asciidoc[]
 
 include::system/cpu.asciidoc[]
@@ -138,4 +146,6 @@ include::system/memory.asciidoc[]
 include::system/network.asciidoc[]
 
 include::system/process.asciidoc[]
+
+include::system/socket.asciidoc[]
 
