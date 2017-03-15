@@ -148,7 +148,7 @@ func (es *Eventstream) Run() error {
 				}
 
 				es.icingabeat.client.PublishEvent(BuildEventstreamEvent(line))
-				logp.Info("Event sent")
+				logp.Debug("icingabeat.eventstream", "Event sent")
 			}
 
 			select {

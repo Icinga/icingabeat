@@ -18,7 +18,7 @@ func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, er
 		Transport: transport,
 	}
 
-	logp.Info("Requested URL: %v", URL.String())
+	logp.Debug("icingabeat", "Requested URL: %v", URL.String())
 
 	request, err := http.NewRequest(method, URL.String(), nil)
 

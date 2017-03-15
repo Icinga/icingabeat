@@ -121,7 +121,7 @@ func (sp *Statuspoller) Run() error {
 
 			processedStatusEvents := BuildStatusEvents(body)
 			sp.icingabeat.client.PublishEvents(processedStatusEvents)
-			logp.Info("Events sent: %v", len(processedStatusEvents))
+			logp.Debug("icingabeat.statuspoller", "Events sent: %v", len(processedStatusEvents))
 
 		} else {
 			logp.Err("Error connecting to API: %v", responseErr)
