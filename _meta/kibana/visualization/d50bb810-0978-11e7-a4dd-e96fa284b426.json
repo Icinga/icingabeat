@@ -1,0 +1,11 @@
+{
+  "visState": "{\"title\":\"CheckResult Count\",\"type\":\"metric\",\"params\":{\"handleNoResults\":true,\"fontSize\":60},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{\"customLabel\":\"CheckResults received\"}}],\"listeners\":{}}", 
+  "description": "", 
+  "title": "CheckResult Count", 
+  "uiStateJSON": "{}", 
+  "version": 1, 
+  "savedSearchId": "5091de50-0975-11e7-a4dd-e96fa284b426", 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"filter\":[]}"
+  }
+}

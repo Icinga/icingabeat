@@ -1,0 +1,11 @@
+{
+  "visState": "{\"title\":\"Services Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"service\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Services\"}}],\"listeners\":{}}", 
+  "description": "", 
+  "title": "Services Tag Cloud", 
+  "uiStateJSON": "{}", 
+  "version": 1, 
+  "savedSearchId": "5091de50-0975-11e7-a4dd-e96fa284b426", 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"filter\":[]}"
+  }
+}

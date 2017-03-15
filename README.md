@@ -141,6 +141,20 @@ On Linux systems, use one of the following commands to start Icingabeat:
 * `systemctl icingabeat start` or
 * `/etc/init.d/icingabeat start`
 
+## Dashboards
+We have dashboards prepared that you can use when getting started with
+Icingabeat. Download the dashboards from the.
+[latest release](https://github.com/Icinga/icingabeat/releases/latest) page
+
+The tool to import dashboards is already included in the Icingabeat package.
+
+```
+unzip icingabeat-dashboards-0.2.0.zip
+/usr/share/icingabeat/scripts/import_dashboards -dir /tmp/icingabeat-dashboards-0.2.0 -es http://127.0.0.1:9200
+```
+
+![icingabeat-checkresult-dashboard](screenshots/icingabeat-checkresults-dashboard.png)
+
 ## Fields
 Icingabeat exports a bunch of fields. Have a look to the
 [fields.asciidoc](docs/fields.asciidoc) for details.
@@ -248,4 +262,14 @@ export SNAPSHOT=false
 export TARGETS="\"linux/amd64 linux/386\""
 export PACKAGES=icingabeat/deb
 make package
+```
+
+### Dashboards
+To be able to export dashboards and all its dependencies (visualizations and
+searches) you have to name the dashboard with a `icingabeat-` prefix.
+
+Export dashboards:
+```shell
+export ES_URL=http://127.0.0.1:9200
+make export-dashboards
 ```

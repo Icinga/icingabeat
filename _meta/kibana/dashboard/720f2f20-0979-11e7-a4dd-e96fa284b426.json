@@ -1,0 +1,13 @@
+{
+  "hits": 0, 
+  "timeRestore": false, 
+  "description": "", 
+  "title": "icingabeat-checkresults", 
+  "uiStateJSON": "{}", 
+  "panelsJSON": "[{\"size_x\":12,\"size_y\":3,\"panelIndex\":1,\"type\":\"visualization\",\"id\":\"9631be10-0977-11e7-a4dd-e96fa284b426\",\"col\":1,\"row\":1},{\"size_x\":3,\"size_y\":6,\"panelIndex\":2,\"type\":\"visualization\",\"id\":\"d50bb810-0978-11e7-a4dd-e96fa284b426\",\"col\":1,\"row\":4},{\"size_x\":4,\"size_y\":6,\"panelIndex\":3,\"type\":\"visualization\",\"id\":\"df437df0-0977-11e7-a4dd-e96fa284b426\",\"col\":4,\"row\":4},{\"size_x\":5,\"size_y\":6,\"panelIndex\":4,\"type\":\"visualization\",\"id\":\"cf643aa0-0977-11e7-a4dd-e96fa284b426\",\"col\":8,\"row\":4}]", 
+  "optionsJSON": "{\"darkTheme\":false}", 
+  "version": 1, 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+  }
+}
