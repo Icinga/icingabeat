@@ -10,7 +10,9 @@
 
 Icingabeat is an [Elastic Beat](https://www.elastic.co/products/beats) that
 fetches data from the Icinga 2 API and sends it either directly to Elasticsearch
-or Logstash. This Beat supports two modes:
+or Logstash.
+
+![icingabeat-checkresult-dashboard](screenshots/icingabeat-checkresults-dashboard.png)
 
 ## Eventstream
 
@@ -152,8 +154,6 @@ The tool to import dashboards is already included in the Icingabeat package.
 unzip icingabeat-dashboards-0.2.0.zip
 /usr/share/icingabeat/scripts/import_dashboards -dir /tmp/icingabeat-dashboards-0.2.0 -es http://127.0.0.1:9200
 ```
-
-![icingabeat-checkresult-dashboard](screenshots/icingabeat-checkresults-dashboard.png)
 
 ## Fields
 Icingabeat exports a bunch of fields. Have a look to the
