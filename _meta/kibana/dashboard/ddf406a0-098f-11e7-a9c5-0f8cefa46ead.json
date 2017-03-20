@@ -1,0 +1,13 @@
+{
+  "hits": 0, 
+  "timeRestore": false, 
+  "description": "", 
+  "title": "icingabeat-status", 
+  "uiStateJSON": "{}", 
+  "panelsJSON": "[{\"col\":1,\"id\":\"bef57c00-098c-11e7-85fa-5daf7284b188\",\"panelIndex\":1,\"row\":1,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"1b2324e0-0993-11e7-a836-f12bdc7df120\",\"panelIndex\":5,\"row\":3,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"47061440-0994-11e7-828e-2b8b7d3da4e9\",\"panelIndex\":6,\"row\":3,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":5,\"id\":\"7bf45770-0994-11e7-862d-53e4526068ac\",\"panelIndex\":7,\"row\":3,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":9,\"id\":\"bdd29b50-0996-11e7-862d-53e4526068ac\",\"panelIndex\":8,\"row\":5,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":5,\"id\":\"dfb21700-0a63-11e7-a96b-35f342c9d63d\",\"panelIndex\":9,\"row\":5,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":1,\"id\":\"4326e7c0-0a64-11e7-a96b-35f342c9d63d\",\"panelIndex\":10,\"row\":5,\"size_x\":4,\"size_y\":2,\"type\":\"visualization\"},{\"col\":5,\"id\":\"45556270-0b12-11e7-ad60-c7e10cd34b29\",\"panelIndex\":11,\"row\":1,\"size_x\":2,\"size_y\":2,\"type\":\"visualization\"},{\"col\":7,\"id\":\"e7912c50-0b11-11e7-ad60-c7e10cd34b29\",\"panelIndex\":12,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"},{\"col\":10,\"id\":\"27ed7600-0b12-11e7-ad60-c7e10cd34b29\",\"panelIndex\":13,\"row\":1,\"size_x\":3,\"size_y\":2,\"type\":\"visualization\"}]", 
+  "optionsJSON": "{\"darkTheme\":false}", 
+  "version": 1, 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"filter\":[{\"query\":{\"query_string\":{\"analyze_wildcard\":true,\"query\":\"*\"}}}]}"
+  }
+}

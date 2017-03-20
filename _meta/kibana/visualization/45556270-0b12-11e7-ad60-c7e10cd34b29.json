@@ -1,0 +1,11 @@
+{
+  "visState": "{\"title\":\"Icinga Version\",\"type\":\"pie\",\"params\":{\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":false},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.version\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"\"}}],\"listeners\":{}}", 
+  "description": "", 
+  "title": "Icinga Version", 
+  "uiStateJSON": "{\"vis\":{\"legendOpen\":true}}", 
+  "version": 1, 
+  "savedSearchId": "5570eb90-098a-11e7-9f17-cf3a85e0d1dc", 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"filter\":[]}"
+  }
+}

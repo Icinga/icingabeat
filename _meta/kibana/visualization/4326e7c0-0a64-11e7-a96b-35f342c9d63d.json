@@ -1,0 +1,10 @@
+{
+  "visState": "{\"title\":\"States of Hosts\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.num_hosts_up').color(#3EC8AC).label(\\\"Up\\\").title(\\\"States of Hosts\\\"),.es(metric='avg:status.num_hosts_down').color(#E94822).label(\\\"Down\\\"),.es(metric='avg:status.num_hosts_unreachable').color(#6E60A0).label(\\\"Unreachable\\\")\",\"interval\":\"1m\"},\"aggs\":[],\"listeners\":{}}", 
+  "description": "", 
+  "title": "States of Hosts", 
+  "uiStateJSON": "{}", 
+  "version": 1, 
+  "kibanaSavedObjectMeta": {
+    "searchSourceJSON": "{\"query\":{\"query_string\":{\"query\":\"*\",\"analyze_wildcard\":true}},\"filter\":[]}"
+  }
+}
