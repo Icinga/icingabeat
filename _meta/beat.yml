@@ -4,7 +4,7 @@
 
 icingabeat:
 
-  # Defines the Icina API endpoint
+  # Defines the Icinga API endpoint
   host: "localhost"
 
   # Defines the port of the API endpoint
