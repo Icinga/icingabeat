@@ -145,8 +145,11 @@ On Linux systems, use one of the following commands to start Icingabeat:
 
 ## Dashboards
 We have dashboards prepared that you can use when getting started with
-Icingabeat. Download the dashboards from the
-[latest release](https://github.com/Icinga/icingabeat/releases/latest) page
+Icingabeat. They are meant to give you some inspiration before you start
+exploring the data by yourself. Download the dashboards from the
+[latest release](https://github.com/Icinga/icingabeat/releases/latest) page.
+
+**Note:** The dashboards require Kibana >= 5.2.0
 
 The tool to import dashboards is already included in the Icingabeat package.
 
