@@ -62,7 +62,7 @@ Here is an example how an API user in your Icinga 2 configuration:
 
 ```c++
 object ApiUser "icinga" {
-  password: "icinga"
+  password = "icinga"
   permissions = ["events/*", "status/query"]
 }
 ```
@@ -154,7 +154,7 @@ exploring the data by yourself. Download the dashboards from the
 The tool to import dashboards is already included in the Icingabeat package.
 
 ```
-unzip icingabeat-dashboards-1.0.0.zip
+unzip icingabeat-dashboards-1.0.0.zip -d /tmp
 /usr/share/icingabeat/scripts/import_dashboards -dir /tmp/icingabeat-dashboards-1.0.0 -es http://127.0.0.1:9200
 ```
 
