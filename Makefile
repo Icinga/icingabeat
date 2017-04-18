@@ -1,4 +1,4 @@
-BEATNAME=icingabeat
+BEAT_NAME=icingabeat
 BEAT_DIR=github.com/icinga/icingabeat
 BEAT_DESCRIPTION=Icingabeat ships Icinga 2 events and states to Elasticsearch or Logstash.
 BEAT_VENDOR=Icinga
