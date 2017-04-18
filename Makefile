@@ -3,6 +3,7 @@ BEAT_DIR=github.com/icinga/icingabeat
 BEAT_DESCRIPTION=Icingabeat ships Icinga 2 events and states to Elasticsearch or Logstash.
 BEAT_VENDOR=Icinga
 BEAT_DOC_URL=https://github.com/Icinga/icingabeat
+BEAT_PATH=github.com/icinga/icingabeat
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false
 ES_BEATS?=./vendor/github.com/elastic/beats
