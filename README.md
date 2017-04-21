@@ -21,7 +21,7 @@ as checkresults, notifications, downtimes, acknowledgemts and many other types.
 See below for details. There is no polling involved when receiving an
 eventstream.
 
-Example usage:
+Example use cases:
 * Correlate monitoring data with logging information
 * Monitor notifications sent by Icinga 2
 
@@ -30,7 +30,7 @@ Example usage:
 The Icinga 2 API exports a lot of information about the state of the Icinga
 daemon. Icingabeat can poll these information periodically.
 
-Example usage:
+Example use cases:
 * Visualize metrics of the Icinga 2 daemon
 * Get insights how each enable Icinga 2 feature performs
 * Information about zones and endpoints
@@ -41,7 +41,7 @@ Download and install your package from the
 [latest release](https://github.com/Icinga/icingabeat/releases/latest) page.
 
 ### Configuration
-Configuration of Icingabeat is splitted into 3 sections: General, Evenstream and
+Configuration of Icingabeat is split into 3 sections: General, Evenstream and
 Statuspoller. On Linux configuration files are located at `/etc/icingabeat`
 
 #### General
@@ -58,7 +58,7 @@ Defaults to `5665`
 Username to be used for the API connection. You need to create this user in your Icinga 2 configuration. Make sure that it has sufficient permissions to read the
 data you want to collect.
 
-Here is an example how an API user in your Icinga 2 configuration:
+Here is an example of an API user in your Icinga 2 configuration:
 
 ```c++
 object ApiUser "icinga" {
@@ -109,17 +109,17 @@ To set multiple types, do the following:
 ```
 
 ##### `filter`
-Additionally to selecting the types of events, you can filter them  by
+In addition to selecting the types of events, you can filter them by
 attributes using the prefix `event.`. By default no filter is set.
 
 ###### Examples
 
-Only checkresults with the exit code 2:
+Only check results with the exit code 2:
 ```yaml
   filter: "event.check_result.exit_status==2"
 ```
 
-Only checkreults of services that match `mysql*`:
+Only check results of services that match `mysql*`:
 ```yaml
   filter: 'match("mysql*", event.service)'
 ```
@@ -139,7 +139,7 @@ Defaults to `60s`
 
 On Linux systems, use one of the following commands to start Icingabeat:
 
-* `service icingabeat start`
+* `service icingabeat start` or
 * `systemctl icingabeat start` or
 * `/etc/init.d/icingabeat start`
 
@@ -151,7 +151,7 @@ exploring the data by yourself. Download the dashboards from the
 
 **Note:** The dashboards require Kibana >= 5.2.0
 
-The tool to import dashboards is already included in the Icingabeat package.
+The tool to import dashboards with is already included in the Icingabeat package.
 
 ```
 unzip icingabeat-dashboards-1.0.0.zip -d /tmp
@@ -180,7 +180,7 @@ cd ${GOPATH}/github.com/icinga
 git clone https://github.com/icinga/icingabeat
 ```
 
-For further development, check out the [beat developer guide](https://www.elastic.co/guide/en/beats/libbeat/current/new-beat.html).
+For further development check out the [beat developer guide](https://www.elastic.co/guide/en/beats/libbeat/current/new-beat.html).
 
 #### Build
 Ensure that this folder is at the following location:
@@ -254,8 +254,8 @@ command:
 make package
 ```
 
-This will fetch and create all images required for the build process. The hole
-process to finish can take several minutes.
+This will fetch and create all images required for the build process. The whole
+process can take several minutes to finish.
 
 To disable snapshot packages or build specific packages, set the following
 environment variables:
