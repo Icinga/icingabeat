@@ -356,3 +356,332 @@
       type: keyword
       description: >
         Zone of downtime
+
+    - name: status.active_host_checks
+      type: integer
+      description: >
+        Active host checks
+
+
+    - name: status.active_host_checks_15min
+      type: integer
+      description: >
+        Active host checks in the last 15 minutes
+
+
+    - name: status.active_host_checks_1min
+      type: integer
+      description: >
+        Acitve host checks in the last minute
+
+
+    - name: status.active_host_checks_5min
+      type: integer
+      description: >
+        Active host checks in the last 5 minutes
+
+
+    - name: status.active_service_checks
+      type: integer
+      description: >
+        Active service checks
+
+    - name: status.active_service_checks_15min
+      type: integer
+      description: >
+        Active service checks in the last 15 minutes
+
+    - name: status.active_service_checks_1min
+      type: integer
+      description: >
+        Active service checks in the last minute
+
+    - name: status.active_service_checks_5min
+      type: integer
+      description: >
+        Active service checks in the last 5 minutes
+
+    - name: status.api.identity
+      type: keyword
+      description: >
+        API identity
+
+    - name: status.api.num_conn_endpoints
+      type: integer
+      description: >
+        Number of connected endpoints
+
+    - name: status.api.num_endpoints
+      type: integer
+      description: >
+        Total number of endpoints
+
+    - name: status.api.num_not_conn_endpoints
+      type: integer
+      description: >
+        Number of not connected endpoints
+
+    - name: status.api.zones.demo.client_log_lag
+      type: integer
+      description: >
+        Lag of the replaylog
+
+    - name: status.api.zones.demo.connected
+      type: boolean
+      description: >
+        Zone connected
+
+    - name: status.api.zones.demo.endpoints
+      type: text
+      description: >
+        Endpoint names
+
+    - name: status.api.zones.demo.parent_zone
+      type: keyword
+      description: >
+        Parent zone
+
+    - name: status.avg_execution_time
+      type: integer
+      description: >
+        Average execution time of checks
+
+    - name: status.avg_latency
+      type: integer
+      description: >
+        Average latency time
+
+    - name: status.checkercomponent.checker.idle
+      type: integer
+      description: >
+        Idle checks
+
+    - name: status.checkercomponent.checker.pending
+      type: integer
+      description: >
+        Pending checks
+
+    - name: status.filelogger.main-log
+      type: integer
+      description: >
+        Mainlog enabled
+
+    - name: status.icingaapplication.app.enable_event_handlers
+      type: boolean
+      description: >
+        Event handlers enabled
+
+    - name: status.icingaapplication.app.enable_flapping
+      type: boolean
+      description: >
+        Flapping detection enabled
+
+    - name: status.icingaapplication.app.enable_host_checks
+      type: boolean
+      description: >
+        Host checks enabled
+
+    - name: status.icingaapplication.app.enable_notifications
+      type: boolean
+      description: >
+        Notifications enabled
+
+    - name: status.icingaapplication.app.enable_perfdata
+      type: boolean
+      description: >
+        Perfdata enabled
+
+    - name: status.icingaapplication.app.enable_service_checks
+      type: boolean
+      description: >
+        Service checks enabled
+
+    - name: status.icingaapplication.app.node_name
+      type: keyword
+      description: >
+        Node name
+
+    - name: status.icingaapplication.app.pid
+      type: integer
+      description: >
+        PID
+
+    - name: status.icingaapplication.app.program_start
+      type: integer
+      description: >
+        Time when Icinga started
+
+    - name: status.icingaapplication.app.version
+      type: keyword
+      description: >
+        Version
+
+    - name: status.idomysqlconnection.ido-mysql.connected
+      type: boolean
+      description: >
+        IDO connected
+
+    - name: status.idomysqlconnection.ido-mysql.instance_name
+      type: keyword
+      description: >
+        IDO Instance name
+
+    - name: status.idomysqlconnection.ido-mysql.query_queue_items
+      type: integer
+      description: >
+        IDO query items in the queue
+
+    - name: status.idomysqlconnection.ido-mysql.version
+      type: keyword
+      description: >
+        IDO schema version
+
+    - name: status.max_execution_time
+      type: integer
+      description: >
+        Max execution time
+
+    - name: status.max_latency
+      type: integer
+      description: >
+        Max latency
+
+    - name: status.min_execution_time
+      type: integer
+      description: >
+        Min execution time
+
+    - name: status.min_latency
+      type: integer
+      description: >
+        Min latency
+
+    - name: status.notificationcomponent.notification
+      type: integer
+      description: >
+        Notification
+
+    - name: status.num_hosts_acknowledged
+      type: integer
+      description: >
+        Amount of acknowledged hosts
+
+    - name: status.num_hosts_down
+      type: integer
+      description: >
+        Amount of down hosts
+
+    - name: status.num_hosts_flapping
+      type: integer
+      description: >
+        Amount of flapping hosts
+
+    - name: status.num_hosts_in_downtime
+      type: integer
+      description: >
+        Amount of hosts in downtime
+
+    - name: status.num_hosts_pending
+      type: integer
+      description: >
+        Amount of pending hosts
+
+    - name: status.num_hosts_unreachable
+      type: integer
+      description: >
+        Amount of unreachable hosts
+
+    - name: status.num_hosts_up
+      type: integer
+      description: >
+        Amount of hosts in up state
+
+    - name: status.num_services_acknowledged
+      type: integer
+      description: >
+        Amount of acknowledged services
+
+    - name: status.num_services_critical
+      type: integer
+      description: >
+        Amount of critical services
+
+    - name: status.num_services_flapping
+      type: integer
+      description: >
+        Amount of flapping services
+
+    - name: status.num_services_in_downtime
+      type: integer
+      description: >
+        Amount of services in downtime
+
+    - name: status.num_services_ok
+      type: integer
+      description: >
+        Amount of services in ok state
+
+    - name: status.num_services_pending
+      type: integer
+      description: >
+        Amount of pending services
+
+    - name: status.num_services_unknown
+      type: integer
+      description: >
+        Amount of unknown services
+
+    - name: status.num_services_unreachable
+      type: integer
+      description: >
+        Amount of unreachable services
+
+    - name: status.num_services_warning
+      type: integer
+      description: >
+        Amount of services in warning state
+
+    - name: status.passive_host_checks
+      type: integer
+      description: >
+        Amount of passive host checks
+
+    - name: status.passive_host_checks_15min
+      type: integer
+      description: >
+        Amount of passive host checks in the last 15 minutes
+
+    - name: status.passive_host_checks_1min
+      type: integer
+      description: >
+        Amount of passive host checks in the last minute
+
+    - name: status.passive_host_checks_5min
+      type: integer
+      description: >
+        Amount of passive host checks in the last 5 minutes
+
+    - name: status.passive_service_checks
+      type: integer
+      description: >
+        Amount of passive service checks
+
+    - name: status.passive_service_checks_15min
+      type: integer
+      description: >
+        Amount of passive service checks in the last 15 minutes
+
+    - name: status.passive_service_checks_1min
+      type: integer
+      description: >
+        Amount of passive service checks in the last minute
+
+    - name: status.passive_service_checks_5min
+      type: integer
+      description: >
+        Amount of passive service checks in the last 5 minutes
+
+    - name: status.uptime
+      type: integer
+      description: >
+        Uptime

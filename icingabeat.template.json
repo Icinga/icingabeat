@@ -331,6 +331,256 @@
         "state_type": {
           "type": "long"
         },
+        "status": {
+          "properties": {
+            "active_host_checks": {
+              "type": "long"
+            },
+            "active_host_checks_15min": {
+              "type": "long"
+            },
+            "active_host_checks_1min": {
+              "type": "long"
+            },
+            "active_host_checks_5min": {
+              "type": "long"
+            },
+            "active_service_checks": {
+              "type": "long"
+            },
+            "active_service_checks_15min": {
+              "type": "long"
+            },
+            "active_service_checks_1min": {
+              "type": "long"
+            },
+            "active_service_checks_5min": {
+              "type": "long"
+            },
+            "api": {
+              "properties": {
+                "identity": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "num_conn_endpoints": {
+                  "type": "long"
+                },
+                "num_endpoints": {
+                  "type": "long"
+                },
+                "num_not_conn_endpoints": {
+                  "type": "long"
+                },
+                "zones": {
+                  "properties": {
+                    "demo": {
+                      "properties": {
+                        "client_log_lag": {
+                          "type": "long"
+                        },
+                        "connected": {
+                          "type": "boolean"
+                        },
+                        "endpoints": {
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "parent_zone": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "avg_execution_time": {
+              "type": "long"
+            },
+            "avg_latency": {
+              "type": "long"
+            },
+            "checkercomponent": {
+              "properties": {
+                "checker": {
+                  "properties": {
+                    "idle": {
+                      "type": "long"
+                    },
+                    "pending": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "filelogger": {
+              "properties": {
+                "main-log": {
+                  "type": "long"
+                }
+              }
+            },
+            "icingaapplication": {
+              "properties": {
+                "app": {
+                  "properties": {
+                    "enable_event_handlers": {
+                      "type": "boolean"
+                    },
+                    "enable_flapping": {
+                      "type": "boolean"
+                    },
+                    "enable_host_checks": {
+                      "type": "boolean"
+                    },
+                    "enable_notifications": {
+                      "type": "boolean"
+                    },
+                    "enable_perfdata": {
+                      "type": "boolean"
+                    },
+                    "enable_service_checks": {
+                      "type": "boolean"
+                    },
+                    "node_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "pid": {
+                      "type": "long"
+                    },
+                    "program_start": {
+                      "type": "long"
+                    },
+                    "version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "idomysqlconnection": {
+              "properties": {
+                "ido-mysql": {
+                  "properties": {
+                    "connected": {
+                      "type": "boolean"
+                    },
+                    "instance_name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "query_queue_items": {
+                      "type": "long"
+                    },
+                    "version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "max_execution_time": {
+              "type": "long"
+            },
+            "max_latency": {
+              "type": "long"
+            },
+            "min_execution_time": {
+              "type": "long"
+            },
+            "min_latency": {
+              "type": "long"
+            },
+            "notificationcomponent": {
+              "properties": {
+                "notification": {
+                  "type": "long"
+                }
+              }
+            },
+            "num_hosts_acknowledged": {
+              "type": "long"
+            },
+            "num_hosts_down": {
+              "type": "long"
+            },
+            "num_hosts_flapping": {
+              "type": "long"
+            },
+            "num_hosts_in_downtime": {
+              "type": "long"
+            },
+            "num_hosts_pending": {
+              "type": "long"
+            },
+            "num_hosts_unreachable": {
+              "type": "long"
+            },
+            "num_hosts_up": {
+              "type": "long"
+            },
+            "num_services_acknowledged": {
+              "type": "long"
+            },
+            "num_services_critical": {
+              "type": "long"
+            },
+            "num_services_flapping": {
+              "type": "long"
+            },
+            "num_services_in_downtime": {
+              "type": "long"
+            },
+            "num_services_ok": {
+              "type": "long"
+            },
+            "num_services_pending": {
+              "type": "long"
+            },
+            "num_services_unknown": {
+              "type": "long"
+            },
+            "num_services_unreachable": {
+              "type": "long"
+            },
+            "num_services_warning": {
+              "type": "long"
+            },
+            "passive_host_checks": {
+              "type": "long"
+            },
+            "passive_host_checks_15min": {
+              "type": "long"
+            },
+            "passive_host_checks_1min": {
+              "type": "long"
+            },
+            "passive_host_checks_5min": {
+              "type": "long"
+            },
+            "passive_service_checks": {
+              "type": "long"
+            },
+            "passive_service_checks_15min": {
+              "type": "long"
+            },
+            "passive_service_checks_1min": {
+              "type": "long"
+            },
+            "passive_service_checks_5min": {
+              "type": "long"
+            },
+            "uptime": {
+              "type": "long"
+            }
+          }
+        },
         "tags": {
           "ignore_above": 1024,
           "type": "keyword"

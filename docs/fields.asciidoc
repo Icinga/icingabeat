@@ -695,3 +695,523 @@ type: keyword
 Zone of downtime
 
 
+[float]
+=== status.active_host_checks
+
+type: integer
+
+Active host checks
+
+
+[float]
+=== status.active_host_checks_15min
+
+type: integer
+
+Active host checks in the last 15 minutes
+
+
+[float]
+=== status.active_host_checks_1min
+
+type: integer
+
+Acitve host checks in the last minute
+
+
+[float]
+=== status.active_host_checks_5min
+
+type: integer
+
+Active host checks in the last 5 minutes
+
+
+[float]
+=== status.active_service_checks
+
+type: integer
+
+Active service checks
+
+
+[float]
+=== status.active_service_checks_15min
+
+type: integer
+
+Active service checks in the last 15 minutes
+
+
+[float]
+=== status.active_service_checks_1min
+
+type: integer
+
+Active service checks in the last minute
+
+
+[float]
+=== status.active_service_checks_5min
+
+type: integer
+
+Active service checks in the last 5 minutes
+
+
+[float]
+=== status.api.identity
+
+type: keyword
+
+API identity
+
+
+[float]
+=== status.api.num_conn_endpoints
+
+type: integer
+
+Number of connected endpoints
+
+
+[float]
+=== status.api.num_endpoints
+
+type: integer
+
+Total number of endpoints
+
+
+[float]
+=== status.api.num_not_conn_endpoints
+
+type: integer
+
+Number of not connected endpoints
+
+
+[float]
+=== status.api.zones.demo.client_log_lag
+
+type: integer
+
+Lag of the replaylog
+
+
+[float]
+=== status.api.zones.demo.connected
+
+type: boolean
+
+Zone connected
+
+
+[float]
+=== status.api.zones.demo.endpoints
+
+type: text
+
+Endpoint names
+
+
+[float]
+=== status.api.zones.demo.parent_zone
+
+type: keyword
+
+Parent zone
+
+
+[float]
+=== status.avg_execution_time
+
+type: integer
+
+Average execution time of checks
+
+
+[float]
+=== status.avg_latency
+
+type: integer
+
+Average latency time
+
+
+[float]
+=== status.checkercomponent.checker.idle
+
+type: integer
+
+Idle checks
+
+
+[float]
+=== status.checkercomponent.checker.pending
+
+type: integer
+
+Pending checks
+
+
+[float]
+=== status.filelogger.main-log
+
+type: integer
+
+Mainlog enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_event_handlers
+
+type: boolean
+
+Event handlers enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_flapping
+
+type: boolean
+
+Flapping detection enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_host_checks
+
+type: boolean
+
+Host checks enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_notifications
+
+type: boolean
+
+Notifications enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_perfdata
+
+type: boolean
+
+Perfdata enabled
+
+
+[float]
+=== status.icingaapplication.app.enable_service_checks
+
+type: boolean
+
+Service checks enabled
+
+
+[float]
+=== status.icingaapplication.app.node_name
+
+type: keyword
+
+Node name
+
+
+[float]
+=== status.icingaapplication.app.pid
+
+type: integer
+
+PID
+
+
+[float]
+=== status.icingaapplication.app.program_start
+
+type: integer
+
+Time when Icinga started
+
+
+[float]
+=== status.icingaapplication.app.version
+
+type: keyword
+
+Version
+
+
+[float]
+=== status.idomysqlconnection.ido-mysql.connected
+
+type: boolean
+
+IDO connected
+
+
+[float]
+=== status.idomysqlconnection.ido-mysql.instance_name
+
+type: keyword
+
+IDO Instance name
+
+
+[float]
+=== status.idomysqlconnection.ido-mysql.query_queue_items
+
+type: integer
+
+IDO query items in the queue
+
+
+[float]
+=== status.idomysqlconnection.ido-mysql.version
+
+type: keyword
+
+IDO schema version
+
+
+[float]
+=== status.max_execution_time
+
+type: integer
+
+Max execution time
+
+
+[float]
+=== status.max_latency
+
+type: integer
+
+Max latency
+
+
+[float]
+=== status.min_execution_time
+
+type: integer
+
+Min execution time
+
+
+[float]
+=== status.min_latency
+
+type: integer
+
+Min latency
+
+
+[float]
+=== status.notificationcomponent.notification
+
+type: integer
+
+Notification
+
+
+[float]
+=== status.num_hosts_acknowledged
+
+type: integer
+
+Amount of acknowledged hosts
+
+
+[float]
+=== status.num_hosts_down
+
+type: integer
+
+Amount of down hosts
+
+
+[float]
+=== status.num_hosts_flapping
+
+type: integer
+
+Amount of flapping hosts
+
+
+[float]
+=== status.num_hosts_in_downtime
+
+type: integer
+
+Amount of hosts in downtime
+
+
+[float]
+=== status.num_hosts_pending
+
+type: integer
+
+Amount of pending hosts
+
+
+[float]
+=== status.num_hosts_unreachable
+
+type: integer
+
+Amount of unreachable hosts
+
+
+[float]
+=== status.num_hosts_up
+
+type: integer
+
+Amount of hosts in up state
+
+
+[float]
+=== status.num_services_acknowledged
+
+type: integer
+
+Amount of acknowledged services
+
+
+[float]
+=== status.num_services_critical
+
+type: integer
+
+Amount of critical services
+
+
+[float]
+=== status.num_services_flapping
+
+type: integer
+
+Amount of flapping services
+
+
+[float]
+=== status.num_services_in_downtime
+
+type: integer
+
+Amount of services in downtime
+
+
+[float]
+=== status.num_services_ok
+
+type: integer
+
+Amount of services in ok state
+
+
+[float]
+=== status.num_services_pending
+
+type: integer
+
+Amount of pending services
+
+
+[float]
+=== status.num_services_unknown
+
+type: integer
+
+Amount of unknown services
+
+
+[float]
+=== status.num_services_unreachable
+
+type: integer
+
+Amount of unreachable services
+
+
+[float]
+=== status.num_services_warning
+
+type: integer
+
+Amount of services in warning state
+
+
+[float]
+=== status.passive_host_checks
+
+type: integer
+
+Amount of passive host checks
+
+
+[float]
+=== status.passive_host_checks_15min
+
+type: integer
+
+Amount of passive host checks in the last 15 minutes
+
+
+[float]
+=== status.passive_host_checks_1min
+
+type: integer
+
+Amount of passive host checks in the last minute
+
+
+[float]
+=== status.passive_host_checks_5min
+
+type: integer
+
+Amount of passive host checks in the last 5 minutes
+
+
+[float]
+=== status.passive_service_checks
+
+type: integer
+
+Amount of passive service checks
+
+
+[float]
+=== status.passive_service_checks_15min
+
+type: integer
+
+Amount of passive service checks in the last 15 minutes
+
+
+[float]
+=== status.passive_service_checks_1min
+
+type: integer
+
+Amount of passive service checks in the last minute
+
+
+[float]
+=== status.passive_service_checks_5min
+
+type: integer
+
+Amount of passive service checks in the last 5 minutes
+
+
+[float]
+=== status.uptime
+
+type: integer
+
+Uptime
+
+
