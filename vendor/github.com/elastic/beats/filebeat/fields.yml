@@ -92,6 +92,35 @@
     - name: meta.cloud.region
       description: >
         Region in which this host is running.
+- key: kubernetes
+  title: Kubernetes info
+  description: >
+    Kubernetes metadata added by the kubernetes processor
+  fields:
+    - name: kubernetes.pod.name
+      type: keyword
+      description: >
+        Kubernetes pod name
+
+    - name: kubernetes.namespace
+      type: keyword
+      description: >
+        Kubernetes namespace
+
+    - name: kubernetes.labels
+      type: object
+      description: >
+        Kubernetes labels map
+
+    - name: kubernetes.annotations
+      type: object
+      description: >
+        Kubernetes annotations map
+
+    - name: kubernetes.container.name
+      type: keyword
+      description: >
+        Kubernetes container name
 - key: log
   title: Log File Content
   description: >
@@ -149,6 +178,7 @@
   title: "Apache2"
   description: >
     Apache2 Module
+  short_config: true
   fields:
     - name: apache2
       type: group
@@ -297,6 +327,7 @@
   title: "Auditd"
   description: >
     Module for parsing auditd logs.
+  short_config: true
   fields:
     - name: auditd
       type: group
@@ -453,6 +484,7 @@
   title: "MySQL"
   description: >
     Module for parsing the MySQL log files.
+  short_config: true
   fields:
     - name: mysql
       type: group
@@ -528,6 +560,7 @@
   title: "Nginx"
   description: >
     Module for parsing the Nginx log files.
+  short_config: true
   fields:
     - name: nginx
       type: group
@@ -672,6 +705,7 @@
   title: "System"
   description: >
     Module for parsing system log files.
+  short_config: true
   fields:
     - name: system
       type: group

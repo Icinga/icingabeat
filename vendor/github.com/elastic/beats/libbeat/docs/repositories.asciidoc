@@ -25,6 +25,14 @@ to sign all our packages. It is available from https://pgp.mit.edu.
 [float]
 ==== APT
 
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of Beats has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
+
 To add the Beats repository for APT:
 
 . Download and install the Public Signing Key:
@@ -62,6 +70,21 @@ the following:
 Simply delete the `deb-src` entry from the `/etc/apt/sources.list` file, and the installation should work as expected.
 ==================================================
 
+ifeval::["{beatname_uc}"=="Heartbeat"]
+
+. On Debian or Ubuntu, pin the repository before installing to ensure that the
+correct Elastic Heartbeat package is installed. To do this, edit 
+`/etc/apt/preferences` (or `/etc/apt/preferences.d/heartbeat`) as follows:
++
+[source,shell]
+--------------------------------------------------
+Package: heartbeat
+Pin: origin artifacts.elastic.co
+Pin-Priority: 700
+--------------------------------------------------
+
+endif::[]
+
 . Run `apt-get update`, and the repository is ready for use. For example, you can
 install {beatname_uc} by running:
 +
@@ -77,8 +100,18 @@ sudo apt-get update && sudo apt-get install {beatname_lc}
 sudo update-rc.d {beatname_lc} defaults 95 10
 --------------------------------------------------
 
+endif::[]
+
 [float]
 ==== YUM
+
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of Beats has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
 
 To add the Beats repository for YUM:
 
@@ -118,3 +151,6 @@ sudo yum install {beatname_lc}
 --------------------------------------------------
 sudo chkconfig --add {beatname_lc}
 --------------------------------------------------
+
+endif::[]
+

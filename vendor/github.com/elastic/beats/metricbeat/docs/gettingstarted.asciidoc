@@ -11,7 +11,7 @@ related products:
  * Kibana for the UI.
  * Logstash (optional) for inserting data into Elasticsearch.
 
-See {libbeat}/getting-started.html[Getting Started with Beats and the Elastic Stack] for more information. 
+See {libbeat}/getting-started.html[Getting Started with Beats and the Elastic Stack] for more information.
 
 After installing the Elastic Stack, read the following topics to learn how to install, configure, and run Metricbeat:
 
@@ -51,14 +51,32 @@ other installation options, such as 32-bit images.
 [[deb]]
 *deb:*
 
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of {beatname_uc} has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
+
 ["source","sh",subs="attributes,callouts"]
 ------------------------------------------------
 curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{version}-amd64.deb
 sudo dpkg -i metricbeat-{version}-amd64.deb
 ------------------------------------------------
 
+endif::[]
+
 [[rpm]]
 *rpm:*
+
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of {beatname_uc} has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
 
 ["source","sh",subs="attributes,callouts"]
 ------------------------------------------------
@@ -66,8 +84,18 @@ curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{v
 sudo rpm -vi metricbeat-{version}-x86_64.rpm
 ------------------------------------------------
 
+endif::[]
+
 [[mac]]
 *mac:*
+
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of {beatname_uc} has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
 
 ["source","sh",subs="attributes,callouts"]
 ------------------------------------------------
@@ -75,8 +103,18 @@ curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-{v
 tar xzvf metricbeat-{version}-darwin-x86_64.tar.gz
 ------------------------------------------------
 
+endif::[]
+
 [[win]]
 *win:*
+
+ifeval::["{release-state}"=="unreleased"]
+
+Version {stack-version} of {beatname_uc} has not yet been released.
+
+endif::[]
+
+ifeval::["{release-state}"!="unreleased"]
 
 . Download the Metricbeat Windows zip file from the
 https://www.elastic.co/downloads/beats/metricbeat[downloads page].
@@ -102,6 +140,8 @@ execution policy for the current session to allow the script to run. For
 example: `PowerShell.exe -ExecutionPolicy UnRestricted -File
 .\install-service-metricbeat.ps1`.
 
+endif::[]
+
 Before starting Metricbeat, you should look at the configuration options in the
 configuration file, for example `C:\Program Files\Metricbeat\metricbeat.yml`.
 For more information about these options, see
@@ -115,6 +155,10 @@ you'll find the configuration file at `/etc/metricbeat/metricbeat.yml`. For mac
 and win, look in the archive that you just extracted. There’s also a full
 example configuration file called `metricbeat.full.yml` that shows all
 non-deprecated options.
+
+See the
+{libbeat}/config-file-format.html[Config File Format] section of the
+_Beats Platform Reference_ for more about the structure of the config file.
 
 Metricbeat uses <<metricbeat-modules,modules>> to collect metrics. You configure
 each module individually. The following example shows the default configuration
@@ -135,7 +179,7 @@ metricbeat.modules:
   enabled: true
   period: 10s
   processes: ['.*']
-  cpu_ticks: false  
+  cpu_ticks: false
 -------------------------------------
 
 The following example shows how to configure two modules: the system module
@@ -154,7 +198,7 @@ metricbeat.modules:
   enabled: true
   period: 10s
   processes: ['.*']
-  cpu_ticks: false  
+  cpu_ticks: false
 - module: apache
   metricsets: ["status"]
   enabled: true
@@ -215,8 +259,13 @@ sudo /etc/init.d/metricbeat start
 
 [source,shell]
 ----------------------------------------------------------------------
+sudo chown root metricbeat.yml <1>
 sudo ./metricbeat -e -c metricbeat.yml -d "publish"
 ----------------------------------------------------------------------
+<1> You'll be running Metricbeat as root, so you need to change ownership
+of the configuration file (see
+{libbeat}/config-file-permissions.html[Config File Ownership and Permissions]
+in the _Beats Platform Reference_).
 
 *win:*
 
@@ -259,3 +308,4 @@ image:./images/metricbeat_system_dashboard.png[Metricbeat Dashboard]
 
 :allplatforms:
 include::../../libbeat/docs/dashboards.asciidoc[]
+
