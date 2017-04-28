@@ -1,5 +1,13 @@
 # Icingabeat CHANGELOG
 
+## v1.1.1
+
+### Bugs
+* Add missing fields for statuspoller
+
+### Features
+* Update libbeat to version 5.3.2
+
 ## v1.1.0
 
 ### Features
