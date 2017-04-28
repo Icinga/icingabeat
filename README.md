@@ -154,8 +154,8 @@ exploring the data by yourself. Download the dashboards from the
 The tool to import dashboards with is already included in the Icingabeat package.
 
 ```
-unzip icingabeat-dashboards-1.1.0.zip -d /tmp
-/usr/share/icingabeat/scripts/import_dashboards -dir /tmp/icingabeat-dashboards-1.1.0 -es http://127.0.0.1:9200
+unzip icingabeat-dashboards-1.1.1.zip -d /tmp
+/usr/share/icingabeat/scripts/import_dashboards -dir /tmp/icingabeat-dashboards-1.1.1 -es http://127.0.0.1:9200
 ```
 
 ## Fields
