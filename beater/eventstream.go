@@ -12,7 +12,7 @@ import (
 
 	"github.com/icinga/icingabeat/config"
 
-	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/logp"
 )
 
@@ -37,53 +37,51 @@ func NewEventstream(bt *Icingabeat, cfg config.Config) *Eventstream {
 }
 
 // BuildEventstreamEvent ...
-func BuildEventstreamEvent(e []byte) common.MapStr {
+func BuildEventstreamEvent(e []byte) beat.Event {
 
-	var event common.MapStr
+	var event beat.Event
 	var icingaEvent map[string]interface{}
 
 	if err := json.Unmarshal(e, &icingaEvent); err != nil {
 		logp.Warn("Error decoding event: %v", err)
 	}
 
-	event = common.MapStr{
-		"@timestamp": common.Time(time.Now()),
-	}
+	event.Timestamp = time.Now()
 
 	for key, value := range icingaEvent {
-		event.Put(key, value)
+		event.Fields.Put(key, value)
 	}
 
 	logp.Debug("icingabeat", "Type: %v", icingaEvent["type"])
 	switch icingaEvent["type"] {
 	case "CheckResult", "StateChange", "Notification":
 		checkResult := icingaEvent["check_result"].(map[string]interface{})
-		event.Put("check_result.execution_start", FloatToTimestamp(checkResult["execution_start"].(float64)))
-		event.Put("check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
-		event.Put("check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
-		event.Put("check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
-		event.Delete("check_result.performance_data")
+		event.Fields.Put("check_result.execution_start", FloatToTimestamp(checkResult["execution_start"].(float64)))
+		event.Fields.Put("check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
+		event.Fields.Put("check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
+		event.Fields.Put("check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
+		event.Fields.Delete("check_result.performance_data")
 
 	case "AcknowledgementSet":
 		event.Delete("comment")
-		event.Put("comment.text", icingaEvent["comment"])
-		event.Put("expiry", FloatToTimestamp(icingaEvent["expiry"].(float64)))
+		event.Fields.Put("comment.text", icingaEvent["comment"])
+		event.Fields.Put("expiry", FloatToTimestamp(icingaEvent["expiry"].(float64)))
 
 	case "CommentAdded", "CommentRemoved":
 		comment := icingaEvent["comment"].(map[string]interface{})
-		event.Put("comment.entry_time", FloatToTimestamp(comment["entry_time"].(float64)))
-		event.Put("comment.expire_time", FloatToTimestamp(comment["expire_time"].(float64)))
+		event.Fields.Put("comment.entry_time", FloatToTimestamp(comment["entry_time"].(float64)))
+		event.Fields.Put("comment.expire_time", FloatToTimestamp(comment["expire_time"].(float64)))
 
 	case "DowntimeAdded", "DowntimeRemoved", "DowntimeStarted", "DowntimeTriggered":
 		downtime := icingaEvent["downtime"].(map[string]interface{})
-		event.Put("downtime.end_time", FloatToTimestamp(downtime["end_time"].(float64)))
-		event.Put("downtime.entry_time", FloatToTimestamp(downtime["entry_time"].(float64)))
-		event.Put("downtime.start_time", FloatToTimestamp(downtime["start_time"].(float64)))
-		event.Put("downtime.trigger_time", FloatToTimestamp(downtime["trigger_time"].(float64)))
+		event.Fields.Put("downtime.end_time", FloatToTimestamp(downtime["end_time"].(float64)))
+		event.Fields.Put("downtime.entry_time", FloatToTimestamp(downtime["entry_time"].(float64)))
+		event.Fields.Put("downtime.start_time", FloatToTimestamp(downtime["start_time"].(float64)))
+		event.Fields.Put("downtime.trigger_time", FloatToTimestamp(downtime["trigger_time"].(float64)))
 	}
 
-	event.Put("type", "icingabeat.event."+strings.ToLower(icingaEvent["type"].(string)))
-	event.Put("timestamp", FloatToTimestamp(icingaEvent["timestamp"].(float64)))
+	event.Fields.Put("type", "icingabeat.event."+strings.ToLower(icingaEvent["type"].(string)))
+	event.Fields.Put("timestamp", FloatToTimestamp(icingaEvent["timestamp"].(float64)))
 
 	return event
 }
@@ -147,7 +145,7 @@ func (es *Eventstream) Run() error {
 					logp.Err("Error reading line %#v", err)
 				}
 
-				es.icingabeat.client.PublishEvent(BuildEventstreamEvent(line))
+				es.icingabeat.client.Publish(BuildEventstreamEvent(line))
 				logp.Debug("icingabeat.eventstream", "Event sent")
 			}
 

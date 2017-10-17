@@ -6,7 +6,6 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/elastic/beats/libbeat/publisher"
 
 	"github.com/icinga/icingabeat/config"
 )
@@ -15,7 +14,7 @@ import (
 type Icingabeat struct {
 	done   chan struct{}
 	config config.Config
-	client publisher.Client
+	client beat.Client
 }
 
 // New beater
@@ -35,7 +34,12 @@ func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 // Run Icingabeat
 func (bt *Icingabeat) Run(b *beat.Beat) error {
 	logp.Info("icingabeat is running! Hit CTRL-C to stop it.")
-	bt.client = b.Publisher.Connect()
+
+	var err error
+	bt.client, err = b.Publisher.Connect()
+	if err != nil {
+		return err
+	}
 
 	if len(bt.config.Eventstream.Types) > 0 {
 		var eventstream *Eventstream

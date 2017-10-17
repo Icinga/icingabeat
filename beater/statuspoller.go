@@ -10,7 +10,7 @@ import (
 
 	"github.com/icinga/icingabeat/config"
 
-	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/logp"
 )
 
@@ -33,8 +33,8 @@ func NewStatuspoller(bt *Icingabeat, cfg config.Config) *Statuspoller {
 }
 
 // BuildStatusEvents ...
-func BuildStatusEvents(body []byte) []common.MapStr {
-	var statusEvents []common.MapStr
+func BuildStatusEvents(body []byte) []beat.Event {
+	var statusEvents []beat.Event
 	var icingaStatus map[string]interface{}
 
 	if err := json.Unmarshal(body, &icingaStatus); err != nil {
@@ -44,7 +44,7 @@ func BuildStatusEvents(body []byte) []common.MapStr {
 	for _, result := range icingaStatus {
 		for _, status := range result.([]interface{}) {
 
-			event := common.MapStr{}
+			var event beat.Event
 			for key, value := range status.(map[string]interface{}) {
 
 				switch key {
@@ -54,11 +54,11 @@ func BuildStatusEvents(body []byte) []common.MapStr {
 						case map[string]interface{}:
 							if len(statusvalue.(map[string]interface{})) > 0 {
 
-								event.Put(key, value)
+								event.Fields.Put(key, value)
 							}
 
 						default:
-							event.Put(key, value)
+							event.Fields.Put(key, value)
 						}
 
 					}
@@ -72,7 +72,7 @@ func BuildStatusEvents(body []byte) []common.MapStr {
 						case interface{}:
 							key = "perfdata." + perfdata.(map[string]interface{})["label"].(string)
 							value = perfdata
-							event.Put(key, value)
+							event.Fields.Put(key, value)
 
 						}
 					}
@@ -80,15 +80,15 @@ func BuildStatusEvents(body []byte) []common.MapStr {
 				case "name":
 					key = "type"
 					value = "icingabeat.status." + strings.ToLower(value.(string))
-					event.Put(key, value)
+					event.Fields.Put(key, value)
 
 				default:
-					event.Put(key, value)
+					event.Fields.Put(key, value)
 				}
 			}
 
-			if statusAvailable, _ := event.HasKey("status"); statusAvailable == true {
-				event.Put("@timestamp", common.Time(time.Now()))
+			if statusAvailable, _ := event.Fields.HasKey("status"); statusAvailable == true {
+				event.Timestamp = time.Now()
 				statusEvents = append(statusEvents, event)
 			}
 		}
@@ -120,7 +120,7 @@ func (sp *Statuspoller) Run() error {
 			}
 
 			processedStatusEvents := BuildStatusEvents(body)
-			sp.icingabeat.client.PublishEvents(processedStatusEvents)
+			sp.icingabeat.client.PublishAll(processedStatusEvents)
 			logp.Debug("icingabeat.statuspoller", "Events sent: %v", len(processedStatusEvents))
 
 		} else {
