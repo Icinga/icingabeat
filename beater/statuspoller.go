@@ -11,6 +11,7 @@ import (
 	"github.com/icinga/icingabeat/config"
 
 	"github.com/elastic/beats/libbeat/beat"
+	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
 )
 
@@ -45,6 +46,8 @@ func BuildStatusEvents(body []byte) []beat.Event {
 		for _, status := range result.([]interface{}) {
 
 			var event beat.Event
+			event.Fields = common.MapStr{}
+			event.Timestamp = time.Now()
 			for key, value := range status.(map[string]interface{}) {
 
 				switch key {
@@ -53,7 +56,6 @@ func BuildStatusEvents(body []byte) []beat.Event {
 						switch statusvalue.(type) {
 						case map[string]interface{}:
 							if len(statusvalue.(map[string]interface{})) > 0 {
-
 								event.Fields.Put(key, value)
 							}
 
@@ -88,7 +90,6 @@ func BuildStatusEvents(body []byte) []beat.Event {
 			}
 
 			if statusAvailable, _ := event.Fields.HasKey("status"); statusAvailable == true {
-				event.Timestamp = time.Now()
 				statusEvents = append(statusEvents, event)
 			}
 		}
