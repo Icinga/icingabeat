@@ -1,5 +1,10 @@
 # Icingabeat CHANGELOG
 
+## v5.6.0
+
+### Features
+* Update libbeat to version 5.6.6
+
 ## v1.1.1
 
 ### Bugs
