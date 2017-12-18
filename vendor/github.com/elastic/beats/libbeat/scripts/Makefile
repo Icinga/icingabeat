@@ -9,6 +9,7 @@ BEAT_LICENSE?=ASL 2.0 ## @packaging Software license of the application
 BEAT_VENDOR?=Elastic ## @packaging Name of the vendor of the application
 BEAT_GOPATH=$(firstword $(subst :, ,${GOPATH}))
 ES_BEATS?=..## @community_beat Must be set to ./vendor/github.com/elastic/beats
+BEAT_VERSION=$(shell head -n 1 ${ES_BEATS}/libbeat/docs/version.asciidoc | cut -c 17- )
 GOPACKAGES?=${BEAT_PATH}/...## @community_beat Must be set to $(shell glide novendor)
 PACKER_TEMPLATES_DIR?=${ES_BEATS}/dev-tools/packer ## @Building Directory of templates that are used by "make package"
 NOTICE_FILE?=../NOTICE
@@ -246,14 +247,15 @@ update: python-env collect
 	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_fields_docs.py $(PWD) ${BEAT_NAME} ${ES_BEATS}
 
 	# Generate index templates
-	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_template.py $(PWD) ${BEAT_NAME} ${ES_BEATS}
 	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_template.py --es2x $(PWD) ${BEAT_NAME} ${ES_BEATS}
+	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_template.py --es6x $(PWD) ${BEAT_NAME} ${ES_BEATS}
+	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_template.py $(PWD) ${BEAT_NAME} ${ES_BEATS}
 
 	# Generate index-pattern
 	echo "Generate index pattern"
-	-rm -f $(PWD)/_meta/kibana/index-pattern/${BEAT_NAME}.json
-	mkdir -p $(PWD)/_meta/kibana/index-pattern
-	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_index_pattern.py --index '${BEAT_NAME}-*' --libbeat ${ES_BEATS}/libbeat --beat $(PWD)
+	mkdir -p $(PWD)/_meta/kibana/5.x/index-pattern
+	mkdir -p $(PWD)/_meta/kibana/default/index-pattern
+	. ${PYTHON_ENV}/bin/activate && python ${ES_BEATS}/libbeat/scripts/generate_index_pattern.py --index '${BEAT_NAME}-*' --libbeat ${ES_BEATS}/libbeat --beat $(PWD) --version ${BEAT_VERSION}
 
 .PHONY: docs
 docs:  ## @build Builds the documents for the beat

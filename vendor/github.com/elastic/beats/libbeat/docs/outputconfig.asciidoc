@@ -234,10 +234,10 @@ output.elasticsearch:
   pipelines:
     - pipeline: critical_pipeline
       when.equals:
-        type: "critical"
+        fields.type: "critical"
     - pipeline: normal_pipeline
       when.equals:
-        type: "normal"
+        fields.type: "normal"
 ------------------------------------------------------------------------------
 
 ===== template
@@ -281,6 +281,12 @@ version. This behaviour can be controlled from the following options:
 Elasticsearch versions 2.x.y. The default is +{beatname_lc}.template-es2x.json+.
 
 *`2x.enabled`*:: If set to +false+, the +2x.path+ option is ignored and the
+default template is loaded regardless of the Elasticsearch version.
+
+*`6x.path`*:: The path to the template file to load for
+Elasticsearch versions 6.x.y. The default is +{beatname_lc}.template-es6x.json+.
+
+*`6x.enabled`*:: If set to +false+, the +6x.path+ option is ignored and the
 default template is loaded regardless of the Elasticsearch version.
 
 For example:
@@ -448,11 +454,11 @@ The default value is true.
 [[hosts]]
 ===== hosts
 
-The list of known Logstash servers to connect to. If load balancing is disabled, but 
-mutliple hosts are configured, one host is selected randomly (there is no precedence). 
+The list of known Logstash servers to connect to. If load balancing is disabled, but
+mutliple hosts are configured, one host is selected randomly (there is no precedence).
 If one host becomes unreachable, another one is selected randomly.
 
-All entries in this list can contain a port number. If no port number is given, the 
+All entries in this list can contain a port number. If no port number is given, the
 value specified for <<port>> is used as the default port number.
 
 ===== compression_level
@@ -573,6 +579,14 @@ Setting `bulk_max_size` to values less than or equal to 0 disables buffering in 
 Beats that publish single events (such as Packetbeat) send each event directly to
 Elasticsearch. Beats that publish data in batches (such as Filebeat) send events in batches based on the
 spooler size.
+
+===== `slow_start`
+
+If enabled only a subset of events in a batch of events is transferred per transaction.
+The number of events to be sent increases up to `bulk_max_size` if no error is encountered.
+On error the number of events per transaction is reduced again.
+
+The default is `false`.
 
 [[kafka-output]]
 === Kafka Output
@@ -1226,6 +1240,15 @@ The following elliptic curve types are available:
 * P-256
 * P-384
 * P-521
+
+===== renegotiation
+
+This configures what types of TLS renegotiation are supported. The valid options
+are `never`, `once`, and `freely`. The default value is never.
+
+* `never` - Disables renegotiation.
+* `once` - Allows a remote server to request renegotiation once per connection.
+* `freely` - Allows a remote server to repeatedly request renegotiation.
 
 [[configuration-output-codec]]
 === Output Codec

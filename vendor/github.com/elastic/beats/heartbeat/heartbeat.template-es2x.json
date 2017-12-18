@@ -7,7 +7,7 @@
         }
       },
       "_meta": {
-        "version": "5.3.2"
+        "version": "5.6.6"
       },
       "date_detection": false,
       "dynamic_templates": [
@@ -67,9 +67,6 @@
               "type": "string"
             }
           }
-        },
-        "fields": {
-          "properties": {}
         },
         "host": {
           "ignore_above": 1024,

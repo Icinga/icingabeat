@@ -1,7 +1,7 @@
 [[metricbeat-configuration-reloading]]
 === Reload Configuration
 
-experimental[]
+beta[]
 
 You can configure Metricbeat to dynamically reload configuration files when
 there are changes. To do this, you specify a path 

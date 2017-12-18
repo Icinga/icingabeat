@@ -74,6 +74,8 @@ class Test(BaseTest):
             "-e", "-d", "*", "-once",
             "-c", cfgfile,
             "-modules={}".format(module),
+            "-M", "{module}.*.enabled=false".format(module=module),
+            "-M", "{module}.{fileset}.enabled=true".format(module=module, fileset=fileset),
             "-M", "{module}.{fileset}.var.paths=[{test_file}]".format(
                 module=module, fileset=fileset, test_file=test_file),
             "-M", "*.*.prospector.close_eof=true",
@@ -95,14 +97,21 @@ class Test(BaseTest):
         objects = [o["_source"] for o in res["hits"]["hits"]]
         assert len(objects) > 0
         for obj in objects:
-            self.assert_fields_are_documented(obj)
-            # assert "error" not in obj  # no parsing errors
-            assert obj["fileset"]["module"] == module
+            assert obj["fileset"]["module"] == module, "expected fileset.module={} but got {}".format(
+                module, obj["fileset"]["module"])
+
+            if not (module == "mysql" and fileset == "slowlog"):
+                # TODO: There are errors parsing the test logs from these modules.
+                assert "error" not in obj, "not error expected but got: {}".format(obj)
+
+            if module != "auditd" and fileset != "log":
+                # There are dynamic fields in audit logs that are not documented.
+                self.assert_fields_are_documented(obj)
 
         if os.path.exists(test_file + "-expected.json"):
             with open(test_file + "-expected.json", "r") as f:
                 expected = json.load(f)
-                assert len(expected) == len(objects)
+                assert len(expected) == len(objects), "expected {} but got {}".format(len(expected), len(objects))
                 for ev in expected:
                     found = False
                     for obj in objects:
@@ -174,3 +183,49 @@ class Test(BaseTest):
         assert len(objects) == 1
         o = objects[0]
         assert o["x-pipeline"] == "test-pipeline"
+
+    @unittest.skipIf(not INTEGRATION_TESTS or
+                     os.getenv("TESTING_ENVIRONMENT") == "2x",
+                     "integration test not available on 2.x")
+    def test_setup_machine_learning_nginx(self):
+        """
+        Tests that setup works and loads nginx dashboards.
+        """
+        self.init()
+
+        # generate a minimal configuration
+        cfgfile = os.path.join(self.working_dir, "filebeat.yml")
+        self.render_config_template(
+            template="filebeat_modules.yml.j2",
+            output=cfgfile,
+            index_name=self.index_name,
+            elasticsearch_url=self.elasticsearch_url)
+
+        os.mkdir(self.working_dir + "/log/")
+        self.copy_files(["logs/nginx.log"],
+                        source_dir="../files",
+                        target_dir="log")
+
+        cmd = [
+            self.filebeat, "-systemTest",
+            "-e", "-d", "*", "-once",
+            "-c", cfgfile,
+            "-setup", "-modules=nginx",
+            "-E", "dashboards.directory=../../_meta/kibana",
+            "-M", "*.*.prospector.close_eof=true",
+            "-M", "nginx.error.enabled=false",
+            "-M", "nginx.access.var.paths=[{}/log/nginx.log]".format(self.working_dir)]
+
+        output = open(os.path.join(self.working_dir, "output.log"), "ab")
+        output.write(" ".join(cmd) + "\n")
+        subprocess.Popen(cmd,
+                         stdin=None,
+                         stdout=output,
+                         stderr=subprocess.STDOUT,
+                         bufsize=0).wait()
+
+        jobs = self.es.transport.perform_request("GET", "/_xpack/ml/anomaly_detectors/")
+        assert "filebeat-nginx-access-response_code" in (job["job_id"] for job in jobs["jobs"])
+
+        datafeeds = self.es.transport.perform_request("GET", "/_xpack/ml/datafeeds/")
+        assert "filebeat-nginx-access-response_code" in (df["job_id"] for df in datafeeds["datafeeds"])

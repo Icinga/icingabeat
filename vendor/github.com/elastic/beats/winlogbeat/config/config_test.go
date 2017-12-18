@@ -3,6 +3,7 @@
 package config
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -18,7 +19,7 @@ func (v validationTestCase) run(t *testing.T) {
 		assert.NoError(t, v.config.Validate())
 	} else {
 		err := v.config.Validate()
-		if assert.Error(t, err, "expected '%s'", v.errMsg) {
+		if assert.Error(t, err, fmt.Sprintf("expected '%s'", v.errMsg)) {
 			assert.Contains(t, err.Error(), v.errMsg)
 		}
 	}
@@ -73,8 +74,7 @@ func TestConfigValidate(t *testing.T) {
 		},
 		{
 			MetricsConfig{BindAddress: "example.com"},
-			"bind_address must be formatted as host:port but was " +
-				"'example.com' (missing port in address example.com)",
+			"bind_address must be formatted as host:port but was 'example.com'",
 		},
 		{
 			MetricsConfig{BindAddress: ":1"},
@@ -82,8 +82,7 @@ func TestConfigValidate(t *testing.T) {
 		},
 		{
 			MetricsConfig{BindAddress: "example.com:1024f"},
-			"bind_address port value ('1024f') must be a number " +
-				"(strconv.ParseInt: parsing \"1024f\": invalid syntax)",
+			"bind_address port value ('1024f') must be a number",
 		},
 		{
 			MetricsConfig{BindAddress: "example.com:0"},

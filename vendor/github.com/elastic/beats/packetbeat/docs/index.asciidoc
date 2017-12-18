@@ -16,6 +16,7 @@ include::../../libbeat/docs/version.asciidoc[]
 :beatname_lc: packetbeat
 :beatname_uc: Packetbeat
 :security: X-Pack Security
+:dockerimage: docker.elastic.co/beats/{beatname_lc}:{version}
 
 include::./overview.asciidoc[]
 
@@ -28,9 +29,15 @@ include::../../libbeat/docs/shared-directory-layout.asciidoc[]
 
 include::../../libbeat/docs/repositories.asciidoc[]
 
+include::./running-on-docker.asciidoc[]
+
 include::./upgrading.asciidoc[]
 
 include::./configuring-howto.asciidoc[]
+
+include::../../libbeat/docs/shared-env-vars.asciidoc[]
+
+include::./capturing.asciidoc[]
 
 include::./packetbeat-filtering.asciidoc[]
 
@@ -40,9 +47,10 @@ include::./packetbeat-geoip.asciidoc[]
 
 include::./configuring-logstash.asciidoc[]
 
-include::../../libbeat/docs/shared-env-vars.asciidoc[]
+include::./flows.asciidoc[]
 
-include::./capturing.asciidoc[]
+:standalone:
+include::../../libbeat/docs/shared-env-vars.asciidoc[]
 
 include::./thrift.asciidoc[]
 
