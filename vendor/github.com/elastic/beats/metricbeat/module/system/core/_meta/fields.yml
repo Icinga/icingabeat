@@ -2,12 +2,14 @@
   type: group
   description: >
     `system-core` contains CPU metrics for a single core of a multi-core system.
+  release: ga
   fields:
     - name: id
       type: long
       description: >
         CPU Core number.
 
+    # Percentages
     - name: user.pct
       type: scaled_float
       format: percent
@@ -99,4 +101,3 @@
         The amount of CPU time spent in involuntary wait by the virtual CPU while the hypervisor
         was servicing another processor.
         Available only on Unix.
-

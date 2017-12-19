@@ -8,9 +8,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/libbeat/outputs/elasticsearch"
-	"github.com/stretchr/testify/assert"
 )
 
 const sampleJob = `
@@ -48,7 +49,7 @@ const sampleDatafeed = `
       "filebeat-*"
     ],
     "types": [
-      "_default_",
+      "doc",
       "log"
     ],
     "query": {
@@ -87,7 +88,7 @@ const sampleDatafeed = `
 `
 
 func TestImportJobs(t *testing.T) {
-	client := elasticsearch.GetTestingElasticsearch()
+	client := elasticsearch.GetTestingElasticsearch(t)
 
 	if testing.Verbose() {
 		logp.LogInit(logp.LOG_DEBUG, "", false, true, []string{"*"})

@@ -8,9 +8,10 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/paths"
-	"github.com/stretchr/testify/assert"
 )
 
 func load(t *testing.T, from interface{}) *common.Config {
@@ -109,7 +110,6 @@ func TestNewModuleRegistryConfig(t *testing.T) {
 }
 
 func TestApplyOverrides(t *testing.T) {
-
 	falseVar := false
 	trueVar := true
 
@@ -346,7 +346,7 @@ func TestMissingModuleFolder(t *testing.T) {
 		load(t, map[string]interface{}{"module": "nginx"}),
 	}
 
-	reg, err := NewModuleRegistry(configs, "5.2.0")
+	reg, err := NewModuleRegistry(configs, "5.2.0", true)
 	assert.NoError(t, err)
 	assert.NotNil(t, reg)
 

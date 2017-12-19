@@ -1,21 +1,23 @@
 [
     {
-        "_id": "AVlBCaYsqYg9cc5KQfcT",
         "_index": "filebeat-2016.12.27",
+        "_type": "log",
+        "_id": "AVlBCaYsqYg9cc5KQfcT",
         "_score": null,
         "_source": {
             "@timestamp": "2016-12-26T14:16:29.000Z",
+            "offset": 73,
             "apache2": {
                 "access": {
+                    "response_code": "404",
+                    "remote_ip": "::1",
+                    "method": "GET",
+                    "user_name": "-",
+                    "http_version": "1.1",
                     "body_sent": {
                         "bytes": "209"
                     },
-                    "http_version": "1.1",
-                    "method": "GET",
-                    "remote_ip": "::1",
-                    "response_code": "404",
-                    "url": "/favicon.ico",
-                    "user_name": "-"
+                    "url": "/favicon.ico"
                 }
             },
             "beat": {
@@ -23,18 +25,16 @@
                 "name": "192-168-0-7.rdsnet.ro",
                 "version": "6.0.0-alpha1"
             },
+            "read_timestamp": "2016-12-27T15:52:23.304Z",
+            "source": "module/apache2/access/test/test.log",
             "fields": {
                 "pipeline_id": "apache2-access-with_plugins",
                 "source_type": "apache2-access"
             },
-            "offset": 73,
             "prospector": {
                 "type": "log"
-            },
-            "read_timestamp": "2016-12-27T15:52:23.304Z",
-            "source": "module/apache2/access/test/test.log"
+            }
         },
-        "_type": "log",
         "fields": {
             "@timestamp": [
                 1482761789000
@@ -45,33 +45,35 @@
         ]
     },
     {
-        "_id": "AVlBCaYsqYg9cc5KQfcU",
         "_index": "filebeat-2016.12.27",
+        "_type": "log",
+        "_id": "AVlBCaYsqYg9cc5KQfcU",
         "_score": null,
         "_source": {
             "@timestamp": "2016-12-26T16:22:13.000Z",
+            "offset": 238,
             "apache2": {
                 "access": {
+                    "referrer": "-",
+                    "response_code": "404",
+                    "remote_ip": "192.168.33.1",
+                    "method": "GET",
+                    "user_name": "-",
+                    "http_version": "1.1",
                     "body_sent": {
                         "bytes": "499"
                     },
-                    "http_version": "1.1",
-                    "method": "GET",
-                    "referrer": "-",
-                    "remote_ip": "192.168.33.1",
-                    "response_code": "404",
                     "url": "/hello",
                     "user_agent": {
-                        "device": "Other",
                         "major": "50",
                         "minor": "0",
-                        "name": "Firefox",
                         "os": "Mac OS X 10.12",
-                        "os_major": "10",
                         "os_minor": "12",
-                        "os_name": "Mac OS X"
-                    },
-                    "user_name": "-"
+                        "os_major": "10",
+                        "name": "Firefox",
+                        "os_name": "Mac OS X",
+                        "device": "Other"
+                    }
                 }
             },
             "beat": {
@@ -79,18 +81,16 @@
                 "name": "192-168-0-7.rdsnet.ro",
                 "version": "6.0.0-alpha1"
             },
+            "read_timestamp": "2016-12-27T15:52:23.304Z",
+            "source": "module/apache2/access/test/test.log",
             "fields": {
                 "pipeline_id": "apache2-access-with_plugins",
                 "source_type": "apache2-access"
             },
-            "offset": 238,
             "prospector": {
                 "type": "log"
-            },
-            "read_timestamp": "2016-12-27T15:52:23.304Z",
-            "source": "module/apache2/access/test/test.log"
+            }
         },
-        "_type": "log",
         "fields": {
             "@timestamp": [
                 1482769333000
@@ -101,15 +101,17 @@
         ]
     },
     {
-        "_id": "AVlBCaYsqYg9cc5KQfc-",
         "_index": "filebeat-2016.12.27",
+        "_type": "log",
+        "_id": "AVlBCaYsqYg9cc5KQfc-",
         "_score": null,
         "_source": {
             "@timestamp": "2016-12-26T14:16:48.000Z",
+            "offset": 285,
             "apache2": {
                 "access": {
-                    "remote_ip": "::1",
                     "response_code": "408",
+                    "remote_ip": "::1",
                     "user_name": "-"
                 }
             },
@@ -118,18 +120,16 @@
                 "name": "192-168-0-7.rdsnet.ro",
                 "version": "6.0.0-alpha1"
             },
+            "read_timestamp": "2016-12-27T16:04:58.319Z",
+            "source": "module/apache2/access/test/test.log",
             "fields": {
                 "pipeline_id": "apache2-access-with_plugins",
                 "source_type": "apache2-access"
             },
-            "offset": 285,
             "prospector": {
                 "type": "log"
-            },
-            "read_timestamp": "2016-12-27T16:04:58.319Z",
-            "source": "module/apache2/access/test/test.log"
+            }
         },
-        "_type": "log",
         "fields": {
             "@timestamp": [
                 1482761808000

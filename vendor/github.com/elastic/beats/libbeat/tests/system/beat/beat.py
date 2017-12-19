@@ -11,10 +11,17 @@ import time
 import yaml
 from datetime import datetime, timedelta
 
-BEAT_REQUIRED_FIELDS = ["@timestamp", "type",
+from .compose import ComposeMixin
+
+
+BEAT_REQUIRED_FIELDS = ["@timestamp",
                         "beat.name", "beat.hostname", "beat.version"]
 
 INTEGRATION_TESTS = os.environ.get('INTEGRATION_TESTS', False)
+
+
+class TimeoutError(Exception):
+    pass
 
 
 class Proc(object):
@@ -97,24 +104,32 @@ class Proc(object):
             pass
 
 
-class TestCase(unittest.TestCase):
+class TestCase(unittest.TestCase, ComposeMixin):
 
     @classmethod
     def setUpClass(self):
-
-        # Create build path
-        build_dir = "../../build"
-        if 'BUILD_DIR' in os.environ.keys() and os.environ['BUILD_DIR'] != '':
-            build_dir = os.environ['BUILD_DIR']
-        self.build_path = build_dir + "/system-tests/"
 
         # Path to test binary
         if not hasattr(self, 'beat_name'):
             self.beat_name = "beat"
 
-        # Path to test binary
         if not hasattr(self, 'beat_path'):
-            self.beat_path = "../../" + self.beat_name + ".test"
+            self.beat_path = "."
+
+        # Path to test binary
+        if not hasattr(self, 'test_binary'):
+            self.test_binary = os.path.abspath(self.beat_path + "/" + self.beat_name + ".test")
+
+        # Create build path
+        build_dir = self.beat_path + "/build"
+        self.build_path = build_dir + "/system-tests/"
+
+        # Start the containers needed to run these tests
+        self.compose_up()
+
+    @classmethod
+    def tearDownClass(self):
+        self.compose_down()
 
     def run_beat(self,
                  cmd=None,
@@ -150,7 +165,7 @@ class TestCase(unittest.TestCase):
 
         # Init defaults
         if cmd is None:
-            cmd = self.beat_path
+            cmd = self.test_binary
 
         if config is None:
             config = self.beat_name + ".yml"
@@ -162,7 +177,8 @@ class TestCase(unittest.TestCase):
                 "-systemTest",
                 "-test.coverprofile",
                 os.path.join(self.working_dir, "coverage.cov"),
-                "-c", os.path.join(self.working_dir, config)
+                "-path.home", os.path.normpath(self.working_dir),
+                "-c", os.path.join(self.working_dir, config),
                 ]
 
         if logging_args:
@@ -175,22 +191,24 @@ class TestCase(unittest.TestCase):
         proc.start()
         return proc
 
-    def render_config_template(self, template=None,
+    def render_config_template(self, template_name=None,
                                output=None, **kargs):
 
         # Init defaults
-        if template is None:
-            template = self.beat_name + ".yml.j2"
+        if template_name is None:
+            template_name = self.beat_name
+
+        template_path = "./tests/system/config/" + template_name + ".yml.j2"
 
         if output is None:
             output = self.beat_name + ".yml"
 
-        template = self.template_env.get_template(template)
+        template = self.template_env.get_template(template_path)
 
         kargs["beat"] = self
         output_str = template.render(**kargs)
         with open(os.path.join(self.working_dir, output), "wb") as f:
-            f.write(output_str)
+            f.write(output_str.encode('utf8'))
 
     # Returns output as JSON object with flattened fields (. notation)
     def read_output(self,
@@ -209,7 +227,8 @@ class TestCase(unittest.TestCase):
                     break
 
                 try:
-                    jsons.append(self.flatten_object(json.loads(line), []))
+                    jsons.append(self.flatten_object(json.loads(
+                        line, object_pairs_hook=self.json_raise_on_duplicates), []))
                 except:
                     print("Fail to load the json {}".format(line))
                     raise
@@ -231,8 +250,21 @@ class TestCase(unittest.TestCase):
                     # hit EOF
                     break
 
-                jsons.append(json.loads(line))
+                event = json.loads(line, object_pairs_hook=self.json_raise_on_duplicates)
+                del event['@metadata']
+                jsons.append(event)
         return jsons
+
+    def json_raise_on_duplicates(self, ordered_pairs):
+        """Reject duplicate keys. To be used as a custom hook in JSON unmarshaling
+           to error out in case of any duplicates in the keys."""
+        d = {}
+        for k, v in ordered_pairs:
+            if k in d:
+                raise ValueError("duplicate key: %r" % (k,))
+            else:
+                d[k] = v
+        return d
 
     def copy_files(self, files, source_dir="files/"):
         for file_ in files:
@@ -242,7 +274,7 @@ class TestCase(unittest.TestCase):
     def setUp(self):
 
         self.template_env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader("config")
+            loader=jinja2.FileSystemLoader(self.beat_path)
         )
 
         # create working dir
@@ -251,6 +283,11 @@ class TestCase(unittest.TestCase):
         if os.path.exists(self.working_dir):
             shutil.rmtree(self.working_dir)
         os.makedirs(self.working_dir)
+
+        fields_yml = os.path.join(self.beat_path, "fields.yml")
+        # Only add it if it exists
+        if os.path.isfile(fields_yml):
+            shutil.copyfile(fields_yml, os.path.join(self.working_dir, "fields.yml"))
 
         try:
             # update the last_run link
@@ -275,9 +312,8 @@ class TestCase(unittest.TestCase):
         start = datetime.now()
         while not cond():
             if datetime.now() - start > timedelta(seconds=max_timeout):
-                raise Exception("Timeout waiting for '{}' to be true. "
-                                .format(name) +
-                                "Waited {} seconds.".format(max_timeout))
+                raise TimeoutError("Timeout waiting for '{}' to be true. ".format(name) +
+                                   "Waited {} seconds.".format(max_timeout))
             time.sleep(poll_interval)
 
     def get_log(self, logfile=None):
@@ -291,6 +327,15 @@ class TestCase(unittest.TestCase):
             data = f.read()
 
         return data
+
+    def wait_log_contains(self, msg, logfile=None,
+                          max_timeout=10, poll_interval=0.1,
+                          name="log_contains"):
+        self.wait_until(
+            cond=lambda: self.log_contains(msg, logfile),
+            max_timeout=max_timeout,
+            poll_interval=poll_interval,
+            name=name)
 
     def log_contains(self, msg, logfile=None):
         """
@@ -347,6 +392,16 @@ class TestCase(unittest.TestCase):
         except IOError:
             return False
 
+    def output_has_message(self, message, output_file=None):
+        """
+        Returns true if the output has the given message field.
+        """
+        try:
+            return any(line for line in self.read_output(output_file=output_file, required_fields=["message"])
+                       if line.get("message") == message)
+        except (IOError, TypeError):
+            return False
+
     def all_have_fields(self, objs, fields):
         """
         Checks that the given list of output objects have
@@ -375,11 +430,13 @@ class TestCase(unittest.TestCase):
         """
         for o in objs:
             for key in o.keys():
-                if key not in dict_fields and key not in expected_fields:
+                known = key in dict_fields or key in expected_fields
+                ismeta = key.startswith('@metadata.')
+                if not(known or ismeta):
                     raise Exception("Unexpected key '{}' found"
                                     .format(key))
 
-    def load_fields(self, fields_doc="../../_meta/fields.generated.yml"):
+    def load_fields(self, fields_doc=None):
         """
         Returns a list of fields to expect in the output dictionaries
         and a second list that contains the fields that have a
@@ -387,14 +444,22 @@ class TestCase(unittest.TestCase):
 
         Reads these lists from the fields documentation.
         """
+
+        if fields_doc is None:
+            fields_doc = self.beat_path + "/_meta/fields.generated.yml"
+
         def extract_fields(doc_list, name):
             fields = []
             dictfields = []
 
-            if not doc_list:
+            if doc_list is None:
                 return fields, dictfields
 
             for field in doc_list:
+
+                # Skip fields without name entry
+                if "name" not in field:
+                    continue
 
                 # Chain together names
                 if name != "":
@@ -408,18 +473,20 @@ class TestCase(unittest.TestCase):
                     dictfields.extend(subdictfields)
                 else:
                     fields.append(newName)
-                    if field.get("type") in ["dict", "geo_point"]:
+                    if field.get("type") in ["object", "geo_point"]:
                         dictfields.append(newName)
             return fields, dictfields
 
         # Not all beats have a fields.generated.yml. Fall back to fields.yml
         if not os.path.isfile(fields_doc):
-            fields_doc = "../../_meta/fields.yml"
+            fields_doc = self.beat_path + "/_meta/fields.yml"
 
         # TODO: Make fields_doc path more generic to work with beat-generator
         with open(fields_doc, "r") as f:
-            # TODO: Make this path more generic to work with beat-generator.
-            with open("../../../libbeat/_meta/fields.common.yml") as f2:
+            path = os.path.abspath(os.path.dirname(__file__) + "../../../../_meta/fields.generated.yml")
+            if not os.path.isfile(path):
+                path = os.path.abspath(os.path.dirname(__file__) + "../../../../_meta/fields.common.yml")
+            with open(path) as f2:
                 content = f2.read()
 
             #content = "fields:\n"
@@ -429,7 +496,7 @@ class TestCase(unittest.TestCase):
             fields = []
             dictfields = []
 
-            for item in doc["fields"]:
+            for item in doc:
                 subfields, subdictfields = extract_fields(item["fields"], "")
                 fields.extend(subfields)
                 dictfields.extend(subdictfields)
@@ -478,4 +545,13 @@ class TestCase(unittest.TestCase):
         return "http://{host}:{port}".format(
             host=os.getenv("ES_HOST", "localhost"),
             port=os.getenv("ES_PORT", "9200"),
+        )
+
+    def get_kibana_url(self):
+        """
+        Returns kibana host URL
+        """
+        return "http://{host}:{port}".format(
+            host=os.getenv("KIBANA_HOST", "localhost"),
+            port=os.getenv("KIBANA_PORT", "5601"),
         )

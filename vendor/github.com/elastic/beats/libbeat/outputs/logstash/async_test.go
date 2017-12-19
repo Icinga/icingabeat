@@ -3,100 +3,52 @@
 package logstash
 
 import (
-	"fmt"
 	"sync"
 	"testing"
 	"time"
 
-	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/outputs"
-	"github.com/elastic/beats/libbeat/outputs/mode"
+	"github.com/elastic/beats/libbeat/outputs/outest"
 	"github.com/elastic/beats/libbeat/outputs/transport"
 )
 
 type testAsyncDriver struct {
-	client  mode.AsyncProtocolClient
+	client  outputs.NetworkClient
 	ch      chan testDriverCommand
 	returns []testClientReturn
 	wg      sync.WaitGroup
 }
 
-func TestAsync(t *testing.T) {
-	tests := []struct {
-		name   string
-		runner func(*testing.T, clientFactory)
-	}{
-		{"sendZero", testSendZero},
-		{"simpleEvent", testSimpleEvent},
-		{"structuredEvent", testStructuredEvent},
-		{"multiFailMaxTimeouts", testMultiFailMaxTimeouts},
-	}
-
-	settings := []map[string]interface{}{
-		nil,
-		map[string]interface{}{
-			"slow_start": false,
-		},
-		map[string]interface{}{
-			"slow_start": true,
-		},
-		map[string]interface{}{
-			"slow_start":    true,
-			"pipelining":    5,
-			"bulk_max_size": 8,
-		},
-	}
-
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			for _, s := range settings {
-				s := s
-				t.Run(fmt.Sprintf("%v", s), func(t *testing.T) {
-					test.runner(t, makeAsyncTestClient(s))
-				})
-			}
-		})
-	}
+func TestAsyncSendZero(t *testing.T) {
+	testSendZero(t, makeAsyncTestClient)
 }
 
-func makeAsyncTestClient(settings map[string]interface{}) func(*transport.Client, string) testClientDriver {
-	return func(conn *transport.Client, host string) testClientDriver {
-		return newAsyncTestDriver(newAsyncTestClient(conn, host, settings))
-	}
+func TestAsyncSimpleEvent(t *testing.T) {
+	testSimpleEvent(t, makeAsyncTestClient)
 }
 
-func newAsyncTestClient(conn *transport.Client, host string, settings map[string]interface{}) *asyncClient {
-	config, err := common.NewConfigFrom(settings)
+func TestAsyncStructuredEvent(t *testing.T) {
+	testStructuredEvent(t, makeAsyncTestClient)
+}
+
+func makeAsyncTestClient(conn *transport.Client) testClientDriver {
+	config := defaultConfig
+	config.Timeout = 1 * time.Second
+	config.Pipelining = 3
+	client, err := newAsyncClient(beat.Info{}, conn, outputs.NewNilObserver(), &config)
 	if err != nil {
 		panic(err)
 	}
-
-	lsCfg := defaultConfig
-	lsCfg.Index = "testbeat"
-	lsCfg.BulkMaxSize = testMaxWindowSize
-	lsCfg.Timeout = 100 * time.Millisecond
-	lsCfg.Pipelining = 2
-	lsCfg.SlowStart = true
-	if err := config.Unpack(&lsCfg); err != nil {
-		panic(err)
-	}
-
-	c, err := newAsyncLumberjackClient(conn, host, &lsCfg)
-	if err != nil {
-		panic(err)
-	}
-	c.Connect(100 * time.Millisecond)
-	return c
+	return newAsyncTestDriver(client)
 }
 
-func newAsyncTestDriver(client mode.AsyncProtocolClient) *testAsyncDriver {
+func newAsyncTestDriver(client outputs.NetworkClient) *testAsyncDriver {
 	driver := &testAsyncDriver{
 		client:  client,
 		ch:      make(chan testDriverCommand, 1),
 		returns: nil,
 	}
-
-	resp := make(chan testClientReturn, 1)
 
 	driver.wg.Add(1)
 	go func() {
@@ -112,23 +64,12 @@ func newAsyncTestDriver(client mode.AsyncProtocolClient) *testAsyncDriver {
 			case driverCmdQuit:
 				return
 			case driverCmdConnect:
-				driver.client.Connect(1 * time.Second)
+				driver.client.Connect()
 			case driverCmdClose:
 				driver.client.Close()
 			case driverCmdPublish:
-				cb := func(data []outputs.Data, err error) {
-					n := len(cmd.data) - len(data)
-					ret := testClientReturn{n, err}
-					resp <- ret
-				}
-
-				err := driver.client.AsyncPublishEvents(cb, cmd.data)
-				if err != nil {
-					driver.returns = append(driver.returns, testClientReturn{0, err})
-				} else {
-					r := <-resp
-					driver.returns = append(driver.returns, r)
-				}
+				err := driver.client.Publish(cmd.batch)
+				driver.returns = append(driver.returns, testClientReturn{cmd.batch, err})
 			}
 		}
 	}()
@@ -154,8 +95,8 @@ func (t *testAsyncDriver) Stop() {
 	}
 }
 
-func (t *testAsyncDriver) Publish(data []outputs.Data) {
-	t.ch <- testDriverCommand{code: driverCmdPublish, data: data}
+func (t *testAsyncDriver) Publish(batch *outest.Batch) {
+	t.ch <- testDriverCommand{code: driverCmdPublish, batch: batch}
 }
 
 func (t *testAsyncDriver) Returns() []testClientReturn {

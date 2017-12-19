@@ -38,7 +38,7 @@ PR.
 def main():
     """Main"""
     parser = argparse.ArgumentParser(
-        description="Creates a PR for merging two branches",
+        description="Creates a PR for cherry-picking commits",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=usage)
     parser.add_argument("to_branch",
@@ -47,7 +47,7 @@ def main():
                         help="The PR number being merged (e.g. 2345)")
     parser.add_argument("commit_hashes", metavar="hash", nargs="+",
                         help="The commit hashes to cherry pick." +
-                             " You can specify multiple.")
+                        " You can specify multiple.")
     parser.add_argument("--yes", action="store_true",
                         help="Assume yes. Warning: discards local changes.")
     parser.add_argument("--continue", action="store_true",
@@ -56,7 +56,7 @@ def main():
                         help="From branch")
     parser.add_argument("--create_pr", action="store_true",
                         help="Create a PR using the Github API " +
-                             "(requires token in ~/.elastic/github.token)")
+                        "(requires token in ~/.elastic/github.token)")
     args = parser.parse_args()
 
     print(args)
@@ -65,7 +65,7 @@ def main():
 
     if not vars(args)["continue"]:
         if not args.yes and raw_input("This will destroy all local changes. " +
-                                              "Continue? [y/n]: ") != "y":
+                                      "Continue? [y/n]: ") != "y":
             return 1
         check_call("git reset --hard", shell=True)
         check_call("git clean -df", shell=True)
@@ -126,7 +126,7 @@ def main():
             head=remote_user + ":" + tmp_branch,
             base=args.to_branch,
             body="Cherry-pick of PR #{} to {} branch. Original message: \n\n{}"
-                .format(args.pr_number, args.to_branch, original_pr["body"])
+            .format(args.pr_number, args.to_branch, original_pr["body"])
         ))
         if request.status_code > 299:
             print("Creating PR failed: {}".format(request.json()))

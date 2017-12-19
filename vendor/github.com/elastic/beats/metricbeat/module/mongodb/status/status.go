@@ -2,6 +2,7 @@ package status
 
 import (
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/common/cfgwarn"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/metricbeat/mb"
 	"github.com/elastic/beats/metricbeat/module/mongodb"
@@ -30,28 +31,25 @@ func init() {
 // multiple fetch calls.
 type MetricSet struct {
 	mb.BaseMetricSet
-	mongoSession *mgo.Session
+	dialInfo *mgo.DialInfo
 }
 
 // New creates a new instance of the MetricSet
 // Part of new is also setting up the configuration by processing additional
 // configuration entries if needed.
 func New(base mb.BaseMetricSet) (mb.MetricSet, error) {
+
+	cfgwarn.Beta("The %v %v metricset is Beta", base.Module().Name(), base.Name())
+
 	dialInfo, err := mgo.ParseURL(base.HostData().URI)
 	if err != nil {
 		return nil, err
 	}
 	dialInfo.Timeout = base.Module().Config().Timeout
 
-	// instantiate direct connections to Mongo host
-	mongoSession, err := mongodb.NewDirectSession(dialInfo)
-	if err != nil {
-		return nil, err
-	}
-
 	return &MetricSet{
 		BaseMetricSet: base,
-		mongoSession:  mongoSession,
+		dialInfo:      dialInfo,
 	}, nil
 }
 
@@ -59,10 +57,19 @@ func New(base mb.BaseMetricSet) (mb.MetricSet, error) {
 // It returns the event which is then forward to the output. In case of an error, a
 // descriptive error must be returned.
 func (m *MetricSet) Fetch() (common.MapStr, error) {
+
+	// instantiate direct connections to each of the configured Mongo hosts
+	mongoSession, err := mongodb.NewDirectSession(m.dialInfo)
+	if err != nil {
+		return nil, err
+	}
+	defer mongoSession.Close()
+
 	result := map[string]interface{}{}
-	if err := m.mongoSession.DB("admin").Run(bson.D{{"serverStatus", 1}}, &result); err != nil {
+	if err := mongoSession.DB("admin").Run(bson.D{{Name: "serverStatus", Value: 1}}, &result); err != nil {
 		return nil, err
 	}
 
-	return eventMapping(result), nil
+	data, _ := schema.Apply(result)
+	return data, nil
 }

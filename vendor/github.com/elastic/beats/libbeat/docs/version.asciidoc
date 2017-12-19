@@ -1,4 +1,7 @@
-:stack-version: 5.6.5
-:doc-branch: 5.6
-:go-version: 1.7.6
+:stack-version: 6.1.1
+:doc-branch: master
+:go-version: 1.9.2
 :release-state: released
+:python: 2.7.9
+:docker: 1.12
+:docker-compose: 1.11

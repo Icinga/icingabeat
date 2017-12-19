@@ -27,6 +27,7 @@ type Logging struct {
 	Files     *FileRotator
 	ToSyslog  *bool `config:"to_syslog"`
 	ToFiles   *bool `config:"to_files"`
+	JSON      bool  `config:"json"`
 	Level     string
 	Metrics   LoggingMetricsConfig `config:"metrics"`
 }
@@ -41,13 +42,10 @@ var (
 )
 
 func init() {
-	startTime = time.Now()
-
 	// Adds logging specific flags: -v, -e and -d.
 	verbose = flag.Bool("v", false, "Log at INFO level")
 	toStderr = flag.Bool("e", false, "Log to stderr and disable syslog/file output")
 	debugSelectorsStr = flag.String("d", "", "Enable certain debug selectors")
-
 }
 
 func HandleFlags(name string) error {
@@ -78,9 +76,11 @@ func HandleFlags(name string) error {
 // flags to initialize the Logging systems. After calling this function,
 // standard output is always enabled. You can make it respect the command
 // line flag with a later SetStderr call.
-func Init(name string, config *Logging) error {
+func Init(name string, start time.Time, config *Logging) error {
 	// reset settings from HandleFlags
-	_log = Logger{}
+	_log = logger{
+		JSON: config.JSON,
+	}
 
 	logLevel, err := getLogLevel(config)
 	if err != nil {
@@ -125,6 +125,8 @@ func Init(name string, config *Logging) error {
 		toFiles = false
 	}
 
+	startTime = start
+
 	LogInit(Priority(logLevel), "", toSyslog, true, debugSelectors)
 	if len(debugSelectors) > 0 {
 		config.Selectors = debugSelectors
@@ -157,6 +159,9 @@ func Init(name string, config *Logging) error {
 		// used by libraries and we don't want their logs to spam ours)
 		log.SetOutput(ioutil.Discard)
 	}
+
+	// Disable stderr logging if requested by cmdline flag
+	SetStderr()
 
 	go logMetrics(&config.Metrics)
 

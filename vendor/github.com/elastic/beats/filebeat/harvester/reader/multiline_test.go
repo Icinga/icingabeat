@@ -10,9 +10,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/beats/filebeat/harvester/encoding"
 	"github.com/elastic/beats/libbeat/common/match"
-	"github.com/stretchr/testify/assert"
 )
 
 type bufferSource struct{ buf *bytes.Buffer }
@@ -80,6 +81,42 @@ func TestMultilineBeforeNegateOK(t *testing.T) {
 	)
 }
 
+func TestMultilineAfterNegateOKFlushPattern(t *testing.T) {
+	flushMatcher := match.MustCompile(`EventEnd`)
+	pattern := match.MustCompile(`EventStart`)
+
+	testMultilineOK(t,
+		MultilineConfig{
+			Pattern:      &pattern,
+			Negate:       true,
+			Match:        "after",
+			FlushPattern: &flushMatcher,
+		},
+		3,
+		"EventStart\nEventId: 1\nEventEnd\n",
+		"OtherThingInBetween\n", // this should be a separate event..
+		"EventStart\nEventId: 2\nEventEnd\n",
+	)
+}
+
+func TestMultilineAfterNegateOKFlushPatternWhereTheFirstLinesDosentMatchTheStartPattern(t *testing.T) {
+	flushMatcher := match.MustCompile(`EventEnd`)
+	pattern := match.MustCompile(`EventStart`)
+
+	testMultilineOK(t,
+		MultilineConfig{
+			Pattern:      &pattern,
+			Negate:       true,
+			Match:        "after",
+			FlushPattern: &flushMatcher,
+		},
+		3, //first two non-matching lines, will be merged to one event
+		"StartLineThatDosentMatchTheEvent\nOtherThingInBetween\n",
+		"EventStart\nEventId: 2\nEventEnd\n",
+		"EventStart\nEventId: 3\nEventEnd\n",
+	)
+}
+
 func TestMultilineBeforeNegateOKWithEmptyLine(t *testing.T) {
 	pattern := match.MustCompile(`;$`) // last line ends with ';'
 	testMultilineOK(t,
@@ -104,6 +141,7 @@ func testMultilineOK(t *testing.T, cfg MultilineConfig, events int, expected ...
 		if err != nil {
 			break
 		}
+
 		messages = append(messages, message)
 	}
 

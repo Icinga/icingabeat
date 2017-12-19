@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/libbeat/outputs"
 	"github.com/elastic/beats/libbeat/outputs/transport"
 )
@@ -30,7 +31,6 @@ type Client struct {
 }
 
 func addToURL(_url, _path string, params url.Values) string {
-
 	if len(params) == 0 {
 		return _url + _path
 	}
@@ -65,6 +65,8 @@ func NewKibanaClient(cfg *common.Config) (*Client, error) {
 		// Re-write URL without credentials.
 		kibanaURL = u.String()
 	}
+
+	logp.Info("Kibana url: %s", kibanaURL)
 
 	var dialer, tlsDialer transport.Dialer
 
@@ -154,6 +156,7 @@ func (client *Client) SetVersion() error {
 		Name    string `json:"name"`
 		Version string `json:"version"`
 	}
+
 	_, result, err := client.Connection.Request("GET", "/api/status", nil, nil)
 	if err != nil {
 		return fmt.Errorf("HTTP GET request to /api/status fails: %v. Response: %s.",
@@ -175,14 +178,17 @@ func (client *Client) SetVersion() error {
 		}
 		client.version = kibanaVersion5x.Version
 
+		return fmt.Errorf("fail to unmarshal the response from GET %s/api/status: %v. Response: %s",
+			client.Connection.URL, err, truncateString(result))
+
 	} else {
+
 		client.version = kibanaVersion.Version.Number
 
 		if kibanaVersion.Version.Snapshot {
 			// needed for the tests
 			client.version = client.version + "-SNAPSHOT"
 		}
-
 	}
 
 	return nil
@@ -190,8 +196,15 @@ func (client *Client) SetVersion() error {
 
 func (client *Client) GetVersion() string { return client.version }
 
-func (client *Client) ImportJSON(url string, params url.Values, body io.Reader) error {
-	statusCode, response, err := client.Connection.Request("POST", url, params, body)
+func (client *Client) ImportJSON(url string, params url.Values, jsonBody map[string]interface{}) error {
+
+	body, err := json.Marshal(jsonBody)
+	if err != nil {
+		logp.Err("Failed to json encode body (%v): %#v", err, jsonBody)
+		return fmt.Errorf("fail to marshal the json content: %v", err)
+	}
+
+	statusCode, response, err := client.Connection.Request("POST", url, params, bytes.NewBuffer(body))
 	if err != nil {
 		return fmt.Errorf("%v. Response: %s", err, truncateString(response))
 	}

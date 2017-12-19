@@ -1,6 +1,7 @@
 import os
 import platform
 import sys
+import yaml
 
 if sys.platform.startswith("win"):
     import win32api
@@ -9,7 +10,8 @@ if sys.platform.startswith("win"):
     import win32security
     import win32evtlogutil
 
-sys.path.append('../../../libbeat/tests/system')
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../../libbeat/tests/system'))
+
 from beat.beat import TestCase
 
 
@@ -18,6 +20,7 @@ class BaseTest(TestCase):
     @classmethod
     def setUpClass(self):
         self.beat_name = "winlogbeat"
+        self.beat_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
         super(BaseTest, self).setUpClass()
 
 
@@ -92,6 +95,22 @@ class WriteReadTest(BaseTest):
         proc.check_kill_and_wait()
 
         return self.read_output()
+
+    def read_registry(self):
+        f = open(os.path.join(self.working_dir, "data", ".winlogbeat.yml"), "r")
+        data = yaml.load(f)
+        self.assertIn("update_time", data)
+        self.assertIn("event_logs", data)
+
+        event_logs = {}
+        for event_log in data["event_logs"]:
+            self.assertIn("name", event_log)
+            self.assertIn("record_number", event_log)
+            self.assertIn("timestamp", event_log)
+            name = event_log["name"]
+            event_logs[name] = event_log
+
+        return event_logs
 
     def assert_common_fields(self, evt, msg=None, eventID=10, sid=None,
                              level="Information", extra=None):

@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"runtime"
+
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/metricbeat/module/system"
 	sigar "github.com/elastic/gosigar"
@@ -20,6 +22,7 @@ type FileSystemStat struct {
 	DevName     string  `json:"device_name"`
 	Mount       string  `json:"mount_point"`
 	UsedPercent float64 `json:"used_p"`
+	SysTypeName string  `json:"type"`
 	ctime       time.Time
 }
 
@@ -50,10 +53,18 @@ func GetFileSystemStat(fs sigar.FileSystem) (*FileSystemStat, error) {
 		return nil, err
 	}
 
+	var t string
+	if runtime.GOOS == "windows" {
+		t = fs.TypeName
+	} else {
+		t = fs.SysTypeName
+	}
+
 	filesystem := FileSystemStat{
 		FileSystemUsage: stat,
 		DevName:         fs.DevName,
 		Mount:           fs.DirName,
+		SysTypeName:     t,
 	}
 
 	return &filesystem, nil
@@ -65,11 +76,12 @@ func AddFileSystemUsedPercentage(f *FileSystemStat) {
 	}
 
 	perc := float64(f.Used) / float64(f.Total)
-	f.UsedPercent = system.Round(perc, .5, 4)
+	f.UsedPercent = system.Round(perc)
 }
 
 func GetFilesystemEvent(fsStat *FileSystemStat) common.MapStr {
 	return common.MapStr{
+		"type":        fsStat.SysTypeName,
 		"device_name": fsStat.DevName,
 		"mount_point": fsStat.Mount,
 		"total":       fsStat.Total,

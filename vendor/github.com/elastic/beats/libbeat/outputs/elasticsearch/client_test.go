@@ -10,12 +10,15 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
+	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/common/fmtstr"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/elastic/beats/libbeat/outputs"
+	"github.com/elastic/beats/libbeat/outputs/outest"
 	"github.com/elastic/beats/libbeat/outputs/outil"
-	"github.com/stretchr/testify/assert"
+	"github.com/elastic/beats/libbeat/publisher"
 )
 
 func readStatusItem(in []byte) (int, string, error) {
@@ -75,9 +78,9 @@ func TestCollectPublishFailsNone(t *testing.T) {
 	response := []byte(`{"items": [` + strings.Repeat(item, N) + `]}`)
 
 	event := common.MapStr{"field": 1}
-	events := make([]outputs.Data, N)
+	events := make([]publisher.Event, N)
 	for i := 0; i < N; i++ {
-		events[i] = outputs.Data{Event: event}
+		events[i] = publisher.Event{Content: beat.Event{Fields: event}}
 	}
 
 	reader := newJSONReader(response)
@@ -94,9 +97,9 @@ func TestCollectPublishFailMiddle(t *testing.T) {
     ]}
   `)
 
-	event := outputs.Data{Event: common.MapStr{"field": 1}}
-	eventFail := outputs.Data{Event: common.MapStr{"field": 2}}
-	events := []outputs.Data{event, eventFail, event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 1}}}
+	eventFail := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 2}}}
+	events := []publisher.Event{event, eventFail, event}
 
 	reader := newJSONReader(response)
 	res := bulkCollectPublishFails(reader, events)
@@ -115,8 +118,8 @@ func TestCollectPublishFailAll(t *testing.T) {
     ]}
   `)
 
-	event := outputs.Data{Event: common.MapStr{"field": 2}}
-	events := []outputs.Data{event, event, event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 2}}}
+	events := []publisher.Event{event, event, event}
 
 	reader := newJSONReader(response)
 	res := bulkCollectPublishFails(reader, events)
@@ -158,8 +161,8 @@ func TestCollectPipelinePublishFail(t *testing.T) {
       ]
     }`)
 
-	event := outputs.Data{Event: common.MapStr{"field": 2}}
-	events := []outputs.Data{event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 2}}}
+	events := []publisher.Event{event}
 
 	reader := newJSONReader(response)
 	res := bulkCollectPublishFails(reader, events)
@@ -168,34 +171,28 @@ func TestCollectPipelinePublishFail(t *testing.T) {
 }
 
 func TestGetIndexStandard(t *testing.T) {
-
-	time := time.Now().UTC()
-	extension := fmt.Sprintf("%d.%02d.%02d", time.Year(), time.Month(), time.Day())
-
-	event := common.MapStr{
-		"@timestamp": common.Time(time),
-		"field":      1,
-	}
+	ts := time.Now().UTC()
+	extension := fmt.Sprintf("%d.%02d.%02d", ts.Year(), ts.Month(), ts.Day())
+	fields := common.MapStr{"field": 1}
 
 	pattern := "beatname-%{+yyyy.MM.dd}"
 	fmtstr := fmtstr.MustCompileEvent(pattern)
 	indexSel := outil.MakeSelector(outil.FmtSelectorExpr(fmtstr, ""))
 
+	event := &beat.Event{Timestamp: ts, Fields: fields}
 	index := getIndex(event, indexSel)
 	assert.Equal(t, index, "beatname-"+extension)
 }
 
 func TestGetIndexOverwrite(t *testing.T) {
-
 	time := time.Now().UTC()
 	extension := fmt.Sprintf("%d.%02d.%02d", time.Year(), time.Month(), time.Day())
 
-	event := common.MapStr{
+	fields := common.MapStr{
 		"@timestamp": common.Time(time),
 		"field":      1,
 		"beat": common.MapStr{
-			"name":  "testbeat",
-			"index": "dynamicindex",
+			"name": "testbeat",
 		},
 	}
 
@@ -203,8 +200,15 @@ func TestGetIndexOverwrite(t *testing.T) {
 	fmtstr := fmtstr.MustCompileEvent(pattern)
 	indexSel := outil.MakeSelector(outil.FmtSelectorExpr(fmtstr, ""))
 
+	event := &beat.Event{
+		Timestamp: time,
+		Meta: map[string]interface{}{
+			"index": "dynamicindex",
+		},
+		Fields: fields}
 	index := getIndex(event, indexSel)
-	assert.Equal(t, index, "dynamicindex-"+extension)
+	expected := "dynamicindex-" + extension
+	assert.Equal(t, expected, index)
 }
 
 func BenchmarkCollectPublishFailsNone(b *testing.B) {
@@ -216,8 +220,8 @@ func BenchmarkCollectPublishFailsNone(b *testing.B) {
     ]}
   `)
 
-	event := outputs.Data{Event: common.MapStr{"field": 1}}
-	events := []outputs.Data{event, event, event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 1}}}
+	events := []publisher.Event{event, event, event}
 
 	reader := newJSONReader(nil)
 	for i := 0; i < b.N; i++ {
@@ -238,9 +242,9 @@ func BenchmarkCollectPublishFailMiddle(b *testing.B) {
     ]}
   `)
 
-	event := outputs.Data{Event: common.MapStr{"field": 1}}
-	eventFail := outputs.Data{Event: common.MapStr{"field": 2}}
-	events := []outputs.Data{event, eventFail, event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 1}}}
+	eventFail := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 2}}}
+	events := []publisher.Event{event, eventFail, event}
 
 	reader := newJSONReader(nil)
 	for i := 0; i < b.N; i++ {
@@ -261,8 +265,8 @@ func BenchmarkCollectPublishFailAll(b *testing.B) {
     ]}
   `)
 
-	event := outputs.Data{Event: common.MapStr{"field": 2}}
-	events := []outputs.Data{event, event, event}
+	event := publisher.Event{Content: beat.Event{Fields: common.MapStr{"field": 2}}}
+	events := []publisher.Event{event, event, event}
 
 	reader := newJSONReader(nil)
 	for i := 0; i < b.N; i++ {
@@ -279,8 +283,12 @@ func TestClientWithHeaders(t *testing.T) {
 	// start a mock HTTP server
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		assert.Equal(t, "testing value", r.Header.Get("X-Test"))
-		requestCount += 1
+		// from the documentation: https://golang.org/pkg/net/http/
+		// For incoming requests, the Host header is promoted to the
+		// Request.Host field and removed from the Header map.
+		assert.Equal(t, "myhost.local", r.Host)
 		fmt.Fprintln(w, "Hello, client")
+		requestCount++
 	}))
 	defer ts.Close()
 
@@ -288,23 +296,71 @@ func TestClientWithHeaders(t *testing.T) {
 		URL:   ts.URL,
 		Index: outil.MakeSelector(outil.ConstSelectorExpr("test")),
 		Headers: map[string]string{
+			"host":   "myhost.local",
 			"X-Test": "testing value",
 		},
 	}, nil)
 	assert.NoError(t, err)
 
 	// simple ping
-	client.Ping(1 * time.Second)
+	client.Ping()
 	assert.Equal(t, 1, requestCount)
 
 	// bulk request
-	event := outputs.Data{Event: common.MapStr{
+	event := beat.Event{Fields: common.MapStr{
 		"@timestamp": common.Time(time.Now()),
 		"type":       "libbeat",
 		"message":    "Test message from libbeat",
 	}}
-	events := []outputs.Data{event, event, event}
-	_, err = client.PublishEvents(events)
+
+	batch := outest.NewBatch(event, event, event)
+	err = client.Publish(batch)
 	assert.NoError(t, err)
 	assert.Equal(t, 2, requestCount)
+}
+
+func TestAddToURL(t *testing.T) {
+	type Test struct {
+		url      string
+		path     string
+		pipeline string
+		params   map[string]string
+		expected string
+	}
+	tests := []Test{
+		{
+			url:      "localhost:9200",
+			path:     "/path",
+			pipeline: "",
+			params:   make(map[string]string),
+			expected: "localhost:9200/path",
+		},
+		{
+			url:      "localhost:9200/",
+			path:     "/path",
+			pipeline: "",
+			params:   make(map[string]string),
+			expected: "localhost:9200/path",
+		},
+		{
+			url:      "localhost:9200",
+			path:     "/path",
+			pipeline: "pipeline_1",
+			params:   make(map[string]string),
+			expected: "localhost:9200/path?pipeline=pipeline_1",
+		},
+		{
+			url:      "localhost:9200/",
+			path:     "/path",
+			pipeline: "",
+			params: map[string]string{
+				"param": "value",
+			},
+			expected: "localhost:9200/path?param=value",
+		},
+	}
+	for _, test := range tests {
+		url := addToURL(test.url, test.path, test.pipeline, test.params)
+		assert.Equal(t, url, test.expected)
+	}
 }

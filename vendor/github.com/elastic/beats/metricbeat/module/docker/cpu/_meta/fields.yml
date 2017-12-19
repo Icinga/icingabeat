@@ -2,6 +2,7 @@
   type: group
   description: >
     Runtime CPU metrics.
+  release: beta
   fields:
     - name: kernel.pct
       type: scaled_float
@@ -35,6 +36,6 @@
         Total CPU usage.
     # TODO: how to document cpu list?
     #- name: core
-    #  type: list
+    #  type: array
     #  description: >
     #    Dictionary with list of cpu and usage inside.

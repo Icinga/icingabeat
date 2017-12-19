@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 from filebeat import BaseTest
 import os
 import time
+import unittest
 
 from beat.beat import Proc
 
@@ -79,7 +82,7 @@ class Test(BaseTest):
         Test stdin input. Checks if reading is continued after the first read.
         """
         self.render_config_template(
-            input_type="stdin"
+            type="stdin"
         )
 
         proc = self.start_beat()
@@ -115,11 +118,11 @@ class Test(BaseTest):
         Test that Filebeat works when stdin is closed.
         """
         self.render_config_template(
-            input_type="stdin",
+            type="stdin",
             close_eof="true",
         )
 
-        args = [self.beat_path,
+        args = [self.test_binary,
                 "-systemTest",
                 "-test.coverprofile",
                 os.path.join(self.working_dir, "coverage.cov"),
@@ -277,7 +280,8 @@ class Test(BaseTest):
         filebeat = self.start_beat()
 
         self.wait_until(
-            lambda: self.log_contains("No modules or prospectors enabled"),
+            lambda: self.log_contains(
+                "No modules or prospectors enabled"),
             max_timeout=10)
 
         filebeat.check_wait(exit_code=1)
@@ -317,10 +321,9 @@ class Test(BaseTest):
 
         filebeat = self.start_beat()
 
-        # wait until events are sent for the first time
+        # wait until first 3 scans
         self.wait_until(
-            lambda: self.log_contains(
-                "Events flushed"),
+            lambda: self.log_contains_count("Start next scan") > 3,
             max_timeout=10)
 
         testfile = self.working_dir + "/log/test.log"
@@ -609,21 +612,125 @@ class Test(BaseTest):
 
         # check that not all harvesters were started
         self.wait_until(
-            lambda: self.log_contains("Harvester limit reached"),
-            max_timeout=10)
+            lambda: self.log_contains("Harvester limit reached"))
 
-        # wait for registry to be written
-        self.wait_until(
-            lambda: self.log_contains_count("Registry file updated") > 1,
-            max_timeout=10)
+        self.wait_until(lambda: self.output_lines() > 0)
 
         # Make sure not all events were written so far
         data = self.read_output()
         assert len(data) < 3
 
-        self.wait_until(lambda: self.output_has(lines=3), max_timeout=15)
+        self.wait_until(lambda: self.output_has(lines=3))
 
         data = self.read_output()
         assert len(data) == 3
 
+        filebeat.check_kill_and_wait()
+
+    def test_prospector_filter_dropfields(self):
+        """
+        Check drop_fields filtering action at a prospector level
+        """
+        self.render_config_template(
+            path=os.path.abspath(self.working_dir) + "/test.log",
+            prospector_processors=[{
+                "drop_fields": {
+                    "fields": ["offset"],
+                },
+            }]
+        )
+        with open(self.working_dir + "/test.log", "w") as f:
+            f.write("test message\n")
+
+        filebeat = self.start_beat()
+        self.wait_until(lambda: self.output_has(lines=1))
+        filebeat.check_kill_and_wait()
+
+        output = self.read_output(
+            required_fields=["@timestamp"],
+        )[0]
+        assert "offset" not in output
+        assert "message" in output
+
+    def test_prospector_filter_includefields(self):
+        """
+        Check include_fields filtering action at a prospector level
+        """
+        self.render_config_template(
+            path=os.path.abspath(self.working_dir) + "/test.log",
+            prospector_processors=[{
+                "include_fields": {
+                    "fields": ["offset"],
+                },
+            }]
+        )
+        with open(self.working_dir + "/test.log", "w") as f:
+            f.write("test message\n")
+
+        filebeat = self.start_beat()
+        self.wait_until(lambda: self.output_has(lines=1))
+        filebeat.check_kill_and_wait()
+
+        output = self.read_output(
+            required_fields=["@timestamp"],
+        )[0]
+        assert "message" not in output
+        assert "offset" in output
+
+    def test_restart_recursive_glob(self):
+        """
+        Check that file reading via recursive glob patterns continues after restart
+        """
+        self.render_config_template(
+            path=os.path.abspath(self.working_dir) + "/log/**",
+            scan_frequency="1s"
+        )
+
+        testfile_dir = os.path.join(self.working_dir, "log", "some", "other", "subdir")
+        os.makedirs(testfile_dir)
+        testfile_path = os.path.join(testfile_dir, "input")
+
+        filebeat = self.start_beat()
+
+        with open(testfile_path, 'w') as testfile:
+            testfile.write("entry1\n")
+
+        self.wait_until(
+            lambda: self.output_has_message("entry1"),
+            max_timeout=10,
+            name="output contains 'entry1'")
+
+        filebeat.check_kill_and_wait()
+
+        # Append to file
+        with open(testfile_path, 'a') as testfile:
+            testfile.write("entry2\n")
+
+        filebeat = self.start_beat(output="filebeat2.log")
+
+        self.wait_until(
+            lambda: self.output_has_message("entry2"),
+            max_timeout=10,
+            name="output contains 'entry2'")
+
+        filebeat.check_kill_and_wait()
+
+    def test_disable_recursive_glob(self):
+        """
+        Check that the recursive glob can be disabled from the config.
+        """
+        self.render_config_template(
+            path=os.path.abspath(self.working_dir) + "/log/**",
+            scan_frequency="1s",
+            disable_recursive_glob=True,
+        )
+
+        testfile_dir = os.path.join(self.working_dir, "log", "some", "other", "subdir")
+        os.makedirs(testfile_dir)
+        testfile_path = os.path.join(testfile_dir, "input")
+        filebeat = self.start_beat()
+        self.wait_until(
+            lambda: self.log_contains(
+                "recursive glob disabled"),
+            max_timeout=10)
         filebeat.check_kill_and_wait()

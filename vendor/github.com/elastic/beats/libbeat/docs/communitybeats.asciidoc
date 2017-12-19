@@ -1,8 +1,20 @@
+//////////////////////////////////////////////////////////////////////////
+//// This content appears in both the Beats Platform Reference and the
+//// Beats Developer Guide.
+//////////////////////////////////////////////////////////////////////////
+
 [[community-beats]]
-== Community Beats
+== Community beats
 
 The open source community has been hard at work developing new Beats. You can check
 out some of them here.
+
+Have a question about a community Beat? You can post questions and discuss issues in the
+https://discuss.elastic.co/c/beats/community-beats[Community Beats] category of the Beats discussion forum.
+
+Have you created a Beat that's not listed? If so, add the name and description of your Beat to the source document for
+https://github.com/elastic/beats/blob/master/libbeat/docs/communitybeats.asciidoc[Community Beats] and https://help.github.com/articles/using-pull-requests[open a pull request] in the https://github.com/elastic/beats[Beats GitHub repository] to get your change merged. When you're ready, go ahead and https://discuss.elastic.co/c/annoucements[announce] your new Beat in the Elastic
+discussion forum.
 
 NOTE: Elastic provides no warranty or support for community-sourced Beats.
 
@@ -17,6 +29,7 @@ https://github.com/jarl-tornroos/cloudfrontbeat[cloudfrontbeat]:: Reads log even
 https://github.com/aidan-/cloudtrailbeat[cloudtrailbeat]:: Reads events from Amazon Web Services' https://aws.amazon.com/cloudtrail/[CloudTrail].
 https://github.com/narmitech/cloudwatchmetricbeat[cloudwatchmetricbeat]::  A beat for Amazon Web Services' https://aws.amazon.com/cloudwatch/details/#other-aws-resource-monitoring[CloudWatch Metrics]. 
 https://github.com/e-travel/cloudwatchlogsbeat[cloudwatchlogsbeat]:: Reads log events from Amazon Web Services' https://aws.amazon.com/cloudwatch/details/#log-monitoring[CloudWatch Logs].
+https://github.com/eBay/collectbeat[collectbeat]:: Adds discovery on top of Filebeat and Metricbeat in environments like Kubernetes.
 https://github.com/raboof/connbeat[connbeat]:: Exposes metadata about TCP connections.
 https://github.com/Pravoru/consulbeat[consulbeat]:: Reads services health checks from consul and pushes them to Elastic.
 https://github.com/Ingensi/dockbeat[dockbeat]:: Reads Docker container
@@ -38,7 +51,8 @@ https://github.com/icinga/icingabeat[icingabeat]:: Icingabeat ships events and s
 https://github.com/devopsmakers/iobeat[iobeat]:: Reads IO stats from /proc/diskstats on Linux.
 https://github.com/radoondas/jmxproxybeat[jmxproxybeat]:: Reads Tomcat JMX metrics exposed over 'JMX Proxy Servlet' to HTTP.
 https://github.com/mheese/journalbeat[journalbeat]:: Used for log shipping from systemd/journald based Linux systems.
-https://github.com/dearcode/kafkabeat[kafkabeat]:: read data from kafka with Consumer-groups.
+https://github.com/justsocialapps/kafkabeat[kafkabeat]:: Reads data from Kafka topics.
+https://github.com/PPACI/krakenbeat[krakenbeat]:: Collect information on each transaction on the Kraken crypto platform.
 https://github.com/eskibars/lmsensorsbeat[lmsensorsbeat]:: Collects data from lm-sensors (such as CPU temperatures, fan speeds, and voltages from i2c and smbus).
 https://github.com/consulthys/logstashbeat[logstashbeat]:: Collects data from Logstash monitoring API (v5 onwards) and indexes them in Elasticsearch.
 https://github.com/yedamao/mcqbeat[mcqbeat]:: Reads the status of queues from memcacheq.
@@ -73,20 +87,3 @@ https://github.com/mrkschan/uwsgibeat[uwsgibeat]:: Reads stats from uWSGI.
 https://github.com/phenomenes/varnishlogbeat[varnishlogbeat]:: Reads log data from a Varnish instance and ships it to Elasticsearch.
 https://github.com/phenomenes/varnishstatbeat[varnishstatbeat]:: Reads stats data from a Varnish instance and ships it to Elasticsearch.
 https://github.com/eskibars/wmibeat[wmibeat]:: Uses WMI to grab your favorite, configurable Windows metrics.
-
-Have you created a Beat that's not listed? If so, add the name and description of your Beat to the source document for
-https://github.com/elastic/beats/blob/master/libbeat/docs/communitybeats.asciidoc[Community Beats] and https://help.github.com/articles/using-pull-requests[open a pull request] in the https://github.com/elastic/beats[Beats GitHub repository] to get your change merged. When you're ready, go ahead and https://discuss.elastic.co/c/annoucements[announce] your new Beat in the Elastic
-discussion forum.
-
-[float]
-[[getting-help-community-beats]]
-=== Getting Help with Community Beats
-
-Have a question about a community Beat? You can post questions and discuss issues in the
-https://discuss.elastic.co/c/beats/community-beats[Community Beats] category of the Beats discussion forum.
-
-[float]
-[[contributing-beats]]
-=== Contributing to Beats
-
-Remember, you can be a Beats developer, too. <<new-beat, Learn how>>

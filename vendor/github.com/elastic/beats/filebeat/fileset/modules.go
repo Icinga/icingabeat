@@ -87,7 +87,7 @@ func newModuleRegistry(modulesPath string,
 }
 
 // NewModuleRegistry reads and loads the configured module into the registry.
-func NewModuleRegistry(moduleConfigs []*common.Config, beatVersion string) (*ModuleRegistry, error) {
+func NewModuleRegistry(moduleConfigs []*common.Config, beatVersion string, init bool) (*ModuleRegistry, error) {
 	modulesPath := paths.Resolve(paths.Home, "module")
 
 	stat, err := os.Stat(modulesPath)
@@ -96,9 +96,13 @@ func NewModuleRegistry(moduleConfigs []*common.Config, beatVersion string) (*Mod
 		return &ModuleRegistry{}, nil // empty registry, no error
 	}
 
-	modulesCLIList, modulesOverrides, err := getModulesCLIConfig()
-	if err != nil {
-		return nil, err
+	var modulesCLIList []string
+	var modulesOverrides *ModuleOverrides
+	if init {
+		modulesCLIList, modulesOverrides, err = getModulesCLIConfig()
+		if err != nil {
+			return nil, err
+		}
 	}
 	mcfgs := []*ModuleConfig{}
 	for _, moduleConfig := range moduleConfigs {
@@ -108,7 +112,9 @@ func NewModuleRegistry(moduleConfigs []*common.Config, beatVersion string) (*Mod
 		}
 		mcfgs = append(mcfgs, mcfg)
 	}
+
 	mcfgs, err = appendWithoutDuplicates(mcfgs, modulesCLIList)
+
 	if err != nil {
 		return nil, err
 	}
@@ -247,6 +253,9 @@ func (reg *ModuleRegistry) GetProspectorConfigs() ([]*common.Config, error) {
 	return result, nil
 }
 
+// PipelineLoader factory builds and returns a PipelineLoader
+type PipelineLoaderFactory func() (PipelineLoader, error)
+
 // PipelineLoader is a subset of the Elasticsearch client API capable of loading
 // the pipelines.
 type PipelineLoader interface {
@@ -269,7 +278,7 @@ func (reg *ModuleRegistry) LoadPipelines(esClient PipelineLoader) error {
 				}
 			}
 
-			pipelineID, content, err := fileset.GetPipeline()
+			pipelineID, content, err := fileset.GetPipeline(esClient.GetVersion())
 			if err != nil {
 				return fmt.Errorf("Error getting pipeline for fileset %s/%s: %v", module, name, err)
 			}
@@ -306,7 +315,6 @@ func (reg *ModuleRegistry) InfoString() string {
 // in the requiredProcessors list are available in Elasticsearch. Returns nil if all required
 // processors are available.
 func checkAvailableProcessors(esClient PipelineLoader, requiredProcessors []ProcessorRequirement) error {
-
 	var response struct {
 		Nodes map[string]struct {
 			Ingest struct {
@@ -441,7 +449,7 @@ func interpretError(initialErr error, body []byte) error {
 	return fmt.Errorf("couldn't load pipeline: %v. Response body: %s", initialErr, body)
 }
 
-// LoadML loads the machine-learning configurations into Elasticsearch, if Xpack is avaiable
+// LoadML loads the machine-learning configurations into Elasticsearch, if Xpack is available
 func (reg *ModuleRegistry) LoadML(esClient PipelineLoader) error {
 	haveXpack, err := mlimporter.HaveXpackML(esClient)
 	if err != nil {

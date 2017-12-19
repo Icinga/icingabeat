@@ -1,14 +1,14 @@
 from packetbeat import (BaseTest, FLOWS_REQUIRED_FIELDS)
-
 from pprint import PrettyPrinter
 from datetime import datetime
+import six
 
 
-pprint = lambda x: PrettyPrinter().pprint(x)
+def pprint(x): return PrettyPrinter().pprint(x)
 
 
 def check_fields(flow, fields):
-    for k, v in fields.iteritems():
+    for k, v in six.iteritems(fields):
         assert flow[k] == v
 
 
@@ -21,10 +21,10 @@ class Test(BaseTest):
     def test_mysql_flow(self):
         self.render_config_template(
             flows=True,
+            shutdown_timeout="1s",
         )
         self.run_packetbeat(
             pcap="mysql_long.pcap",
-            wait_stop=1,
             debug_selectors=["*"])
 
         objs = self.read_output(
@@ -55,10 +55,10 @@ class Test(BaseTest):
     def test_memcache_udp_flow(self):
         self.render_config_template(
             flows=True,
+            shutdown_timeout="1s",
         )
         self.run_packetbeat(
             pcap="memcache/memcache_bin_udp_counter_ops.pcap",
-            wait_stop=1,
             debug_selectors=["*"])
 
         objs = self.read_output(
@@ -83,10 +83,10 @@ class Test(BaseTest):
     def test_icmp4_ping(self):
         self.render_config_template(
             flows=True,
+            shutdown_timeout="1s",
         )
         self.run_packetbeat(
             pcap="icmp/icmp4_ping_over_vlan.pcap",
-            wait_stop=1,
             debug_selectors=["*"])
 
         objs = self.read_output(
@@ -112,10 +112,10 @@ class Test(BaseTest):
     def test_icmp6_ping(self):
         self.render_config_template(
             flows=True,
+            shutdown_timeout="1s",
         )
         self.run_packetbeat(
             pcap="icmp/icmp6_ping_over_vlan.pcap",
-            wait_stop=1,
             debug_selectors=["*"])
 
         objs = self.read_output(

@@ -19,7 +19,8 @@ jenkins_setup
 cleanup() {
   echo "Running cleanup..."
   rm -rf $TEMP_PYTHON_ENV
-  make stop-environment fix-permissions
+  make stop-environment || true
+  make fix-permissions || true
   echo "Killing all running containers..."
   docker ps -q | xargs -r docker kill || true
   echo "Cleaning stopped docker containers and dangling images/networks/volumes..."

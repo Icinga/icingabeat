@@ -1,70 +1,46 @@
 package prospector
 
 import (
-	"sync"
+	"fmt"
 
-	"github.com/elastic/beats/filebeat/harvester"
-	"github.com/elastic/beats/filebeat/harvester/reader"
-	uuid "github.com/satori/go.uuid"
+	"github.com/elastic/beats/filebeat/channel"
+	"github.com/elastic/beats/filebeat/input/file"
+	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
 )
 
-type harvesterRegistry struct {
-	sync.Mutex
-	harvesters map[uuid.UUID]*harvester.Harvester
-	wg         sync.WaitGroup
+type Context struct {
+	States        []file.State
+	Done          chan struct{}
+	BeatDone      chan struct{}
+	DynamicFields *common.MapStrPointer
 }
 
-func newHarvesterRegistry() *harvesterRegistry {
-	return &harvesterRegistry{
-		harvesters: map[uuid.UUID]*harvester.Harvester{},
+type Factory func(config *common.Config, outletFactory channel.Factory, context Context) (Prospectorer, error)
+
+var registry = make(map[string]Factory)
+
+func Register(name string, factory Factory) error {
+	logp.Info("Registering prospector factory")
+	if name == "" {
+		return fmt.Errorf("Error registering prospector: name cannot be empty")
 	}
-}
-
-func (hr *harvesterRegistry) add(h *harvester.Harvester) {
-	hr.Lock()
-	defer hr.Unlock()
-	hr.harvesters[h.ID] = h
-}
-
-func (hr *harvesterRegistry) remove(h *harvester.Harvester) {
-	hr.Lock()
-	defer hr.Unlock()
-	delete(hr.harvesters, h.ID)
-}
-
-func (hr *harvesterRegistry) Stop() {
-	hr.Lock()
-	for _, hv := range hr.harvesters {
-		hr.wg.Add(1)
-		go func(h *harvester.Harvester) {
-			hr.wg.Done()
-			h.Stop()
-		}(hv)
+	if factory == nil {
+		return fmt.Errorf("Error registering prospector '%v': factory cannot be empty", name)
 	}
-	hr.Unlock()
-	hr.waitForCompletion()
+	if _, exists := registry[name]; exists {
+		return fmt.Errorf("Error registering prospector '%v': already registered", name)
+	}
+
+	registry[name] = factory
+	logp.Info("Successfully registered prospector")
+
+	return nil
 }
 
-func (hr *harvesterRegistry) waitForCompletion() {
-	hr.wg.Wait()
-}
-
-func (hr *harvesterRegistry) start(h *harvester.Harvester, r reader.Reader) {
-
-	hr.wg.Add(1)
-	hr.add(h)
-	go func() {
-		defer func() {
-			hr.remove(h)
-			hr.wg.Done()
-		}()
-		// Starts harvester and picks the right type. In case type is not set, set it to default (log)
-		h.Harvest(r)
-	}()
-}
-
-func (hr *harvesterRegistry) len() uint64 {
-	hr.Lock()
-	defer hr.Unlock()
-	return uint64(len(hr.harvesters))
+func GetFactory(name string) (Factory, error) {
+	if _, exists := registry[name]; !exists {
+		return nil, fmt.Errorf("Error creating prospector. No such prospector type exist: '%v'", name)
+	}
+	return registry[name], nil
 }

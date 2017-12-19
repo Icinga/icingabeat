@@ -20,7 +20,7 @@ environment:
 # Custom clone folder (variables are not expanded here).
 clone_folder: c:\gopath\src\github.com\elastic\beats
 
-# Cache mingw install until appveyor.yml is modified.
+# Cache files until appveyor.yml is modified.
 cache:
 - C:\ProgramData\chocolatey\bin -> .appveyor.yml
 - C:\ProgramData\chocolatey\lib -> .appveyor.yml
@@ -42,7 +42,7 @@ install:
         cinst mingw > mingw-install.txt
         Push-AppveyorArtifact mingw-install.txt
       }
-  - set PATH=C:\tools\mingw64\bin;%GOROOT%\bin;%PATH%
+  - set PATH=C:\tools\mingw64\bin;%PATH%
   - set PATH=%GOPATH%\bin;%PATH%
   - go install github.com/elastic/beats/vendor/github.com/pierrre/gotestcover
   - go version
@@ -55,7 +55,7 @@ install:
   - set PYTHONPATH=C:\Python27
   - set PATH=%PYTHONPATH%;%PYTHONPATH%\Scripts;%PATH%
   - python --version
-  - pip install jinja2 nose nose-timer PyYAML redis elasticsearch
+  - pip install six jinja2 nose nose-timer PyYAML redis elasticsearch
   - easy_install C:/pywin_inst.exe
 
 # To run your custom scripts instead of automatic MSBuild
