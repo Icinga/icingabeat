@@ -16,51 +16,61 @@ icingabeat:
   # Password of the user
   password: "icinga"
 
-  # Skip SSL verification
-  skip_ssl_verify: false
+  # Configure SSL verification. If `false` is configured, all server hosts
+  # and certificates will be accepted. In this mode, SSL based connections are
+  # susceptible to man-in-the-middle attacks. Use only for testing. Default is
+  # `true`.
+  ssl.verify: true
 
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  ########################### Icingabeat Eventstream ##########################
+  #
   # Icingabeat supports capturing of an evenstream and periodical polling of the
   # Icinga status data.
-  eventstream:
-    #
-    # Decide which events to receive from the event stream.
-    # The following event stream types are available:
-    #
-    # * CheckResult
-    # * StateChange
-    # * Notification
-    # * AcknowledgementSet
-    # * AcknowledgementCleared
-    # * CommentAdded
-    # * CommentRemoved
-    # * DowntimeAdded
-    # * DowntimeRemoved
-    # * DowntimeStarted
-    # * DowntimeTriggered
-    #
-    # To disable eventstream, leave the types empty or comment out the option
-    types:
-      - CheckResult
-      - StateChange
 
-    # Event streams can be filtered by attributes using the prefix 'event.'
-    #
-    # Example for the CheckResult type with the exit_code set to 2:
-    # filter: "event.check_result.exit_status==2"
-    #
-    # Example for the CheckResult type with the service matching the string
-    # pattern "mysql*":
-    # filter: 'match("mysql*", event.service)'
-    #
-    # To disable filtering set an empty string or comment out the filter option
-    filter: ""
+  # Decide which events to receive from the event stream.
+  # The following event stream types are available:
+  #
+  # * CheckResult
+  # * StateChange
+  # * Notification
+  # * AcknowledgementSet
+  # * AcknowledgementCleared
+  # * CommentAdded
+  # * CommentRemoved
+  # * DowntimeAdded
+  # * DowntimeRemoved
+  # * DowntimeStarted
+  # * DowntimeTriggered
+  #
+  # To disable eventstream, leave the types empty or comment out the option
+  eventstream.types:
+    - CheckResult
+    - StateChange
+
+  # Event streams can be filtered by attributes using the prefix 'event.'
+  #
+  # Example for the CheckResult type with the exit_code set to 2:
+  # filter: "event.check_result.exit_status==2"
+  #
+  # Example for the CheckResult type with the service matching the string
+  # pattern "mysql*":
+  # filter: 'match("mysql*", event.service)'
+  #
+  # To disable filtering set an empty string or comment out the filter option
+  eventstream.filter: ""
 
     # Defines how fast to reconnect to the API on connection loss
-    retry_interval: 10s
+  eventstream.retry_interval: 10s
 
-  statuspoller:
-    # Interval at which the status API is called. Set to 0 to disable polling.
-    interval: 60s
+  ########################### Icingabeat Statuspoller #########################
+  #
+  # Icingabeat can collect status information about Icinga 2 periodically. Set
+  # an interval at which the status API should be called. Set to 0 to disable
+  # polling.
+  statuspoller.interval: 60s
 
 #================================ General ======================================
 

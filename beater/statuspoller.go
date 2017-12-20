@@ -128,13 +128,13 @@ func (sp *Statuspoller) Run() error {
 			logp.Err("Error connecting to API: %v", responseErr)
 		}
 
-		defer response.Body.Close()
-
 		select {
 		case <-sp.done:
+			defer response.Body.Close()
 			return nil
 		case <-ticker.C:
 		}
+
 	}
 }
 

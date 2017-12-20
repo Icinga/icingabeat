@@ -2,7 +2,10 @@ package beater
 
 import (
 	"crypto/tls"
+	"crypto/x509"
 	"errors"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"time"
@@ -11,8 +14,32 @@ import (
 )
 
 func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, error) {
+
+	var skipSslVerify bool
+	certPool := x509.NewCertPool()
+
+	if bt.config.SSL.Verify {
+		skipSslVerify = false
+
+		for _, ca := range bt.config.SSL.CertificateAuthorities {
+			cert, err := ioutil.ReadFile(ca)
+			if err != nil {
+				logp.Warn("Could not load certificate: %v", err)
+			}
+			certPool.AppendCertsFromPEM(cert)
+		}
+	} else {
+		skipSslVerify = true
+	}
+
+	fmt.Print(bt.config.SSL.CertificateAuthorities)
+	tlsConfig := &tls.Config{
+		InsecureSkipVerify: skipSslVerify,
+		RootCAs:            certPool,
+	}
+
 	transport := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: bt.config.SkipSSLVerify},
+		TLSClientConfig: tlsConfig,
 		MaxIdleConns:    10,
 		IdleConnTimeout: 30 * time.Second,
 	}

@@ -3,17 +3,25 @@
 
 package config
 
-import "time"
+import (
+	"time"
+)
 
 // Config options
 type Config struct {
-	Host          string             `config:"host"`
-	Port          int                `config:"port"`
-	User          string             `config:"user"`
-	Password      string             `config:"password"`
-	SkipSSLVerify bool               `config:"skip_ssl_verify"`
-	Eventstream   EventstreamConfig  `config:"eventstream"`
-	Statuspoller  StatuspollerConfig `config:"statuspoller"`
+	Host         string             `config:"host"`
+	Port         int                `config:"port"`
+	User         string             `config:"user"`
+	Password     string             `config:"password"`
+	SSL          SSL                `config:"ssl"`
+	Eventstream  EventstreamConfig  `config:"eventstream"`
+	Statuspoller StatuspollerConfig `config:"statuspoller"`
+}
+
+// SSL options
+type SSL struct {
+	Verify                 bool     `config:"verify"`
+	CertificateAuthorities []string `config:"certificate_authorities"`
 }
 
 // EventstreamConfig optoins
