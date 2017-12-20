@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	cmd "github.com/elastic/beats/libbeat/cmd"
 	"github.com/icinga/icingabeat/beater"
+
+	cmd "github.com/elastic/beats/libbeat/cmd"
 )
 
 // Name of this beat
