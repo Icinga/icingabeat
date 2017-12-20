@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/elastic/beats/libbeat/logp"
 )
@@ -12,6 +13,8 @@ import (
 func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, error) {
 	transport := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: bt.config.SkipSSLVerify},
+		MaxIdleConns:    10,
+		IdleConnTimeout: 30 * time.Second,
 	}
 
 	client := &http.Client{
@@ -37,6 +40,7 @@ func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, er
 	switch response.StatusCode {
 	case 401:
 		err = errors.New("Authentication failed for user " + bt.config.User)
+		defer response.Body.Close()
 	}
 
 	return response, err

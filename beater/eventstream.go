@@ -160,6 +160,8 @@ func (es *Eventstream) Run() error {
 			logp.Err("Error connecting to API: %v", responseErr)
 		}
 
+		defer response.Body.Close()
+
 		select {
 		case <-es.done:
 			return nil
