@@ -26,12 +26,12 @@
         "title": "Icinga Version",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Icinga Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"significant_terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.version.keyword\",\"size\":1,\"customLabel\":\"Version\"}}]}"
+        "visState": "{\"title\":\"Icinga Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.version\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
       },
       "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:37:23.787Z",
-      "version": 1
+      "updated_at": "2017-12-20T09:24:12.396Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -43,12 +43,12 @@
         "title": "MySQL Schema Version",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"MySQL Schema Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"significant_terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.idomysqlconnection.ido-mysql.version.keyword\",\"size\":100,\"customLabel\":\"MySQL Schema Version\"}}]}"
+        "visState": "{\"title\":\"MySQL Schema Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.idomysqlconnection.ido-mysql.version\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
       },
       "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:42:27.572Z",
-      "version": 1
+      "updated_at": "2017-12-20T09:24:46.891Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -60,12 +60,12 @@
         "title": "Nodes",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Nodes\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"significant_terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.node_name.keyword\",\"size\":5,\"customLabel\":\"Nodes\"}}]}"
+        "visState": "{\"title\":\"Nodes\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.node_name\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
       },
       "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T14:12:52.350Z",
-      "version": 1
+      "updated_at": "2017-12-20T09:25:12.168Z",
+      "version": 2
     },
     {
       "attributes": {

@@ -44,12 +44,12 @@
         "title": "Hosts Tag Cloud",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Hosts Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host.keyword\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Hosts\"}}]}"
+        "visState": "{\"title\":\"Hosts Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Hosts\"}}]}"
       },
       "id": "4a9d5c50-e4c0-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:26:59.477Z",
-      "version": 1
+      "updated_at": "2017-12-20T09:22:25.894Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -61,12 +61,12 @@
         "title": "Services Tag Cloud",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Services Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"service.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Services\"}}]}"
+        "visState": "{\"title\":\"Services Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"service\",\"size\":500,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Services\"}}]}"
       },
       "id": "6a23e300-e4c0-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:27:52.368Z",
-      "version": 1
+      "updated_at": "2017-12-20T09:22:52.206Z",
+      "version": 2
     },
     {
       "attributes": {
