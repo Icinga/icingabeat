@@ -35,13 +35,13 @@ class TestProcessors(metricbeat.BaseTest):
         print(evt.keys())
         self.assertItemsEqual(self.de_dot([
             'beat', '@timestamp', 'system', 'metricset.module',
-            'metricset.rtt', 'type', 'metricset.name'
+            'metricset.rtt', 'metricset.name'
         ]), evt.keys())
         cpu = evt["system"]["cpu"]
         print(cpu.keys())
         self.assertItemsEqual(self.de_dot([
             "system", "cores", "user", "softirq", "iowait",
-            "idle", "irq", "steal", "nice"
+            "idle", "irq", "steal", "nice", "total"
         ]), cpu.keys())
 
     def test_dropfields_with_condition(self):
@@ -69,7 +69,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )
 
         for event in output:
@@ -102,7 +102,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )
         for event in output:
             assert float(event["system.process.cpu.total.pct"]) >= 0.001
@@ -131,7 +131,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )
         assert len(output) >= 1
 
@@ -157,7 +157,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )[0]
         print(output)
 
@@ -201,7 +201,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )[0]
 
         for key in [
@@ -246,7 +246,7 @@ class TestProcessors(metricbeat.BaseTest):
         metricbeat.kill_and_wait()
 
         output = self.read_output(
-            required_fields=["@timestamp", "type"],
+            required_fields=["@timestamp"],
         )[0]
 
         for key in [

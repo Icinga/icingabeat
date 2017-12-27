@@ -4,46 +4,54 @@ This file is generated! See _meta/fields.yml and scripts/generate_field_docs.py
 ////
 
 [[exported-fields]]
-= Exported Fields
+= Exported fields
 
 [partintro]
 
 --
-This document describes the fields that are exported by Icingabeat. They are
+This document describes the fields that are exported by icingabeat. They are
 grouped in the following categories:
 
 * <<exported-fields-beat>>
 * <<exported-fields-cloud>>
+* <<exported-fields-docker-processor>>
 * <<exported-fields-icingabeat>>
+* <<exported-fields-kubernetes-processor>>
 
 --
 [[exported-fields-beat]]
-== Beat Fields
+== Beat fields
 
 Contains common beat fields available in all event types.
 
 
 
 [float]
-=== beat.name
+=== `beat.name`
 
 The name of the Beat sending the log messages. If the Beat name is set in the configuration file, then that value is used. If it is not set, the hostname is used. To set the Beat name, use the `name` option in the configuration file.
 
 
 [float]
-=== beat.hostname
+=== `beat.hostname`
 
 The hostname as returned by the operating system on which the Beat is running.
 
 
 [float]
-=== beat.version
+=== `beat.timezone`
+
+The timezone as returned by the operating system on which the Beat is running.
+
+
+[float]
+=== `beat.version`
 
 The version of the beat that generated this event.
 
 
 [float]
-=== @timestamp
+=== `@timestamp`
 
 type: date
 
@@ -57,28 +65,59 @@ The timestamp when the event log record was generated.
 
 
 [float]
-=== tags
+=== `tags`
 
 Arbitrary tags that can be set per Beat and per transaction type.
 
 
 [float]
-=== fields
+=== `fields`
 
-type: dict
+type: object
 
 Contains user configurable fields.
 
 
+[float]
+== error fields
+
+Error fields containing additional info in case of errors.
+
+
+
+[float]
+=== `error.message`
+
+type: text
+
+Error message.
+
+
+[float]
+=== `error.code`
+
+type: long
+
+Error code.
+
+
+[float]
+=== `error.type`
+
+type: keyword
+
+Error type.
+
+
 [[exported-fields-cloud]]
-== Cloud Provider Metadata Fields
+== Cloud provider metadata fields
 
 Metadata from cloud providers added by the add_cloud_metadata processor.
 
 
 
 [float]
-=== meta.cloud.provider
+=== `meta.cloud.provider`
 
 example: ec2
 
@@ -86,13 +125,19 @@ Name of the cloud provider. Possible values are ec2, gce, or digitalocean.
 
 
 [float]
-=== meta.cloud.instance_id
+=== `meta.cloud.instance_id`
 
 Instance ID of the host machine.
 
 
 [float]
-=== meta.cloud.machine_type
+=== `meta.cloud.instance_name`
+
+Instance name of the host machine.
+
+
+[float]
+=== `meta.cloud.machine_type`
 
 example: t2.medium
 
@@ -100,7 +145,7 @@ Machine type of the host machine.
 
 
 [float]
-=== meta.cloud.availability_zone
+=== `meta.cloud.availability_zone`
 
 example: us-east-1c
 
@@ -108,7 +153,7 @@ Availability zone in which this host is running.
 
 
 [float]
-=== meta.cloud.project_id
+=== `meta.cloud.project_id`
 
 example: project-x
 
@@ -116,19 +161,60 @@ Name of the project in Google Cloud.
 
 
 [float]
-=== meta.cloud.region
+=== `meta.cloud.region`
 
 Region in which this host is running.
 
 
+[[exported-fields-docker-processor]]
+== Docker fields
+
+beta[]
+Docker stats collected from Docker.
+
+
+
+
+[float]
+=== `docker.container.id`
+
+type: keyword
+
+Unique container id.
+
+
+[float]
+=== `docker.container.image`
+
+type: keyword
+
+Name of the image the container was built on.
+
+
+[float]
+=== `docker.container.name`
+
+type: keyword
+
+Container name.
+
+
+[float]
+=== `docker.container.labels`
+
+type: object
+
+Image labels.
+
+
 [[exported-fields-icingabeat]]
-== icingabeat Fields
+== icingabeat fields
 
 Data received from the Icinga 2 API
 
 
 [float]
-=== timestamp
+=== `timestamp`
 
 type: date
 
@@ -136,7 +222,7 @@ Timestamp of event occurrence
 
 
 [float]
-=== type
+=== `type`
 
 type: keyword
 
@@ -144,7 +230,7 @@ Type of the document
 
 
 [float]
-=== host
+=== `host`
 
 type: keyword
 
@@ -152,7 +238,7 @@ Host that triggered the event
 
 
 [float]
-=== service
+=== `service`
 
 type: keyword
 
@@ -160,7 +246,7 @@ Service that triggered the event
 
 
 [float]
-=== state
+=== `state`
 
 type: integer
 
@@ -168,7 +254,7 @@ State of the check
 
 
 [float]
-=== state_type
+=== `state_type`
 
 type: integer
 
@@ -176,7 +262,7 @@ State type of the check
 
 
 [float]
-=== author
+=== `author`
 
 type: keyword
 
@@ -184,7 +270,7 @@ Author of a message
 
 
 [float]
-=== notification_type
+=== `notification_type`
 
 type: keyword
 
@@ -192,7 +278,7 @@ Type of notification
 
 
 [float]
-=== text
+=== `text`
 
 type: text
 
@@ -200,15 +286,15 @@ Text of a message
 
 
 [float]
-=== users
+=== `users`
 
-type: text
+type: keyword
 
 Affected users of a notification
 
 
 [float]
-=== acknowledgement_type
+=== `acknowledgement_type`
 
 type: integer
 
@@ -216,7 +302,7 @@ Type of an acknowledgement
 
 
 [float]
-=== expiry
+=== `expiry`
 
 type: date
 
@@ -224,7 +310,7 @@ Expiry of an acknowledgement
 
 
 [float]
-=== notify
+=== `notify`
 
 type: keyword
 
@@ -232,7 +318,7 @@ If has been sent out
 
 
 [float]
-=== check_result.active
+=== `check_result.active`
 
 type: boolean
 
@@ -240,7 +326,7 @@ If check was active or passive
 
 
 [float]
-=== check_result.check_source
+=== `check_result.check_source`
 
 type: keyword
 
@@ -248,7 +334,7 @@ Icinga instance that scheduled the check
 
 
 [float]
-=== check_result.command
+=== `check_result.command`
 
 type: text
 
@@ -256,7 +342,7 @@ Command that was executed
 
 
 [float]
-=== check_result.execution_end
+=== `check_result.execution_end`
 
 type: date
 
@@ -264,7 +350,7 @@ Time when execution of check ended
 
 
 [float]
-=== check_result.execution_start
+=== `check_result.execution_start`
 
 type: date
 
@@ -272,7 +358,7 @@ Time when execution of check started
 
 
 [float]
-=== check_result.exit_status
+=== `check_result.exit_status`
 
 type: integer
 
@@ -280,7 +366,7 @@ Exit status
 
 
 [float]
-=== check_result.output
+=== `check_result.output`
 
 type: text
 
@@ -288,7 +374,7 @@ Output of check
 
 
 [float]
-=== check_result.performance_data
+=== `check_result.performance_data`
 
 type: text
 
@@ -296,7 +382,7 @@ Performance data in text format
 
 
 [float]
-=== check_result.schedule_end
+=== `check_result.schedule_end`
 
 type: date
 
@@ -304,7 +390,7 @@ Time when scheduling of the check ended
 
 
 [float]
-=== check_result.schedule_start
+=== `check_result.schedule_start`
 
 type: date
 
@@ -312,7 +398,7 @@ Time when check was scheduled
 
 
 [float]
-=== check_result.state
+=== `check_result.state`
 
 type: integer
 
@@ -320,7 +406,7 @@ State of the check
 
 
 [float]
-=== check_result.type
+=== `check_result.type`
 
 type: keyword
 
@@ -328,7 +414,7 @@ Type of this event
 
 
 [float]
-=== check_result.vars_after.attempt
+=== `check_result.vars_after.attempt`
 
 type: integer
 
@@ -336,7 +422,7 @@ Check attempt after check execution
 
 
 [float]
-=== check_result.vars_after.reachable
+=== `check_result.vars_after.reachable`
 
 type: boolean
 
@@ -344,7 +430,7 @@ Reachable state after check execution
 
 
 [float]
-=== check_result.vars_after.state
+=== `check_result.vars_after.state`
 
 type: integer
 
@@ -352,7 +438,7 @@ State of the check after execution
 
 
 [float]
-=== check_result.vars_after.state_type
+=== `check_result.vars_after.state_type`
 
 type: integer
 
@@ -360,7 +446,7 @@ State type after execution
 
 
 [float]
-=== check_result.vars_before.attempt
+=== `check_result.vars_before.attempt`
 
 type: integer
 
@@ -368,7 +454,7 @@ Check attempt before check execution
 
 
 [float]
-=== check_result.vars_before.reachable
+=== `check_result.vars_before.reachable`
 
 type: boolean
 
@@ -376,7 +462,7 @@ Reachable state before check execution
 
 
 [float]
-=== check_result.vars_before.state
+=== `check_result.vars_before.state`
 
 type: integer
 
@@ -384,7 +470,7 @@ Check state before check execution
 
 
 [float]
-=== check_result.vars_before.state_type
+=== `check_result.vars_before.state_type`
 
 type: integer
 
@@ -392,7 +478,7 @@ State type before check execution
 
 
 [float]
-=== comment.__name
+=== `comment.__name`
 
 type: text
 
@@ -400,7 +486,7 @@ Unique identifier of a comment
 
 
 [float]
-=== comment.author
+=== `comment.author`
 
 type: keyword
 
@@ -408,7 +494,7 @@ Author of a comment
 
 
 [float]
-=== comment.entry_time
+=== `comment.entry_time`
 
 type: date
 
@@ -416,7 +502,7 @@ Entry time of a comment
 
 
 [float]
-=== comment.entry_type
+=== `comment.entry_type`
 
 type: integer
 
@@ -424,7 +510,7 @@ Entry type of a comment
 
 
 [float]
-=== comment.expire_time
+=== `comment.expire_time`
 
 type: date
 
@@ -432,7 +518,7 @@ Expire time of a comment
 
 
 [float]
-=== comment.host_name
+=== `comment.host_name`
 
 type: keyword
 
@@ -440,7 +526,7 @@ Host name of a comment
 
 
 [float]
-=== comment.legacy_id
+=== `comment.legacy_id`
 
 type: integer
 
@@ -448,7 +534,7 @@ Legacy ID of a comment
 
 
 [float]
-=== comment.name
+=== `comment.name`
 
 type: keyword
 
@@ -456,7 +542,7 @@ Identifier of a comment
 
 
 [float]
-=== comment.package
+=== `comment.package`
 
 type: keyword
 
@@ -464,7 +550,7 @@ Config package of a comment
 
 
 [float]
-=== comment.service_name
+=== `comment.service_name`
 
 type: keyword
 
@@ -472,7 +558,7 @@ Service name of a comment
 
 
 [float]
-=== comment.templates
+=== `comment.templates`
 
 type: text
 
@@ -480,7 +566,7 @@ Templates used by a comment
 
 
 [float]
-=== comment.text
+=== `comment.text`
 
 type: text
 
@@ -488,7 +574,7 @@ Text of a comment
 
 
 [float]
-=== comment.type
+=== `comment.type`
 
 type: keyword
 
@@ -496,7 +582,7 @@ Comment type
 
 
 [float]
-=== comment.version
+=== `comment.version`
 
 type: keyword
 
@@ -504,7 +590,7 @@ Config version of comment object
 
 
 [float]
-=== comment.zone
+=== `comment.zone`
 
 type: keyword
 
@@ -512,7 +598,7 @@ Zone where comment was generated
 
 
 [float]
-=== downtime.__name
+=== `downtime.__name`
 
 type: text
 
@@ -520,7 +606,7 @@ Unique identifier of a downtime
 
 
 [float]
-=== downtime.author
+=== `downtime.author`
 
 type: keyword
 
@@ -528,7 +614,7 @@ Author of a downtime
 
 
 [float]
-=== downtime.comment
+=== `downtime.comment`
 
 type: text
 
@@ -536,7 +622,7 @@ Text of a downtime
 
 
 [float]
-=== downtime.config_owner
+=== `downtime.config_owner`
 
 type: text
 
@@ -544,7 +630,7 @@ Config owner
 
 
 [float]
-=== downtime.duration
+=== `downtime.duration`
 
 type: integer
 
@@ -552,7 +638,7 @@ Duration of a downtime
 
 
 [float]
-=== downtime.end_time
+=== `downtime.end_time`
 
 type: date
 
@@ -560,7 +646,7 @@ Timestamp of downtime end
 
 
 [float]
-=== downtime.entry_time
+=== `downtime.entry_time`
 
 type: date
 
@@ -568,7 +654,7 @@ Timestamp when downtime was created
 
 
 [float]
-=== downtime.fixed
+=== `downtime.fixed`
 
 type: boolean
 
@@ -576,7 +662,7 @@ If downtime is fixed or flexible
 
 
 [float]
-=== downtime.host_name
+=== `downtime.host_name`
 
 type: keyword
 
@@ -584,7 +670,7 @@ Hostname of a downtime
 
 
 [float]
-=== downtime.legacy_id
+=== `downtime.legacy_id`
 
 type: integer
 
@@ -592,7 +678,7 @@ The integer ID of a downtime
 
 
 [float]
-=== downtime.name
+=== `downtime.name`
 
 type: keyword
 
@@ -600,7 +686,7 @@ Downtime config identifier
 
 
 [float]
-=== downtime.package
+=== `downtime.package`
 
 type: keyword
 
@@ -608,7 +694,7 @@ Configuration package of downtime
 
 
 [float]
-=== downtime.scheduled_by
+=== `downtime.scheduled_by`
 
 type: text
 
@@ -616,7 +702,7 @@ By whom downtime was scheduled
 
 
 [float]
-=== downtime.service_name
+=== `downtime.service_name`
 
 type: keyword
 
@@ -624,7 +710,7 @@ Service name of a downtime
 
 
 [float]
-=== downtime.start_time
+=== `downtime.start_time`
 
 type: date
 
@@ -632,7 +718,7 @@ Timestamp when downtime starts
 
 
 [float]
-=== downtime.templates
+=== `downtime.templates`
 
 type: text
 
@@ -640,7 +726,7 @@ Templates used by this downtime
 
 
 [float]
-=== downtime.trigger_time
+=== `downtime.trigger_time`
 
 type: date
 
@@ -648,7 +734,7 @@ Timestamp when downtime was triggered
 
 
 [float]
-=== downtime.triggered_by
+=== `downtime.triggered_by`
 
 type: text
 
@@ -656,7 +742,7 @@ By whom downtime was triggered
 
 
 [float]
-=== downtime.triggers
+=== `downtime.triggers`
 
 type: text
 
@@ -664,7 +750,7 @@ Downtime triggers
 
 
 [float]
-=== downtime.type
+=== `downtime.type`
 
 type: keyword
 
@@ -672,7 +758,7 @@ Downtime type
 
 
 [float]
-=== downtime.version
+=== `downtime.version`
 
 type: keyword
 
@@ -680,7 +766,7 @@ Config version of downtime
 
 
 [float]
-=== downtime.was_cancelled
+=== `downtime.was_cancelled`
 
 type: boolean
 
@@ -688,7 +774,7 @@ If downtime was cancelled
 
 
 [float]
-=== downtime.zone
+=== `downtime.zone`
 
 type: keyword
 
@@ -696,7 +782,7 @@ Zone of downtime
 
 
 [float]
-=== status.active_host_checks
+=== `status.active_host_checks`
 
 type: integer
 
@@ -704,7 +790,7 @@ Active host checks
 
 
 [float]
-=== status.active_host_checks_15min
+=== `status.active_host_checks_15min`
 
 type: integer
 
@@ -712,7 +798,7 @@ Active host checks in the last 15 minutes
 
 
 [float]
-=== status.active_host_checks_1min
+=== `status.active_host_checks_1min`
 
 type: integer
 
@@ -720,7 +806,7 @@ Acitve host checks in the last minute
 
 
 [float]
-=== status.active_host_checks_5min
+=== `status.active_host_checks_5min`
 
 type: integer
 
@@ -728,7 +814,7 @@ Active host checks in the last 5 minutes
 
 
 [float]
-=== status.active_service_checks
+=== `status.active_service_checks`
 
 type: integer
 
@@ -736,7 +822,7 @@ Active service checks
 
 
 [float]
-=== status.active_service_checks_15min
+=== `status.active_service_checks_15min`
 
 type: integer
 
@@ -744,7 +830,7 @@ Active service checks in the last 15 minutes
 
 
 [float]
-=== status.active_service_checks_1min
+=== `status.active_service_checks_1min`
 
 type: integer
 
@@ -752,7 +838,7 @@ Active service checks in the last minute
 
 
 [float]
-=== status.active_service_checks_5min
+=== `status.active_service_checks_5min`
 
 type: integer
 
@@ -760,7 +846,7 @@ Active service checks in the last 5 minutes
 
 
 [float]
-=== status.api.identity
+=== `status.api.identity`
 
 type: keyword
 
@@ -768,7 +854,7 @@ API identity
 
 
 [float]
-=== status.api.num_conn_endpoints
+=== `status.api.num_conn_endpoints`
 
 type: integer
 
@@ -776,7 +862,7 @@ Number of connected endpoints
 
 
 [float]
-=== status.api.num_endpoints
+=== `status.api.num_endpoints`
 
 type: integer
 
@@ -784,7 +870,7 @@ Total number of endpoints
 
 
 [float]
-=== status.api.num_not_conn_endpoints
+=== `status.api.num_not_conn_endpoints`
 
 type: integer
 
@@ -792,7 +878,7 @@ Number of not connected endpoints
 
 
 [float]
-=== status.api.zones.demo.client_log_lag
+=== `status.api.zones.demo.client_log_lag`
 
 type: integer
 
@@ -800,7 +886,7 @@ Lag of the replaylog
 
 
 [float]
-=== status.api.zones.demo.connected
+=== `status.api.zones.demo.connected`
 
 type: boolean
 
@@ -808,7 +894,7 @@ Zone connected
 
 
 [float]
-=== status.api.zones.demo.endpoints
+=== `status.api.zones.demo.endpoints`
 
 type: text
 
@@ -816,7 +902,7 @@ Endpoint names
 
 
 [float]
-=== status.api.zones.demo.parent_zone
+=== `status.api.zones.demo.parent_zone`
 
 type: keyword
 
@@ -824,7 +910,7 @@ Parent zone
 
 
 [float]
-=== status.avg_execution_time
+=== `status.avg_execution_time`
 
 type: integer
 
@@ -832,7 +918,7 @@ Average execution time of checks
 
 
 [float]
-=== status.avg_latency
+=== `status.avg_latency`
 
 type: integer
 
@@ -840,7 +926,7 @@ Average latency time
 
 
 [float]
-=== status.checkercomponent.checker.idle
+=== `status.checkercomponent.checker.idle`
 
 type: integer
 
@@ -848,7 +934,7 @@ Idle checks
 
 
 [float]
-=== status.checkercomponent.checker.pending
+=== `status.checkercomponent.checker.pending`
 
 type: integer
 
@@ -856,7 +942,7 @@ Pending checks
 
 
 [float]
-=== status.filelogger.main-log
+=== `status.filelogger.main-log`
 
 type: integer
 
@@ -864,7 +950,7 @@ Mainlog enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_event_handlers
+=== `status.icingaapplication.app.enable_event_handlers`
 
 type: boolean
 
@@ -872,7 +958,7 @@ Event handlers enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_flapping
+=== `status.icingaapplication.app.enable_flapping`
 
 type: boolean
 
@@ -880,7 +966,7 @@ Flapping detection enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_host_checks
+=== `status.icingaapplication.app.enable_host_checks`
 
 type: boolean
 
@@ -888,7 +974,7 @@ Host checks enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_notifications
+=== `status.icingaapplication.app.enable_notifications`
 
 type: boolean
 
@@ -896,7 +982,7 @@ Notifications enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_perfdata
+=== `status.icingaapplication.app.enable_perfdata`
 
 type: boolean
 
@@ -904,7 +990,7 @@ Perfdata enabled
 
 
 [float]
-=== status.icingaapplication.app.enable_service_checks
+=== `status.icingaapplication.app.enable_service_checks`
 
 type: boolean
 
@@ -912,7 +998,7 @@ Service checks enabled
 
 
 [float]
-=== status.icingaapplication.app.node_name
+=== `status.icingaapplication.app.node_name`
 
 type: keyword
 
@@ -920,7 +1006,7 @@ Node name
 
 
 [float]
-=== status.icingaapplication.app.pid
+=== `status.icingaapplication.app.pid`
 
 type: integer
 
@@ -928,7 +1014,7 @@ PID
 
 
 [float]
-=== status.icingaapplication.app.program_start
+=== `status.icingaapplication.app.program_start`
 
 type: integer
 
@@ -936,7 +1022,7 @@ Time when Icinga started
 
 
 [float]
-=== status.icingaapplication.app.version
+=== `status.icingaapplication.app.version`
 
 type: keyword
 
@@ -944,7 +1030,7 @@ Version
 
 
 [float]
-=== status.idomysqlconnection.ido-mysql.connected
+=== `status.idomysqlconnection.ido-mysql.connected`
 
 type: boolean
 
@@ -952,7 +1038,7 @@ IDO connected
 
 
 [float]
-=== status.idomysqlconnection.ido-mysql.instance_name
+=== `status.idomysqlconnection.ido-mysql.instance_name`
 
 type: keyword
 
@@ -960,7 +1046,7 @@ IDO Instance name
 
 
 [float]
-=== status.idomysqlconnection.ido-mysql.query_queue_items
+=== `status.idomysqlconnection.ido-mysql.query_queue_items`
 
 type: integer
 
@@ -968,7 +1054,7 @@ IDO query items in the queue
 
 
 [float]
-=== status.idomysqlconnection.ido-mysql.version
+=== `status.idomysqlconnection.ido-mysql.version`
 
 type: keyword
 
@@ -976,7 +1062,7 @@ IDO schema version
 
 
 [float]
-=== status.max_execution_time
+=== `status.max_execution_time`
 
 type: integer
 
@@ -984,7 +1070,7 @@ Max execution time
 
 
 [float]
-=== status.max_latency
+=== `status.max_latency`
 
 type: integer
 
@@ -992,7 +1078,7 @@ Max latency
 
 
 [float]
-=== status.min_execution_time
+=== `status.min_execution_time`
 
 type: integer
 
@@ -1000,7 +1086,7 @@ Min execution time
 
 
 [float]
-=== status.min_latency
+=== `status.min_latency`
 
 type: integer
 
@@ -1008,7 +1094,7 @@ Min latency
 
 
 [float]
-=== status.notificationcomponent.notification
+=== `status.notificationcomponent.notification`
 
 type: integer
 
@@ -1016,7 +1102,7 @@ Notification
 
 
 [float]
-=== status.num_hosts_acknowledged
+=== `status.num_hosts_acknowledged`
 
 type: integer
 
@@ -1024,7 +1110,7 @@ Amount of acknowledged hosts
 
 
 [float]
-=== status.num_hosts_down
+=== `status.num_hosts_down`
 
 type: integer
 
@@ -1032,7 +1118,7 @@ Amount of down hosts
 
 
 [float]
-=== status.num_hosts_flapping
+=== `status.num_hosts_flapping`
 
 type: integer
 
@@ -1040,7 +1126,7 @@ Amount of flapping hosts
 
 
 [float]
-=== status.num_hosts_in_downtime
+=== `status.num_hosts_in_downtime`
 
 type: integer
 
@@ -1048,7 +1134,7 @@ Amount of hosts in downtime
 
 
 [float]
-=== status.num_hosts_pending
+=== `status.num_hosts_pending`
 
 type: integer
 
@@ -1056,7 +1142,7 @@ Amount of pending hosts
 
 
 [float]
-=== status.num_hosts_unreachable
+=== `status.num_hosts_unreachable`
 
 type: integer
 
@@ -1064,7 +1150,7 @@ Amount of unreachable hosts
 
 
 [float]
-=== status.num_hosts_up
+=== `status.num_hosts_up`
 
 type: integer
 
@@ -1072,7 +1158,7 @@ Amount of hosts in up state
 
 
 [float]
-=== status.num_services_acknowledged
+=== `status.num_services_acknowledged`
 
 type: integer
 
@@ -1080,7 +1166,7 @@ Amount of acknowledged services
 
 
 [float]
-=== status.num_services_critical
+=== `status.num_services_critical`
 
 type: integer
 
@@ -1088,7 +1174,7 @@ Amount of critical services
 
 
 [float]
-=== status.num_services_flapping
+=== `status.num_services_flapping`
 
 type: integer
 
@@ -1096,7 +1182,7 @@ Amount of flapping services
 
 
 [float]
-=== status.num_services_in_downtime
+=== `status.num_services_in_downtime`
 
 type: integer
 
@@ -1104,7 +1190,7 @@ Amount of services in downtime
 
 
 [float]
-=== status.num_services_ok
+=== `status.num_services_ok`
 
 type: integer
 
@@ -1112,7 +1198,7 @@ Amount of services in ok state
 
 
 [float]
-=== status.num_services_pending
+=== `status.num_services_pending`
 
 type: integer
 
@@ -1120,7 +1206,7 @@ Amount of pending services
 
 
 [float]
-=== status.num_services_unknown
+=== `status.num_services_unknown`
 
 type: integer
 
@@ -1128,7 +1214,7 @@ Amount of unknown services
 
 
 [float]
-=== status.num_services_unreachable
+=== `status.num_services_unreachable`
 
 type: integer
 
@@ -1136,7 +1222,7 @@ Amount of unreachable services
 
 
 [float]
-=== status.num_services_warning
+=== `status.num_services_warning`
 
 type: integer
 
@@ -1144,7 +1230,7 @@ Amount of services in warning state
 
 
 [float]
-=== status.passive_host_checks
+=== `status.passive_host_checks`
 
 type: integer
 
@@ -1152,7 +1238,7 @@ Amount of passive host checks
 
 
 [float]
-=== status.passive_host_checks_15min
+=== `status.passive_host_checks_15min`
 
 type: integer
 
@@ -1160,7 +1246,7 @@ Amount of passive host checks in the last 15 minutes
 
 
 [float]
-=== status.passive_host_checks_1min
+=== `status.passive_host_checks_1min`
 
 type: integer
 
@@ -1168,7 +1254,7 @@ Amount of passive host checks in the last minute
 
 
 [float]
-=== status.passive_host_checks_5min
+=== `status.passive_host_checks_5min`
 
 type: integer
 
@@ -1176,7 +1262,7 @@ Amount of passive host checks in the last 5 minutes
 
 
 [float]
-=== status.passive_service_checks
+=== `status.passive_service_checks`
 
 type: integer
 
@@ -1184,7 +1270,7 @@ Amount of passive service checks
 
 
 [float]
-=== status.passive_service_checks_15min
+=== `status.passive_service_checks_15min`
 
 type: integer
 
@@ -1192,7 +1278,7 @@ Amount of passive service checks in the last 15 minutes
 
 
 [float]
-=== status.passive_service_checks_1min
+=== `status.passive_service_checks_1min`
 
 type: integer
 
@@ -1200,7 +1286,7 @@ Amount of passive service checks in the last minute
 
 
 [float]
-=== status.passive_service_checks_5min
+=== `status.passive_service_checks_5min`
 
 type: integer
 
@@ -1208,10 +1294,67 @@ Amount of passive service checks in the last 5 minutes
 
 
 [float]
-=== status.uptime
+=== `status.uptime`
 
 type: integer
 
 Uptime
+
+
+[[exported-fields-kubernetes-processor]]
+== Kubernetes fields
+
+beta[]
+Kubernetes metadata added by the kubernetes processor
+
+
+
+
+[float]
+=== `kubernetes.pod.name`
+
+type: keyword
+
+Kubernetes pod name
+
+
+[float]
+=== `kubernetes.namespace`
+
+type: keyword
+
+Kubernetes namespace
+
+
+[float]
+=== `kubernetes.labels`
+
+type: object
+
+Kubernetes labels map
+
+
+[float]
+=== `kubernetes.annotations`
+
+type: object
+
+Kubernetes annotations map
+
+
+[float]
+=== `kubernetes.container.name`
+
+type: keyword
+
+Kubernetes container name
+
+
+[float]
+=== `kubernetes.container.image`
+
+type: keyword
+
+Kubernetes container image
 
 

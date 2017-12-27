@@ -17,6 +17,8 @@ import (
 	"text/template"
 
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
+	mlimporter "github.com/elastic/beats/libbeat/ml-importer"
 )
 
 // Fileset struct is the representation of a fileset.
@@ -50,6 +52,11 @@ func New(
 	}, nil
 }
 
+// String returns the module and the name of the fileset.
+func (fs *Fileset) String() string {
+	return fs.mcfg.Module + "/" + fs.name
+}
+
 // Read reads the manifest file and evaluates the variables.
 func (fs *Fileset) Read(beatVersion string) error {
 	var err error
@@ -74,11 +81,17 @@ func (fs *Fileset) Read(beatVersion string) error {
 // manifest structure is the representation of the manifest.yml file from the
 // fileset.
 type manifest struct {
-	ModuleVersion  string                   `config:"module_version"`
-	Vars           []map[string]interface{} `config:"var"`
-	IngestPipeline string                   `config:"ingest_pipeline"`
-	Prospector     string                   `config:"prospector"`
-	Requires       struct {
+	ModuleVersion   string                   `config:"module_version"`
+	Vars            []map[string]interface{} `config:"var"`
+	IngestPipeline  string                   `config:"ingest_pipeline"`
+	Prospector      string                   `config:"prospector"`
+	MachineLearning []struct {
+		Name       string `config:"name"`
+		Job        string `config:"job"`
+		Datafeed   string `config:"datafeed"`
+		MinVersion string `config:"min_version"`
+	} `config:"machine_learning"`
+	Requires struct {
 		Processors []ProcessorRequirement `config:"processors"`
 	} `config:"requires"`
 }
@@ -148,18 +161,57 @@ func (fs *Fileset) evaluateVars() (map[string]interface{}, error) {
 	return vars, nil
 }
 
+// turnOffElasticsearchVars re-evaluates the variables that have `min_elasticsearch_version`
+// set.
+func (fs *Fileset) turnOffElasticsearchVars(vars map[string]interface{}, esVersion string) (map[string]interface{}, error) {
+	retVars := map[string]interface{}{}
+	for key, val := range vars {
+		retVars[key] = val
+	}
+
+	haveVersion, err := common.NewVersion(esVersion)
+	if err != nil {
+		return vars, fmt.Errorf("Error parsing version %s: %v", esVersion, err)
+	}
+
+	for _, vals := range fs.manifest.Vars {
+		var ok bool
+		name, ok := vals["name"].(string)
+		if !ok {
+			return nil, fmt.Errorf("Variable doesn't have a string 'name' key")
+		}
+
+		minESVersion, ok := vals["min_elasticsearch_version"].(map[string]interface{})
+		if ok {
+			minVersion, err := common.NewVersion(minESVersion["version"].(string))
+			if err != nil {
+				return vars, fmt.Errorf("Error parsing version %s: %v", minESVersion["version"].(string), err)
+			}
+
+			logp.Debug("fileset", "Comparing ES version %s with requirement of %s", haveVersion, minVersion)
+
+			if haveVersion.LessThan(minVersion) {
+				retVars[name] = minESVersion["value"]
+				logp.Info("Setting var %s (%s) to %v because Elasticsearch version is %s", name, fs, minESVersion["value"], haveVersion)
+			}
+		}
+	}
+
+	return retVars, nil
+}
+
 // resolveVariable considers the value as a template so it can refer to built-in variables
 // as well as other variables defined before them.
 func resolveVariable(vars map[string]interface{}, value interface{}) (interface{}, error) {
 	switch v := value.(type) {
 	case string:
-		return applyTemplate(vars, v)
+		return applyTemplate(vars, v, false)
 	case []interface{}:
 		transformed := []interface{}{}
 		for _, val := range v {
 			s, ok := val.(string)
 			if ok {
-				transf, err := applyTemplate(vars, s)
+				transf, err := applyTemplate(vars, s, false)
 				if err != nil {
 					return nil, fmt.Errorf("array: %v", err)
 				}
@@ -173,9 +225,15 @@ func resolveVariable(vars map[string]interface{}, value interface{}) (interface{
 	return value, nil
 }
 
-// applyTemplate applies a Golang text/template
-func applyTemplate(vars map[string]interface{}, templateString string) (string, error) {
-	tpl, err := template.New("text").Parse(templateString)
+// applyTemplate applies a Golang text/template. If specialDelims is set to true,
+// the delimiters are set to `{<` and `>}` instead of `{{` and `}}`. These are easier to use
+// in pipeline definitions.
+func applyTemplate(vars map[string]interface{}, templateString string, specialDelims bool) (string, error) {
+	tpl := template.New("text")
+	if specialDelims {
+		tpl = tpl.Delims("{<", ">}")
+	}
+	tpl, err := tpl.Parse(templateString)
 	if err != nil {
 		return "", fmt.Errorf("Error parsing template %s: %v", templateString, err)
 	}
@@ -208,7 +266,7 @@ func (fs *Fileset) getBuiltinVars() (map[string]interface{}, error) {
 }
 
 func (fs *Fileset) getProspectorConfig() (*common.Config, error) {
-	path, err := applyTemplate(fs.vars, fs.manifest.Prospector)
+	path, err := applyTemplate(fs.vars, fs.manifest.Prospector, false)
 	if err != nil {
 		return nil, fmt.Errorf("Error expanding vars on the prospector path: %v", err)
 	}
@@ -217,7 +275,7 @@ func (fs *Fileset) getProspectorConfig() (*common.Config, error) {
 		return nil, fmt.Errorf("Error reading prospector file %s: %v", path, err)
 	}
 
-	yaml, err := applyTemplate(fs.vars, string(contents))
+	yaml, err := applyTemplate(fs.vars, string(contents), false)
 	if err != nil {
 		return nil, fmt.Errorf("Error interpreting the template of the prospector: %v", err)
 	}
@@ -262,7 +320,7 @@ func (fs *Fileset) getProspectorConfig() (*common.Config, error) {
 
 // getPipelineID returns the Ingest Node pipeline ID
 func (fs *Fileset) getPipelineID(beatVersion string) (string, error) {
-	path, err := applyTemplate(fs.vars, fs.manifest.IngestPipeline)
+	path, err := applyTemplate(fs.vars, fs.manifest.IngestPipeline, false)
 	if err != nil {
 		return "", fmt.Errorf("Error expanding vars on the ingest pipeline path: %v", err)
 	}
@@ -270,19 +328,29 @@ func (fs *Fileset) getPipelineID(beatVersion string) (string, error) {
 	return formatPipelineID(fs.mcfg.Module, fs.name, path, beatVersion), nil
 }
 
-func (fs *Fileset) GetPipeline() (pipelineID string, content map[string]interface{}, err error) {
-	path, err := applyTemplate(fs.vars, fs.manifest.IngestPipeline)
+// GetPipeline returns the JSON content of the Ingest Node pipeline that parses the logs.
+func (fs *Fileset) GetPipeline(esVersion string) (pipelineID string, content map[string]interface{}, err error) {
+	path, err := applyTemplate(fs.vars, fs.manifest.IngestPipeline, false)
 	if err != nil {
 		return "", nil, fmt.Errorf("Error expanding vars on the ingest pipeline path: %v", err)
 	}
 
-	f, err := os.Open(filepath.Join(fs.modulePath, fs.name, path))
+	strContents, err := ioutil.ReadFile(filepath.Join(fs.modulePath, fs.name, path))
 	if err != nil {
 		return "", nil, fmt.Errorf("Error reading pipeline file %s: %v", path, err)
 	}
 
-	dec := json.NewDecoder(f)
-	err = dec.Decode(&content)
+	vars, err := fs.turnOffElasticsearchVars(fs.vars, esVersion)
+	if err != nil {
+		return "", nil, err
+	}
+
+	jsonString, err := applyTemplate(vars, string(strContents), true)
+	if err != nil {
+		return "", nil, fmt.Errorf("Error interpreting the template of the ingest pipeline: %v", err)
+	}
+
+	err = json.Unmarshal([]byte(jsonString), &content)
 	if err != nil {
 		return "", nil, fmt.Errorf("Error JSON decoding the pipeline file: %s: %v", path, err)
 	}
@@ -309,4 +377,19 @@ func removeExt(path string) string {
 // fileset depends.
 func (fs *Fileset) GetRequiredProcessors() []ProcessorRequirement {
 	return fs.manifest.Requires.Processors
+}
+
+// GetMLConfigs returns the list of machine-learning configurations declared
+// by this fileset.
+func (fs *Fileset) GetMLConfigs() []mlimporter.MLConfig {
+	var mlConfigs []mlimporter.MLConfig
+	for _, ml := range fs.manifest.MachineLearning {
+		mlConfigs = append(mlConfigs, mlimporter.MLConfig{
+			ID:           fmt.Sprintf("filebeat-%s-%s-%s", fs.mcfg.Module, fs.name, ml.Name),
+			JobPath:      filepath.Join(fs.modulePath, fs.name, ml.Job),
+			DatafeedPath: filepath.Join(fs.modulePath, fs.name, ml.Datafeed),
+			MinVersion:   ml.MinVersion,
+		})
+	}
+	return mlConfigs
 }

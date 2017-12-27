@@ -4,6 +4,9 @@ import unittest
 
 
 class Test(metricbeat.BaseTest):
+
+    COMPOSE_SERVICES = ['couchbase']
+
     @unittest.skipUnless(metricbeat.INTEGRATION_TESTS, "integration test")
     def test_bucket(self):
         """
@@ -18,6 +21,7 @@ class Test(metricbeat.BaseTest):
         proc = self.start_beat()
         self.wait_until(lambda: self.output_lines() > 0, max_timeout=20)
         proc.check_kill_and_wait()
+        self.assert_no_logged_warnings()
 
         output = self.read_output_json()
         self.assertTrue(len(output) >= 1)
@@ -40,6 +44,7 @@ class Test(metricbeat.BaseTest):
         proc = self.start_beat()
         self.wait_until(lambda: self.output_lines() > 0, max_timeout=20)
         proc.check_kill_and_wait()
+        self.assert_no_logged_warnings()
 
         output = self.read_output_json()
         self.assertTrue(len(output) >= 1)
@@ -62,6 +67,7 @@ class Test(metricbeat.BaseTest):
         proc = self.start_beat()
         self.wait_until(lambda: self.output_lines() > 0, max_timeout=20)
         proc.check_kill_and_wait()
+        self.assert_no_logged_warnings()
 
         output = self.read_output_json()
         self.assertTrue(len(output) >= 1)

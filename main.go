@@ -3,14 +3,11 @@ package main
 import (
 	"os"
 
-	"github.com/elastic/beats/libbeat/beat"
-
-	"github.com/icinga/icingabeat/beater"
+	"github.com/icinga/icingabeat/cmd"
 )
 
 func main() {
-	err := beat.Run("icingabeat", "", beater.New)
-	if err != nil {
+	if err := cmd.RootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }

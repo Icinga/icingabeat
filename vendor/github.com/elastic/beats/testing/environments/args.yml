@@ -1,9 +1,10 @@
-# This file contains the build arguments which are shared between all elastic stack containers
+# This file contains the build arguments which are shared between all elastic stack containers.
 # This allows to change the build id and download path in a single place.
-version: '2'
+version: '2.1'
 services:
   args:
     build:
       args:
-        DOWNLOAD_URL: https://staging.elastic.co/5.3.1-ca15c737/downloads
-        ELASTIC_VERSION: 5.3.1
+        DOWNLOAD_URL: https://snapshots.elastic.co/downloads
+        ELASTIC_VERSION: 6.1.0-SNAPSHOT
+        CACHE_BUST: 20171201

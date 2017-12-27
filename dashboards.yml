@@ -1,0 +1,9 @@
+dashboards:
+- id: 34e97340-e4ce-11e7-b4d1-8383451ae5a4
+  file: Icingabeat-CheckRestuls.json
+
+- id: ed031e90-e4ce-11e7-b4d1-8383451ae5a4
+  file: Icingabeat-Notifications.json
+
+- id: a13f1a80-e4cf-11e7-b4d1-8383451ae5a4
+  file: Icingabeat-Status.json

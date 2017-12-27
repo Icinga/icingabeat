@@ -11,6 +11,8 @@ MYSQL_STATUS_FIELDS = ["clients", "cluster", "cpu", "keyspace", "memory",
 
 class Test(metricbeat.BaseTest):
 
+    COMPOSE_SERVICES = ['mysql']
+
     @unittest.skipUnless(metricbeat.INTEGRATION_TESTS, "integration test")
     @attr('integration')
     def test_status(self):
@@ -26,10 +28,7 @@ class Test(metricbeat.BaseTest):
         proc = self.start_beat()
         self.wait_until(lambda: self.output_lines() > 0)
         proc.check_kill_and_wait()
-
-        # Ensure no errors or warnings exist in the log.
-        log = self.get_log()
-        self.assertNotRegexpMatches(log, "ERR|WARN")
+        self.assert_no_logged_warnings()
 
         output = self.read_output_json()
         self.assertEqual(len(output), 1)

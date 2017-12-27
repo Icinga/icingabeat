@@ -1,0 +1,209 @@
+{
+  "objects": [
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Icinga Logo",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Icinga Logo\",\"type\":\"markdown\",\"params\":{\"fontSize\":12,\"markdown\":\"![Icinga Logo](https://www.icinga.com/wp-content/uploads/2014/06/icinga_logo.png)\"},\"aggs\":[]}"
+      },
+      "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "savedSearchId": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+        "title": "Icinga Version",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Icinga Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.version\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
+      },
+      "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "savedSearchId": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+        "title": "MySQL Schema Version",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"MySQL Schema Version\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.idomysqlconnection.ido-mysql.version\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
+      },
+      "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+        },
+        "savedSearchId": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+        "title": "Nodes",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Nodes\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"top\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"status.icingaapplication.app.node_name\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"_term\"}}]}"
+      },
+      "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Hostchecks by time",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Hostchecks by time\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.active_host_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Hostchecks\\\"),.es(metric='avg:status.active_host_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:status.active_host_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Servicechecks by time",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Servicechecks by time\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.active_service_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Servicechecks\\\"),.es(metric='avg:status.active_service_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:status.active_service_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "Endpoints comparisson",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"Endpoints comparisson\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.api.num_endpoints').label(\\\"Endpoints\\\"), .es(metric='avg:status.api.num_not_conn_endpoints').label(\\\"Endpoints not connected\\\").title(\\\"Connected Endpoints\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "States of Hosts",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"States of Hosts\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.num_hosts_up').color(#3EC8AC).label(\\\"Up\\\").title(\\\"States of Hosts\\\"),.es(metric='avg:status.num_hosts_down').color(#E94822).label(\\\"Down\\\"),.es(metric='avg:status.num_hosts_unreachable').color(#6E60A0).label(\\\"Unreachable\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "States of Services",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"States of Services\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:status.num_services_ok').color(#3EC8AC).label(\\\"Ok\\\").title(\\\"States of Services\\\"),.es(metric='avg:status.num_services_warning').color(#F2910A).label(\\\"Warning\\\"),.es(metric='avg:status.num_services_critical').color(#E94822).label(\\\"Critical\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "description": "",
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{}"
+        },
+        "title": "MySQL Queries",
+        "uiStateJSON": "{}",
+        "version": 1,
+        "visState": "{\"title\":\"MySQL Queries\",\"type\":\"timelion\",\"params\":{\"expression\":\".es(metric='avg:perfdata.idomysqlconnection_ido-mysql_queries_1min.value').color(#616EEF).label(\\\"1 min\\\").title(\\\"MySQL Queries\\\"), .es(metric='avg:perfdata.idomysqlconnection_ido-mysql_queries_5mins.value').color(#09A8FA).label(\\\"5 min\\\"), .es(metric='avg:perfdata.idomysqlconnection_ido-mysql_queries_15mins.value').color(#41C5D3).label(\\\"15 min\\\")\",\"interval\":\"1m\"},\"aggs\":[]}"
+      },
+      "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4",
+      "type": "visualization",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    },
+    {
+      "attributes": {
+        "columns": [
+          "_source"
+        ],
+        "description": "",
+        "hits": 0,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\n  \"index\": \"icingabeat-*\",\n  \"highlightAll\": true,\n  \"version\": true,\n  \"query\": {\n    \"language\": \"lucene\",\n    \"query\": \"type:icingabeat.status*\"\n  },\n  \"filter\": []\n}"
+        },
+        "sort": [
+          "@timestamp",
+          "desc"
+        ],
+        "title": "Statuspoller",
+        "version": 1
+      },
+      "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+      "type": "search",
+      "updated_at": "2017-12-27T07:51:55.982Z",
+      "version": 2
+    },
+    {
+      "attributes": {
+        "description": "Summary of Icinga Metrics",
+        "hits": 0,
+        "kibanaSavedObjectMeta": {
+          "searchSourceJSON": "{\"query\":{\"language\":\"lucene\",\"query\":\"\"},\"filter\":[],\"highlightAll\":true,\"version\":true}"
+        },
+        "optionsJSON": "{\"darkTheme\":false,\"hidePanelTitles\":false,\"useMargins\":true}",
+        "panelsJSON": "[{\"gridData\":{\"h\":2,\"i\":\"1\",\"w\":3,\"x\":0,\"y\":0},\"id\":\"77052890-e4c0-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"1\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":2,\"i\":\"2\",\"w\":3,\"x\":3,\"y\":0},\"id\":\"bebb81b0-e4c1-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"2\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":2,\"i\":\"3\",\"w\":3,\"x\":6,\"y\":0},\"id\":\"73cd6b40-e4c2-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"3\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":2,\"i\":\"4\",\"w\":3,\"x\":9,\"y\":0},\"id\":\"b37471e0-e4c6-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"4\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"5\",\"w\":4,\"x\":0,\"y\":2},\"id\":\"16cd5a60-e4c0-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"5\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"6\",\"w\":4,\"x\":4,\"y\":2},\"id\":\"fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"6\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"7\",\"w\":4,\"x\":8,\"y\":2},\"id\":\"0c0685d0-e4bf-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"7\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"8\",\"w\":4,\"x\":0,\"y\":5},\"id\":\"0d44fb70-e4ce-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"8\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"9\",\"w\":4,\"x\":4,\"y\":5},\"id\":\"204750b0-e4ce-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"9\",\"type\":\"visualization\",\"version\":\"6.1.0\"},{\"gridData\":{\"h\":3,\"i\":\"10\",\"w\":4,\"x\":8,\"y\":5},\"id\":\"4d4cda00-e4c2-11e7-b4d1-8383451ae5a4\",\"panelIndex\":\"10\",\"type\":\"visualization\",\"version\":\"6.1.0\"}]",
+        "timeRestore": false,
+        "title": "Icingabeat-Status",
+        "uiStateJSON": "{}",
+        "version": 1
+      },
+      "id": "a13f1a80-e4cf-11e7-b4d1-8383451ae5a4",
+      "type": "dashboard",
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
+    }
+  ],
+  "version": "6.1.0"
+}
