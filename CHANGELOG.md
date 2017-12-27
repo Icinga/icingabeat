@@ -1,6 +1,14 @@
 # Icingabeat CHANGELOG
+## v6.1.1
 
-## v5.6.0
+### Features
+* Update libbeat to version 6.1.1
+* Add setting to add custom CAs for SSL verification
+
+### Bugs
+* Close connections properly on failed authentication
+
+## v5.6.6
 
 ### Features
 * Update libbeat to version 5.6.6
