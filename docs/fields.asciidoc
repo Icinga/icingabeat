@@ -288,7 +288,7 @@ Text of a message
 [float]
 === `users`
 
-type: text
+type: keyword
 
 Affected users of a notification
 

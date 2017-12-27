@@ -13,7 +13,7 @@
       },
       "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:28:13.977Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -30,8 +30,8 @@
       },
       "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-20T09:24:12.396Z",
-      "version": 2
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
     },
     {
       "attributes": {
@@ -47,8 +47,8 @@
       },
       "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-20T09:24:46.891Z",
-      "version": 2
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
     },
     {
       "attributes": {
@@ -64,8 +64,8 @@
       },
       "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-20T09:25:12.168Z",
-      "version": 2
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
     },
     {
       "attributes": {
@@ -80,7 +80,7 @@
       },
       "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:25:32.550Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -96,7 +96,7 @@
       },
       "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:05:00.044Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -112,8 +112,8 @@
       },
       "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:25:51.640Z",
-      "version": 2
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
     },
     {
       "attributes": {
@@ -128,7 +128,7 @@
       },
       "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:05:29.511Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -144,7 +144,7 @@
       },
       "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:06:01.403Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -160,7 +160,7 @@
       },
       "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T13:41:22.976Z",
+      "updated_at": "2017-12-27T07:40:38.128Z",
       "version": 1
     },
     {
@@ -171,7 +171,7 @@
         "description": "",
         "hits": 0,
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"18b0a0b0-e4bd-11e7-b4d1-8383451ae5a4\",\"highlightAll\":true,\"version\":true,\"query\":{\"language\":\"lucene\",\"query\":\"type:icingabeat.status*\"},\"filter\":[]}"
+          "searchSourceJSON": "{\n  \"index\": \"icingabeat-*\",\n  \"highlightAll\": true,\n  \"version\": true,\n  \"query\": {\n    \"language\": \"lucene\",\n    \"query\": \"type:icingabeat.status*\"\n  },\n  \"filter\": []\n}"
         },
         "sort": [
           "@timestamp",
@@ -182,8 +182,8 @@
       },
       "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
       "type": "search",
-      "updated_at": "2017-12-19T13:10:50.609Z",
-      "version": 1
+      "updated_at": "2017-12-27T07:51:55.982Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -201,8 +201,8 @@
       },
       "id": "a13f1a80-e4cf-11e7-b4d1-8383451ae5a4",
       "type": "dashboard",
-      "updated_at": "2017-12-19T15:26:51.118Z",
-      "version": 2
+      "updated_at": "2017-12-27T07:40:38.128Z",
+      "version": 1
     }
   ],
   "version": "6.1.0"

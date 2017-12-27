@@ -14,7 +14,7 @@
       },
       "id": "af54ac40-e4cd-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:02:51.908Z",
+      "updated_at": "2017-12-27T07:40:37.107Z",
       "version": 1
     },
     {
@@ -31,25 +31,25 @@
       },
       "id": "caabba10-e4cd-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:03:37.777Z",
+      "updated_at": "2017-12-27T07:40:37.107Z",
       "version": 1
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+          "searchSourceJSON": "{\n  \"filter\": [],\n  \"query\": {\n    \"query\": \"\",\n    \"language\": \"lucene\"\n  }\n}"
         },
         "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4",
         "title": "Notification Services",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Notification Services\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"service.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}"
+        "visState": "{\n  \"title\": \"Notification Services\",\n  \"type\": \"pie\",\n  \"params\": {\n    \"type\": \"pie\",\n    \"addTooltip\": true,\n    \"addLegend\": true,\n    \"legendPosition\": \"right\",\n    \"isDonut\": true,\n    \"labels\": {\n      \"show\": false,\n      \"values\": true,\n      \"last_level\": true,\n      \"truncate\": 100\n    }\n  },\n  \"aggs\": [\n    {\n      \"id\": \"1\",\n      \"enabled\": true,\n      \"type\": \"count\",\n      \"schema\": \"metric\",\n      \"params\": {}\n    },\n    {\n      \"id\": \"2\",\n      \"enabled\": true,\n      \"type\": \"terms\",\n      \"schema\": \"segment\",\n      \"params\": {\n        \"field\": \"service\",\n        \"size\": 5,\n        \"order\": \"desc\",\n        \"orderBy\": \"1\"\n      }\n    }\n  ]\n}"
       },
       "id": "fcb31150-e4ca-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T14:43:33.221Z",
-      "version": 1
+      "updated_at": "2017-12-27T07:56:13.974Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -61,29 +61,29 @@
         "title": "Notification Hosts",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Notification Hosts\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"significant_terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host.keyword\",\"size\":5}}]}"
+        "visState": "{\"title\":\"Notification Hosts\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host\",\"size\":500,\"order\":\"desc\",\"orderBy\":\"1\"}}]}"
       },
       "id": "e5a012a0-e4c6-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T14:14:16.522Z",
-      "version": 1
+      "updated_at": "2017-12-27T07:56:02.651Z",
+      "version": 3
     },
     {
       "attributes": {
         "description": "",
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"filter\":[],\"query\":{\"query\":\"\",\"language\":\"lucene\"}}"
+          "searchSourceJSON": "{\n  \"filter\": [],\n  \"query\": {\n    \"query\": \"\",\n    \"language\": \"lucene\"\n  }\n}"
         },
         "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4",
         "title": "Notifications by User",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Notifications by User\",\"type\":\"pie\",\"params\":{\"type\":\"pie\",\"addTooltip\":true,\"addLegend\":true,\"legendPosition\":\"right\",\"isDonut\":true,\"labels\":{\"show\":false,\"values\":true,\"last_level\":true,\"truncate\":100}},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"users.keyword\",\"size\":5,\"order\":\"desc\",\"orderBy\":\"1\"}}]}"
+        "visState": "{\n  \"title\": \"Notifications by User\",\n  \"type\": \"pie\",\n  \"params\": {\n    \"type\": \"pie\",\n    \"addTooltip\": true,\n    \"addLegend\": true,\n    \"legendPosition\": \"right\",\n    \"isDonut\": true,\n    \"labels\": {\n      \"show\": false,\n      \"values\": true,\n      \"last_level\": true,\n      \"truncate\": 100\n    }\n  },\n  \"aggs\": [\n    {\n      \"id\": \"1\",\n      \"enabled\": true,\n      \"type\": \"count\",\n      \"schema\": \"metric\",\n      \"params\": {}\n    },\n    {\n      \"id\": \"2\",\n      \"enabled\": true,\n      \"type\": \"terms\",\n      \"schema\": \"segment\",\n      \"params\": {\n        \"field\": \"users\",\n        \"size\": 5,\n        \"order\": \"desc\",\n        \"orderBy\": \"1\"\n      }\n    }\n  ]\n}"
       },
       "id": "e95ca140-e4cd-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
-      "updated_at": "2017-12-19T15:04:29.268Z",
-      "version": 1
+      "updated_at": "2017-12-27T07:56:25.109Z",
+      "version": 2
     },
     {
       "attributes": {
@@ -96,7 +96,7 @@
         "description": "",
         "hits": 0,
         "kibanaSavedObjectMeta": {
-          "searchSourceJSON": "{\"index\":\"18b0a0b0-e4bd-11e7-b4d1-8383451ae5a4\",\"highlightAll\":true,\"version\":true,\"query\":{\"language\":\"lucene\",\"query\":\"type:icingabeat.event.notification\"},\"filter\":[]}"
+          "searchSourceJSON": "{\n  \"index\": \"icingabeat-*\",\n  \"highlightAll\": true,\n  \"version\": true,\n  \"query\": {\n    \"language\": \"lucene\",\n    \"query\": \"type:icingabeat.event.notification\"\n  },\n  \"filter\": []\n}"
         },
         "sort": [
           "@timestamp",
@@ -107,7 +107,7 @@
       },
       "id": "fa782860-e4bd-11e7-b4d1-8383451ae5a4",
       "type": "search",
-      "updated_at": "2017-12-19T15:13:46.943Z",
+      "updated_at": "2017-12-27T07:51:48.494Z",
       "version": 2
     },
     {
@@ -126,8 +126,8 @@
       },
       "id": "ed031e90-e4ce-11e7-b4d1-8383451ae5a4",
       "type": "dashboard",
-      "updated_at": "2017-12-19T15:27:06.579Z",
-      "version": 3
+      "updated_at": "2017-12-27T07:40:37.107Z",
+      "version": 1
     }
   ],
   "version": "6.1.0"

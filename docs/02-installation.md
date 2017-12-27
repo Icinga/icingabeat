@@ -83,12 +83,12 @@ exploring the data by yourself.
 
 Import dashboards and index pattern:
 ``` shell
-./icingabeat setup
+icingabeat setup
 ```
 
 Set Kibana host, user and password if necessary:
 ``` shell
-./metricbeat setup -E setup.kibana.host=127.0.0.1:5601 -E setup.kibana.username=elastic -E setup.kibana.password=secret
+icingabeat setup -E setup.kibana.host=127.0.0.1:5601 -E setup.kibana.username=elastic -E setup.kibana.password=secret
 ```
 
 ## Manual Installation

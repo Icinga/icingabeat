@@ -48,7 +48,7 @@
         Text of a message
 
     - name: users
-      type: text
+      type: keyword
       description: >
         Affected users of a notification
 
