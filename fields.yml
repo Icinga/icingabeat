@@ -589,26 +589,6 @@
       description: >
         Number of not connected endpoints
 
-    - name: status.api.zones.demo.client_log_lag
-      type: integer
-      description: >
-        Lag of the replaylog
-
-    - name: status.api.zones.demo.connected
-      type: boolean
-      description: >
-        Zone connected
-
-    - name: status.api.zones.demo.endpoints
-      type: text
-      description: >
-        Endpoint names
-
-    - name: status.api.zones.demo.parent_zone
-      type: keyword
-      description: >
-        Parent zone
-
     - name: status.avg_execution_time
       type: integer
       description: >

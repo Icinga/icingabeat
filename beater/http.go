@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -32,7 +31,6 @@ func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, er
 		skipSslVerify = true
 	}
 
-	fmt.Print(bt.config.SSL.CertificateAuthorities)
 	tlsConfig := &tls.Config{
 		InsecureSkipVerify: skipSslVerify,
 		RootCAs:            certPool,
