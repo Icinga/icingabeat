@@ -47,7 +47,6 @@ func (bt *Icingabeat) Run(b *beat.Beat) error {
 		go eventstream.Run()
 	}
 
-	fmt.Print(bt.config.Statuspoller.Interval)
 	if bt.config.Statuspoller.Interval > 0 {
 		var statuspoller *Statuspoller
 		statuspoller = NewStatuspoller(bt, bt.config)

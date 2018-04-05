@@ -878,38 +878,6 @@ Number of not connected endpoints
 
 
 [float]
-=== `status.api.zones.demo.client_log_lag`
-
-type: integer
-
-Lag of the replaylog
-
-
-[float]
-=== `status.api.zones.demo.connected`
-
-type: boolean
-
-Zone connected
-
-
-[float]
-=== `status.api.zones.demo.endpoints`
-
-type: text
-
-Endpoint names
-
-
-[float]
-=== `status.api.zones.demo.parent_zone`
-
-type: keyword
-
-Parent zone
-
-
-[float]
 === `status.avg_execution_time`
 
 type: integer

@@ -56,6 +56,15 @@ func BuildStatusEvents(body []byte) []beat.Event {
 						switch statusvalue.(type) {
 						case map[string]interface{}:
 							if len(statusvalue.(map[string]interface{})) > 0 {
+								for key, value := range value.(map[string]interface{}) {
+									if key == "api" {
+										// "zones" can include a massive amount of data, depending
+										// on the number of connected agents and satellites
+										// since enough data is included in other keys, we're
+										// removing "zones" explicitly
+										delete(value.(map[string]interface{}), "zones")
+									}
+								}
 								event.Fields.Put(key, value)
 							}
 
