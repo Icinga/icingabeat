@@ -9,6 +9,7 @@ TEST_ENVIRONMENT=false
 ES_BEATS?=./vendor/github.com/elastic/beats
 GOPACKAGES=$(shell glide novendor)
 PREFIX?=.
+TESTIFY_TOOL_REPO?=github.com/stretchr/testify
 
 #TARGETS="linux/amd64 linux/386 windows/amd64 windows/386 darwin/amd64"
 #PACKAGES=${BEATNAME}/deb ${BEATNAME}/rpm ${BEATNAME}/darwin ${BEATNAME}/win ${BEATNAME}/bin
