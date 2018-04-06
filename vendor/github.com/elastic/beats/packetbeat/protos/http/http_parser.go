@@ -212,17 +212,16 @@ func parseResponseStatus(s []byte) (uint16, []byte, error) {
 		debugf("parseResponseStatus: %s", s)
 	}
 
+	var phrase []byte
 	p := bytes.IndexByte(s, ' ')
 	if p == -1 {
-		return 0, nil, errors.New("Not able to identify status code")
+		p = len(s)
+	} else {
+		phrase = s[p+1:]
 	}
 	statusCode, err := parseInt(s[0:p])
 	if err != nil {
 		return 0, nil, fmt.Errorf("Unable to parse status code from [%s]", s)
-	}
-	phrase := s[p+1:]
-	if len(phrase) == 0 {
-		return 0, nil, fmt.Errorf("Unable to parse status phrase from [%s]", s)
 	}
 	return uint16(statusCode), phrase, nil
 }
@@ -359,8 +358,8 @@ func (parser *parser) parseHeader(m *message, data []byte) (bool, bool, int) {
 				if val, ok := m.headers[string(headerName)]; ok {
 					composed := make([]byte, len(val)+len(headerVal)+2)
 					off := copy(composed, val)
-					off = copy(composed[off:], []byte(", "))
-					copy(composed[off:], headerVal)
+					copy(composed[off:], []byte(", "))
+					copy(composed[off+2:], headerVal)
 
 					m.headers[string(headerName)] = composed
 				} else {

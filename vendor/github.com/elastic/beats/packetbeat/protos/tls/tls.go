@@ -26,6 +26,7 @@ type tlsConnectionData struct {
 
 	handshakeCompleted int8
 	eventSent          bool
+	startTime, endTime time.Time
 }
 
 // TLS protocol plugin
@@ -103,6 +104,9 @@ func (plugin *tlsPlugin) Parse(
 	defer logp.Recover("ParseTLS exception")
 
 	conn := ensureTLSConnection(private)
+	if private == nil {
+		conn.startTime = pkt.Ts
+	}
 	conn = plugin.doParse(conn, pkt, tcptuple, dir)
 	if conn == nil {
 		return nil
@@ -171,6 +175,7 @@ func (plugin *tlsPlugin) doParse(
 		case resultEncrypted:
 			conn.handshakeCompleted |= 1 << dir
 			if conn.handshakeCompleted == 3 {
+				conn.endTime = pkt.Ts
 				plugin.sendEvent(conn)
 			}
 		}
@@ -237,11 +242,18 @@ func (plugin *tlsPlugin) createEvent(conn *tlsConnectionData) beat.Event {
 		"handshake_completed": conn.handshakeCompleted > 1,
 	}
 
+	fingerprints := common.MapStr{}
 	emptyHello := &helloMessage{}
 	var clientHello, serverHello *helloMessage
 	if client.parser.hello != nil {
 		clientHello = client.parser.hello
 		tls["client_hello"] = clientHello.toMap()
+		hash, str := getJa3Fingerprint(clientHello)
+		ja3 := common.MapStr{
+			"hash": hash,
+			"str":  str,
+		}
+		fingerprints["ja3"] = ja3
 	} else {
 		clientHello = emptyHello
 	}
@@ -321,6 +333,9 @@ func (plugin *tlsPlugin) createEvent(conn *tlsConnectionData) beat.Event {
 		dst.Proc = string(server.cmdlineTuple.Src)
 	}
 
+	if len(fingerprints) > 0 {
+		tls["fingerprints"] = fingerprints
+	}
 	fields := common.MapStr{
 		"type":   "tls",
 		"status": status,
@@ -329,10 +344,16 @@ func (plugin *tlsPlugin) createEvent(conn *tlsConnectionData) beat.Event {
 		"dst":    dst,
 	}
 	// set "server" to SNI, if provided
-	if value, ok := clientHello.extensions["server_name_indication"]; ok {
+	if value, ok := clientHello.extensions.Parsed["server_name_indication"]; ok {
 		if list, ok := value.([]string); ok && len(list) > 0 {
 			fields["server"] = list[0]
 		}
+	}
+
+	// set "responsetime" if handshake completed
+	responseTime := int32(conn.endTime.Sub(conn.startTime) / time.Millisecond)
+	if responseTime >= 0 {
+		fields["responsetime"] = responseTime
 	}
 
 	timestamp := time.Now()

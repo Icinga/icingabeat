@@ -67,7 +67,7 @@ type config struct {
 	Paths          []string        `config:"paths"`
 	ScanFrequency  time.Duration   `config:"scan_frequency" validate:"min=0,nonzero"`
 	CleanRemoved   bool            `config:"clean_removed"`
-	HarvesterLimit uint64          `config:"harvester_limit" validate:"min=0"`
+	HarvesterLimit uint32          `config:"harvester_limit" validate:"min=0"`
 	Symlinks       bool            `config:"symlinks"`
 	TailFiles      bool            `config:"tail_files"`
 	RecursiveGlob  bool            `config:"recursive_glob.enabled"`
@@ -85,7 +85,7 @@ type config struct {
 	JSON         *reader.JSONConfig      `config:"json"`
 
 	// Hidden on purpose, used by the docker prospector:
-	DockerJSON bool `config:"docker-json"`
+	DockerJSON string `config:"docker-json"`
 }
 
 type LogConfig struct {
