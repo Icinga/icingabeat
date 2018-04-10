@@ -66,6 +66,9 @@ func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, er
 	case 401:
 		err = errors.New("Authentication failed for user " + bt.config.User)
 		defer response.Body.Close()
+	case 404:
+		err = errors.New("404 Not Found. Missing permissions may be a reason for this.")
+		defer response.Body.Close()
 	}
 
 	return response, err
