@@ -62,9 +62,9 @@ type pipelineProcessors struct {
 	// The pipeline its processor settings for
 	// constructing the clients complete processor
 	// pipeline on connect.
-	beatsMeta common.MapStr
-	fields    common.MapStr
-	tags      []string
+	builtinMeta common.MapStr
+	fields      common.MapStr
+	tags        []string
 
 	processors beat.Processor
 
@@ -91,8 +91,8 @@ type Settings struct {
 // processors, so all processors configured with the pipeline or client will see
 // the same/complete event.
 type Annotations struct {
-	Beat  common.MapStr
-	Event common.EventMetadata
+	Event   common.EventMetadata
+	Builtin common.MapStr
 }
 
 // WaitCloseMode enumerates the possible behaviors of WaitClose in a pipeline.
@@ -141,7 +141,7 @@ func New(
 ) (*Pipeline, error) {
 	var err error
 
-	log := defaultLogger
+	log := logp.NewLogger("publish")
 	annotations := settings.Annotations
 	processors := settings.Processors
 	disabledOutput := settings.Disabled
@@ -173,7 +173,18 @@ func New(
 	if err != nil {
 		return nil, err
 	}
-	p.eventSema = newSema(p.queue.BufferConfig().Events)
+
+	if count := p.queue.BufferConfig().Events; count > 0 {
+		p.eventSema = newSema(count)
+	}
+
+	maxEvents := p.queue.BufferConfig().Events
+	if maxEvents <= 0 {
+		// Maximum number of events until acker starts blocking.
+		// Only active if pipeline can drop events.
+		maxEvents = 64000
+	}
+	p.eventSema = newSema(maxEvents)
 
 	p.output = newOutputController(log, p.observer, p.queue)
 	p.output.Set(out)
@@ -390,8 +401,8 @@ func makePipelineProcessors(
 		p.processors = tmp
 	}
 
-	if meta := annotations.Beat; meta != nil {
-		p.beatsMeta = common.MapStr{"beat": meta}
+	if meta := annotations.Builtin; meta != nil {
+		p.builtinMeta = meta
 	}
 
 	if em := annotations.Event; len(em.Fields) > 0 {

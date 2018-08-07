@@ -4,7 +4,6 @@ package instance
 
 import (
 	"fmt"
-	"os"
 	"runtime"
 
 	"github.com/elastic/beats/libbeat/logp"
@@ -65,8 +64,12 @@ func reportMemStats(m monitoring.Mode, V monitoring.Visitor) {
 }
 
 func getRSSSize() (uint64, error) {
-	beatPID := os.Getpid()
-	state, err := beatProcessStats.GetOne(beatPID)
+	pid, err := process.GetSelfPid()
+	if err != nil {
+		return 0, fmt.Errorf("error getting PID for self process: %v", err)
+	}
+
+	state, err := beatProcessStats.GetOne(pid)
 	if err != nil {
 		return 0, fmt.Errorf("error retrieving process stats: %v", err)
 	}
@@ -101,22 +104,32 @@ func reportBeatCPU(_ monitoring.Mode, V monitoring.Visitor) {
 
 	monitoring.ReportNamespace(V, "user", func() {
 		monitoring.ReportInt(V, "ticks", int64(cpuTicks.User))
-		monitoring.ReportInt(V, "time", userTime)
+		monitoring.ReportNamespace(V, "time", func() {
+			monitoring.ReportInt(V, "ms", userTime)
+		})
 	})
 	monitoring.ReportNamespace(V, "system", func() {
 		monitoring.ReportInt(V, "ticks", int64(cpuTicks.System))
-		monitoring.ReportInt(V, "time", systemTime)
+		monitoring.ReportNamespace(V, "time", func() {
+			monitoring.ReportInt(V, "ms", systemTime)
+		})
 	})
 	monitoring.ReportNamespace(V, "total", func() {
 		monitoring.ReportFloat(V, "value", totalCPUUsage)
 		monitoring.ReportInt(V, "ticks", int64(cpuTicks.Total))
-		monitoring.ReportInt(V, "time", userTime+systemTime)
+		monitoring.ReportNamespace(V, "time", func() {
+			monitoring.ReportInt(V, "ms", userTime+systemTime)
+		})
 	})
 }
 
 func getCPUUsage() (float64, *process.Ticks, error) {
-	beatPID := os.Getpid()
-	state, err := beatProcessStats.GetOne(beatPID)
+	pid, err := process.GetSelfPid()
+	if err != nil {
+		return 0.0, nil, fmt.Errorf("error getting PID for self process: %v", err)
+	}
+
+	state, err := beatProcessStats.GetOne(pid)
 	if err != nil {
 		return 0.0, nil, fmt.Errorf("error retrieving process stats: %v", err)
 	}

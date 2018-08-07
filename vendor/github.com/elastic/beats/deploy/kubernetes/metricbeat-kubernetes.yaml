@@ -6,7 +6,6 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: metricbeat
-    kubernetes.io/cluster-service: "true"
 data:
   metricbeat.yml: |-
     metricbeat.config.modules:
@@ -33,7 +32,6 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: metricbeat
-    kubernetes.io/cluster-service: "true"
 data:
   system.yml: |-
     - module: system
@@ -80,20 +78,19 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: metricbeat
-    kubernetes.io/cluster-service: "true"
 spec:
   template:
     metadata:
       labels:
         k8s-app: metricbeat
-        kubernetes.io/cluster-service: "true"
     spec:
       serviceAccountName: metricbeat
       terminationGracePeriodSeconds: 30
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: metricbeat
-        image: docker.elastic.co/beats/metricbeat:6.2.3
+        image: docker.elastic.co/beats/metricbeat:6.3.2
         args: [
           "-c", "/etc/metricbeat.yml",
           "-e",
@@ -158,6 +155,9 @@ spec:
         configMap:
           defaultMode: 0600
           name: metricbeat-daemonset-modules
+      # We set an `emptyDir` here to ensure the manifest will deploy correctly.
+      # It's recommended to change this to a `hostPath` folder, to ensure internal data
+      # files survive pod changes (ie: version upgrade)
       - name: data
         emptyDir: {}
 ---
@@ -168,7 +168,6 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: metricbeat
-    kubernetes.io/cluster-service: "true"
 data:
   # This module requires `kube-state-metrics` up and running under `kube-system` namespace
   kubernetes.yml: |-
@@ -192,17 +191,16 @@ metadata:
   namespace: kube-system
   labels:
     k8s-app: metricbeat
-    kubernetes.io/cluster-service: "true"
 spec:
   template:
     metadata:
       labels:
         k8s-app: metricbeat
-        kubernetes.io/cluster-service: "true"
     spec:
+      serviceAccountName: metricbeat
       containers:
       - name: metricbeat
-        image: docker.elastic.co/beats/metricbeat:6.2.3
+        image: docker.elastic.co/beats/metricbeat:6.3.2
         args: [
           "-c", "/etc/metricbeat.yml",
           "-e",

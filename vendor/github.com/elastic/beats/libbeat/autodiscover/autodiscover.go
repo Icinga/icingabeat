@@ -16,7 +16,6 @@ const debugK = "autodiscover"
 
 // Adapter must be implemented by the beat in order to provide Autodiscover
 type Adapter interface {
-	// TODO Hints
 
 	// CreateConfig generates a valid list of configs from the given event, the received event will have all keys defined by `StartFilter`
 	CreateConfig(bus.Event) ([]*common.Config, error)
@@ -51,7 +50,7 @@ func NewAutodiscover(name string, adapter Adapter, config *Config) (*Autodiscove
 	// Init providers
 	var providers []Provider
 	for _, providerCfg := range config.Providers {
-		provider, err := ProviderRegistry.BuildProvider(bus, providerCfg)
+		provider, err := Registry.BuildProvider(bus, providerCfg)
 		if err != nil {
 			return nil, err
 		}
@@ -175,8 +174,12 @@ func (a *Autodiscover) handleStop(event bus.Event) {
 		}
 
 		if runner := a.runners.Get(hash); runner != nil {
+			// Stop can block, we run it asyncrhonously to avoid blocking
+			// the whole events loop. The runner hash is removed in any case
+			// so an equivalent configuration can be added again while this
+			// one stops, and a duplicated event don't try to stop it twice.
 			logp.Info("Autodiscover stopping runner: %s", runner)
-			runner.Stop()
+			go runner.Stop()
 			a.runners.Remove(hash)
 		} else {
 			logp.Debug(debugK, "Runner not found for stopping: %s", hash)

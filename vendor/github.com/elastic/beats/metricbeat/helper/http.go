@@ -11,6 +11,9 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/outputs"
+
+	"github.com/pkg/errors"
+
 	"github.com/elastic/beats/libbeat/outputs/transport"
 	"github.com/elastic/beats/metricbeat/mb"
 )
@@ -25,23 +28,32 @@ type HTTP struct {
 }
 
 // NewHTTP creates new http helper
-func NewHTTP(base mb.BaseMetricSet) *HTTP {
+func NewHTTP(base mb.BaseMetricSet) (*HTTP, error) {
 	config := struct {
-		TLS     *outputs.TLSConfig `config:"ssl"`
-		Timeout time.Duration      `config:"timeout"`
-		Headers map[string]string  `config:"headers"`
+		TLS             *outputs.TLSConfig `config:"ssl"`
+		Timeout         time.Duration      `config:"timeout"`
+		Headers         map[string]string  `config:"headers"`
+		BearerTokenFile string             `config:"bearer_token_file"`
 	}{}
 	if err := base.Module().UnpackConfig(&config); err != nil {
-		return nil
+		return nil, err
 	}
 
 	if config.Headers == nil {
 		config.Headers = map[string]string{}
 	}
 
+	if config.BearerTokenFile != "" {
+		header, err := getAuthHeaderFromToken(config.BearerTokenFile)
+		if err != nil {
+			return nil, err
+		}
+		config.Headers["Authorization"] = header
+	}
+
 	tlsConfig, err := outputs.LoadTLSConfig(config.TLS)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	var dialer, tlsDialer transport.Dialer
@@ -49,7 +61,7 @@ func NewHTTP(base mb.BaseMetricSet) *HTTP {
 	dialer = transport.NetDialer(config.Timeout)
 	tlsDialer, err = transport.TLSDialer(dialer, tlsConfig, config.Timeout)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 
 	return &HTTP{
@@ -65,7 +77,7 @@ func NewHTTP(base mb.BaseMetricSet) *HTTP {
 		method:  "GET",
 		uri:     base.HostData().SanitizedURI,
 		body:    nil,
-	}
+	}, nil
 }
 
 // FetchResponse fetches a response for the http metricset.
@@ -152,4 +164,23 @@ func (h *HTTP) FetchJSON() (map[string]interface{}, error) {
 	}
 
 	return data, nil
+}
+
+// getAuthHeaderFromToken reads a bearer authorizaiton token from the given file
+func getAuthHeaderFromToken(path string) (string, error) {
+	var token string
+
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return "", errors.Wrap(err, "reading bearer token file")
+	}
+
+	if len(b) != 0 {
+		if b[len(b)-1] == '\n' {
+			b = b[0 : len(b)-1]
+		}
+		token = fmt.Sprintf("Bearer %s", string(b))
+	}
+
+	return token, nil
 }

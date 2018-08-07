@@ -9,7 +9,6 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/events"
 	"github.com/docker/docker/api/types/filters"
-	"github.com/docker/docker/client"
 	"github.com/docker/go-connections/tlsconfig"
 	"golang.org/x/net/context"
 
@@ -18,7 +17,9 @@ import (
 )
 
 // Select Docker API version
-const dockerAPIVersion = "1.22"
+const (
+	shortIDLen = 12
+)
 
 // Watcher reads docker events and keeps a list of known containers
 type Watcher interface {
@@ -59,6 +60,7 @@ type watcher struct {
 	lastValidTimestamp int64
 	stopped            sync.WaitGroup
 	bus                bus.Bus
+	shortID            bool // whether to store short ID in "containers" too
 }
 
 // Container info retrieved by the watcher
@@ -77,10 +79,11 @@ type Client interface {
 	Events(ctx context.Context, options types.EventsOptions) (<-chan events.Message, <-chan error)
 }
 
-type WatcherConstructor func(host string, tls *TLSConfig) (Watcher, error)
+// WatcherConstructor represent a function that creates a new Watcher from giving parameters
+type WatcherConstructor func(host string, tls *TLSConfig, storeShortID bool) (Watcher, error)
 
 // NewWatcher returns a watcher running for the given settings
-func NewWatcher(host string, tls *TLSConfig) (Watcher, error) {
+func NewWatcher(host string, tls *TLSConfig, storeShortID bool) (Watcher, error) {
 	var httpClient *http.Client
 	if tls != nil {
 		options := tlsconfig.Options{
@@ -101,15 +104,16 @@ func NewWatcher(host string, tls *TLSConfig) (Watcher, error) {
 		}
 	}
 
-	client, err := client.NewClient(host, dockerAPIVersion, httpClient, nil)
+	client, err := NewClient(host, httpClient, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	return NewWatcherWithClient(client, 60*time.Second)
+	return NewWatcherWithClient(client, 60*time.Second, storeShortID)
 }
 
-func NewWatcherWithClient(client Client, cleanupTimeout time.Duration) (*watcher, error) {
+// NewWatcherWithClient creates a new Watcher from a given Docker client
+func NewWatcherWithClient(client Client, cleanupTimeout time.Duration, storeShortID bool) (Watcher, error) {
 	ctx, cancel := context.WithCancel(context.Background())
 	return &watcher{
 		client:         client,
@@ -119,6 +123,7 @@ func NewWatcherWithClient(client Client, cleanupTimeout time.Duration) (*watcher
 		deleted:        make(map[string]time.Time),
 		cleanupTimeout: cleanupTimeout,
 		bus:            bus.New("docker"),
+		shortID:        storeShortID,
 	}, nil
 }
 
@@ -126,13 +131,17 @@ func NewWatcherWithClient(client Client, cleanupTimeout time.Duration) (*watcher
 func (w *watcher) Container(ID string) *Container {
 	w.RLock()
 	container := w.containers[ID]
-	_, ok := w.deleted[ID]
+	if container == nil {
+		w.RUnlock()
+		return nil
+	}
+	_, ok := w.deleted[container.ID]
 	w.RUnlock()
 
 	// Update last access time if it's deleted
 	if ok {
 		w.Lock()
-		w.deleted[ID] = time.Now()
+		w.deleted[container.ID] = time.Now()
 		w.Unlock()
 	}
 
@@ -145,7 +154,9 @@ func (w *watcher) Containers() map[string]*Container {
 	defer w.RUnlock()
 	res := make(map[string]*Container)
 	for k, v := range w.containers {
-		res[k] = v
+		if !w.shortID || len(k) != shortIDLen {
+			res[k] = v
+		}
 	}
 	return res
 }
@@ -165,6 +176,9 @@ func (w *watcher) Start() error {
 
 	for _, c := range containers {
 		w.containers[c.ID] = c
+		if w.shortID {
+			w.containers[c.ID[:shortIDLen]] = c
+		}
 	}
 
 	// Emit all start events (avoid blocking if the bus get's blocked)
@@ -223,6 +237,9 @@ func (w *watcher) watch() {
 
 					w.Lock()
 					w.containers[event.Actor.ID] = container
+					if w.shortID {
+						w.containers[event.Actor.ID[:shortIDLen]] = container
+					}
 					// un-delete if it's flagged (in case of update or recreation)
 					delete(w.deleted, event.Actor.ID)
 					w.Unlock()
@@ -326,6 +343,9 @@ func (w *watcher) cleanupWorker() {
 			for _, key := range toDelete {
 				delete(w.deleted, key)
 				delete(w.containers, key)
+				if w.shortID {
+					delete(w.containers, key[:shortIDLen])
+				}
 			}
 			w.Unlock()
 		}

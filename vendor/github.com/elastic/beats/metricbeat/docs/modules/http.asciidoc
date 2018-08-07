@@ -5,8 +5,6 @@ This file is generated! See scripts/docs_collector.py
 [[metricbeat-module-http]]
 == HTTP module
 
-beta[]
-
 The HTTP module is a Metricbeat module used to call arbitrary HTTP endpoints for which a dedicated Metricbeat module is not available.
 
 Multiple endpoints can be configured which are polled in a regular interval and the result is shipped to the configured output channel. It is recommended to install a Metricbeat instance on each host from which data should be fetched.
@@ -35,8 +33,11 @@ metricbeat.modules:
   path: "/"
   #body: ""
   #method: "GET"
+  #username: "user"
+  #password: "secret"
   #request.enabled: false
   #response.enabled: false
+  #json.is_array: false
   #dedot.enabled: false
 
 - module: http
@@ -51,7 +52,7 @@ metricbeat.modules:
 #        key: "value"
 ----
 
-This module supports TLS connection when using `ssl` config field, as described in <<configuration-ssl>>.
+This module supports TLS connection when using `ssl` config field, as described in <<configuration-ssl>>. It also supports the options described in <<module-http-config-options>>.
 
 [float]
 === Metricsets

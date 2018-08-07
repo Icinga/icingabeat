@@ -10,6 +10,8 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/pkg/errors"
+
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/libbeat/outputs"
@@ -36,6 +38,25 @@ func addToURL(_url, _path string, params url.Values) string {
 	}
 
 	return strings.Join([]string{_url, _path, "?", params.Encode()}, "")
+}
+
+func extractError(result []byte) error {
+	var kibanaResult struct {
+		Objects []struct {
+			Error struct {
+				Message string
+			}
+		}
+	}
+	if err := json.Unmarshal(result, &kibanaResult); err != nil {
+		return errors.Wrap(err, "parsing kibana response")
+	}
+	for _, o := range kibanaResult.Objects {
+		if o.Error.Message != "" {
+			return errors.New(kibanaResult.Objects[0].Error.Message)
+		}
+	}
+	return nil
 }
 
 func NewKibanaClient(cfg *common.Config) (*Client, error) {
@@ -97,7 +118,7 @@ func NewKibanaClient(cfg *common.Config) (*Client, error) {
 	}
 
 	if err = client.SetVersion(); err != nil {
-		return nil, fmt.Errorf("fail to get the Kibana version:%v", err)
+		return nil, fmt.Errorf("fail to get the Kibana version: %v", err)
 	}
 
 	return client, nil
@@ -140,6 +161,7 @@ func (conn *Connection) Request(method, extraPath string,
 		return 0, nil, fmt.Errorf("fail to read response %s", err)
 	}
 
+	retError = extractError(result)
 	return resp.StatusCode, result, retError
 }
 
@@ -157,8 +179,8 @@ func (client *Client) SetVersion() error {
 		Version string `json:"version"`
 	}
 
-	_, result, err := client.Connection.Request("GET", "/api/status", nil, nil)
-	if err != nil {
+	code, result, err := client.Connection.Request("GET", "/api/status", nil, nil)
+	if err != nil || code >= 400 {
 		return fmt.Errorf("HTTP GET request to /api/status fails: %v. Response: %s.",
 			err, truncateString(result))
 	}
@@ -177,10 +199,6 @@ func (client *Client) SetVersion() error {
 				client.Connection.URL, truncateString(result), err5x, err)
 		}
 		client.version = kibanaVersion5x.Version
-
-		return fmt.Errorf("fail to unmarshal the response from GET %s/api/status: %v. Response: %s",
-			client.Connection.URL, err, truncateString(result))
-
 	} else {
 
 		client.version = kibanaVersion.Version.Number
