@@ -44,7 +44,7 @@
         "title": "Hosts Tag Cloud",
         "uiStateJSON": "{}",
         "version": 1,
-        "visState": "{\"title\":\"Hosts Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Hosts\"}}]}"
+        "visState": "{\"title\":\"Hosts Tag Cloud\",\"type\":\"tagcloud\",\"params\":{\"scale\":\"linear\",\"orientation\":\"single\",\"minFontSize\":18,\"maxFontSize\":72},\"aggs\":[{\"id\":\"1\",\"enabled\":true,\"type\":\"count\",\"schema\":\"metric\",\"params\":{}},{\"id\":\"2\",\"enabled\":true,\"type\":\"terms\",\"schema\":\"segment\",\"params\":{\"field\":\"host.name\",\"size\":50,\"order\":\"desc\",\"orderBy\":\"1\",\"customLabel\":\"Hosts\"}}]}"
       },
       "id": "4a9d5c50-e4c0-11e7-b4d1-8383451ae5a4",
       "type": "visualization",
