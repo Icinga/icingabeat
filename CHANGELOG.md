@@ -1,4 +1,14 @@
 # Icingabeat CHANGELOG
+## v6.3.3
+
+### Features
+* Update libbeat to version 6.3.3
+
+### Bugs
+* Remove `zones` key from statuspoller. This key may become to big to process.
+* Catch 404 return codes
+* Update dashboard directory schema so `icingabeat setup` works out of the box
+
 ## v6.1.1
 
 ### Features
