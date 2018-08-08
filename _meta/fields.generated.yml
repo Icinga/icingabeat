@@ -12,6 +12,16 @@
       description: >
         Type of the document
 
+    - name: host
+      type: group
+      description: >
+        Details about the host.
+      fields:
+        - name: name
+          type: keyword
+          description: >
+            Hostname.
+
     - name: service
       type: keyword
       description: >
