@@ -37,6 +37,7 @@ The following topics describe how to configure Packetbeat:
 * <<configuration-logging>>
 * <<using-environ-vars>>
 * <<yaml-tips>>
+* <<http-endpoint>>
 * <<{beatname_lc}-reference-yml>>
 
 --
@@ -45,7 +46,6 @@ include::./packetbeat-options.asciidoc[]
 
 include::./packetbeat-general-options.asciidoc[]
 
-:allplatforms:
 include::../../libbeat/docs/queueconfig.asciidoc[]
 
 include::../../libbeat/docs/outputconfig.asciidoc[]
@@ -68,9 +68,12 @@ include::../../libbeat/docs/loggingconfig.asciidoc[]
 
 :standalone:
 include::../../libbeat/docs/shared-env-vars.asciidoc[]
+:standalone!:
 
 :standalone:
-:allplatforms:
 include::../../libbeat/docs/yaml.asciidoc[]
+:standalone!:
+
+include::../../libbeat/docs/http-endpoint.asciidoc[]
 
 include::../../libbeat/docs/reference-yml.asciidoc[]

@@ -5,8 +5,6 @@ This file is generated! See scripts/docs_collector.py
 [[metricbeat-module-prometheus]]
 == Prometheus module
 
-beta[]
-
 This module periodically fetches metrics from
 https://prometheus.io/docs/[Prometheus].
 
@@ -44,7 +42,8 @@ metricbeat.modules:
   #  - /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt
 ----
 
-This module supports TLS connection when using `ssl` config field, as described in <<configuration-ssl>>. It also supports the options described in <<module-http-config-options>>.
+This module supports TLS connections when using `ssl` config field, as described in <<configuration-ssl>>.
+It also supports the options described in <<module-http-config-options>>.
 
 [float]
 === Metricsets

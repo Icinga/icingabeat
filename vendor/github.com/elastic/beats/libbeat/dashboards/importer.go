@@ -1,3 +1,20 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 package dashboards
 
 import (
@@ -13,8 +30,22 @@ import (
 	"strconv"
 	"strings"
 
+	errw "github.com/pkg/errors"
+
 	"github.com/elastic/beats/libbeat/common"
 )
+
+// ErrNotFound returned when we cannot find any dashboard to import.
+type ErrNotFound struct {
+	ErrorString string
+}
+
+// Error returns the human readable error.
+func (e *ErrNotFound) Error() string { return e.ErrorString }
+
+func newErrNotFound(s string, a ...interface{}) *ErrNotFound {
+	return &ErrNotFound{fmt.Sprintf(s, a...)}
+}
 
 // MessageOutputter is a function type for injecting status logging
 // into this module.
@@ -53,12 +84,12 @@ func (imp Importer) Import() error {
 	if imp.cfg.URL != "" || imp.cfg.File != "" {
 		err := imp.ImportArchive()
 		if err != nil {
-			return fmt.Errorf("Error importing URL/file: %v", err)
+			return errw.Wrap(err, "Error importing URL/file")
 		}
 	} else {
 		err := imp.ImportKibanaDir(imp.cfg.Dir)
 		if err != nil {
-			return fmt.Errorf("Error importing directory %s: %v", imp.cfg.Dir, err)
+			return errw.Wrapf(err, "Error importing directory %s", imp.cfg.Dir)
 		}
 	}
 	return nil
@@ -114,6 +145,7 @@ func (imp Importer) unzip(archive, target string) error {
 	if err != nil {
 		return err
 	}
+	defer reader.Close()
 
 	// Closure to close the files on each iteration
 	unzipFile := func(file *zip.File) error {
@@ -132,6 +164,11 @@ func (imp Importer) unzip(archive, target string) error {
 		if file.FileInfo().IsDir() {
 			return os.MkdirAll(filePath, file.Mode())
 		}
+
+		if err = os.MkdirAll(filepath.Dir(filePath), 0755); err != nil {
+			return fmt.Errorf("failed making directory for file %v: %v", filePath, err)
+		}
+
 		fileReader, err := file.Open()
 		if err != nil {
 			return err
@@ -271,7 +308,7 @@ func (imp Importer) ImportKibanaDir(dir string) error {
 	imp.loader.statusMsg("Importing directory %v", dir)
 
 	if _, err := os.Stat(dir); err != nil {
-		return fmt.Errorf("No directory %s", dir)
+		return newErrNotFound("No directory %s", dir)
 	}
 
 	check := []string{}
@@ -292,7 +329,7 @@ func (imp Importer) ImportKibanaDir(dir string) error {
 	}
 
 	if len(types) == 0 {
-		return fmt.Errorf("The directory %s does not contain the %s subdirectory."+
+		return newErrNotFound("The directory %s does not contain the %s subdirectory."+
 			" There is nothing to import into Kibana.", dir, strings.Join(check, " or "))
 	}
 
@@ -309,8 +346,8 @@ func (imp Importer) ImportKibanaDir(dir string) error {
 	}
 
 	if wantDashboards && !importDashboards {
-		return fmt.Errorf("No dashboards to import. Please make sure the %s directory contains a dashboard directory.",
-			dir)
+		return newErrNotFound("No dashboards to import. Please make sure the %s directory "+
+			"contains a dashboard directory.", dir)
 	}
 	return nil
 }

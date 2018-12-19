@@ -29,12 +29,9 @@ import (
 
 // Test metadata updates don't replace existing pod metrics
 func TestAnnotatorDeepUpdate(t *testing.T) {
-	cfg, err := common.NewConfigFrom(map[string]interface{}{
+	cfg := common.MustNewConfigFrom(map[string]interface{}{
 		"lookup_fields": []string{"kubernetes.pod.name"},
 	})
-	if err != nil {
-		t.Fatal(err)
-	}
 	matcher, err := NewFieldMatcher(*cfg)
 	if err != nil {
 		t.Fatal(err)

@@ -2,6 +2,45 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+### Changed
+
+### Removed
+
+## [0.4.0]
+
+### Added
+
+- Added method to convert kernel rules to text format in order to display them.
+
+### Changed
+
+- aucoalesce - Made the user/group ID cache thread-safe. #42 #45
+
+### Deprecated
+
+### Removed
+
+
+## [0.3.0]
+
+### Added
+
+- Added support for setting the kernel's backlog wait time via the new
+  SetBacklogWaitTime function. #34
+- New method `GetStatusAsync` to perform asynchronous status checks. #37
+
+### Changed
+
+- AuditClient `Close()` is now safe to call more than once. #35
+
+### Deprecated
+
+### Removed
+
 ## [0.2.1]
 
 ### Added

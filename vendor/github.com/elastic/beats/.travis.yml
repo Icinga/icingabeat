@@ -14,6 +14,7 @@ env:
     - GOX_FLAGS="-arch amd64"
     - DOCKER_COMPOSE_VERSION=1.11.1
     - GO_VERSION="$(cat .go-version)"
+    # Newer versions of minikube fail on travis, see: https://github.com/kubernetes/minikube/issues/2704
     - TRAVIS_MINIKUBE_VERSION=v0.25.2
 
 jobs:
@@ -98,6 +99,23 @@ jobs:
       go: $GO_VERSION
       stage: test
 
+    # Journalbeat
+    - os: linux
+      env: TARGETS="-C journalbeat testsuite"
+      go: $GO_VERSION
+      stage: test
+
+    # Functionbeat
+    - os: linux
+      env: TARGETS="-C x-pack/functionbeat testsuite"
+      go: $GO_VERSION
+      stage: test
+
+    - os: osx
+      env: TARGETS="TEST_ENVIRONMENT=0 -C x-pack/functionbeat testsuite"
+      go: $GO_VERSION
+      stage: test
+
     # Generators
     - os: linux
       env: TARGETS="-C generator/metricbeat test"
@@ -108,19 +126,13 @@ jobs:
       go: $GO_VERSION
       stage: test
 
+    # Docs
+    - os: linux
+      env: TARGETS="docs"
+      go: $GO_VERSION
+      stage: test
+
     # Kubernetes
-    - os: linux
-      install: deploy/kubernetes/.travis/setup.sh
-      env:
-        - TARGETS="-C deploy/kubernetes test"
-        - TRAVIS_K8S_VERSION=v1.6.4
-      stage: test
-    - os: linux
-      install: deploy/kubernetes/.travis/setup.sh
-      env:
-        - TARGETS="-C deploy/kubernetes test"
-        - TRAVIS_K8S_VERSION=v1.7.5
-      stage: test
     - os: linux
       install: deploy/kubernetes/.travis/setup.sh
       env:
@@ -139,12 +151,23 @@ jobs:
         - TARGETS="-C deploy/kubernetes test"
         - TRAVIS_K8S_VERSION=v1.10.0
       stage: test
+    # TODO include 1.11 once minikube supports it
+    #- os: linux
+    #  install: deploy/kubernetes/.travis/setup.sh
+    #  env:
+    #    - TARGETS="-C deploy/kubernetes test"
+    #    - TRAVIS_K8S_VERSION=v1.11.0
+    #  stage: test
 
 addons:
   apt:
+    update: true
     packages:
       - python-virtualenv
       - libpcap-dev
+      - xsltproc
+      - libxml2-utils
+      - libsystemd-journal-dev
 
 before_install:
   - python --version
@@ -155,6 +178,8 @@ before_install:
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
+  - if [ $TRAVIS_OS_NAME = osx ]; then pip install virtualenv; fi
+
 
 # Skips installations step
 install: true

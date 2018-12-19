@@ -283,7 +283,7 @@ class Test(BaseTest):
                                                 "a/b/c/registry_x")),
             max_timeout=1)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(1)
 
         filebeat.check_kill_and_wait()
@@ -478,7 +478,7 @@ class Test(BaseTest):
             lambda: self.output_has(lines=1),
             max_timeout=10)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(1)
 
         assert os.stat(testfile_path).st_ino == self.get_registry_entry_by_path(
@@ -548,7 +548,7 @@ class Test(BaseTest):
             lambda: self.output_has(lines=1),
             max_timeout=10)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(1)
 
         data = self.get_registry()
@@ -571,7 +571,7 @@ class Test(BaseTest):
                 "Updating state for renamed file"),
             max_timeout=10)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(1)
 
         data = self.get_registry()
@@ -762,7 +762,7 @@ class Test(BaseTest):
                 "Registry file updated. 2 states written.") >= 1,
             max_timeout=15)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(1)
         filebeat.kill_and_wait()
 
@@ -809,9 +809,8 @@ class Test(BaseTest):
             lambda: self.log_contains_count("Registry file updated") > 1,
             max_timeout=15)
 
-        if os.name == "nt":
-            # On windows registry recreation can take a bit longer
-            time.sleep(1)
+        # Syncing file on disk is always susceptible to timing issues.
+        time.sleep(1)
 
         data = self.get_registry()
         assert len(data) == 2
@@ -895,6 +894,9 @@ class Test(BaseTest):
             lambda: self.output_has(lines=3),
             max_timeout=10)
 
+        # Make sure all states are cleaned up
+        self.wait_until(lambda: self.log_contains("Before: 1, After: 1, Pending: 0"))
+
         filebeat.check_kill_and_wait()
 
         # Check that the first to files were removed from the registry
@@ -947,20 +949,15 @@ class Test(BaseTest):
         os.remove(testfile_path1)
 
         # Wait until states are removed from inputs
-        self.wait_until(
-            lambda: self.log_contains(
-                "Remove state for file as file removed"),
-            max_timeout=15)
+        self.wait_until(lambda: self.log_contains("Remove state for file as file removed"))
 
         # Add one more line to make sure registry is written
         with open(testfile_path2, 'a') as testfile2:
             testfile2.write("make sure registry is written\n")
 
-        self.wait_until(
-            lambda: self.output_has(lines=3),
-            max_timeout=10)
-
-        time.sleep(3)
+        self.wait_until(lambda: self.output_has(lines=3))
+        # Check is > as the same log line might happen before but afterwards it is repeated
+        self.wait_until(lambda: self.log_contains_count("Before: 1, After: 1, Pending: 1") > 5)
 
         filebeat.check_kill_and_wait()
 
@@ -1469,7 +1466,7 @@ class Test(BaseTest):
                                                 "registry")),
             max_timeout=10)
 
-        # Wait a momemt to make sure registry is completely written
+        # Wait a moment to make sure registry is completely written
         time.sleep(2)
 
         filebeat.check_kill_and_wait()

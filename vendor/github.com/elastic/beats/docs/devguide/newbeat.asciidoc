@@ -23,7 +23,6 @@ The following topics describe how to build a new Beat:
 * <<setting-up-beat>>
 * <<compiling-and-running>>
 * <<beater-interface>>
-* <<ls-beat>>
 * <<newbeat-sharing>>
 * <<event-conventions>>
 
@@ -77,7 +76,7 @@ daemonzing, and Windows service handling, and data processing modules.
 
 image:./images/beat_overview.png[Beat overview architecture]
 
-The event that you create is a JSON-like object (Golang type `map[string]interface{}`) that
+The event that you create is a JSON-like object (Go type `map[string]interface{}`) that
 contains the collected data to send to the publisher. At a minimum, the event object
 must contain a `@timestamp` field and a `type` field. Beyond
 that, events can contain any additional fields, and they can be created as often
@@ -136,6 +135,8 @@ cd ${GOPATH}/src/github.com/{user}
 --------------------
 
 Run python and specify the path to the Beat generator:
+
+NOTE: Python 2 is required (Python 3 will not work).
 
 [source,shell]
 --------------------
@@ -488,16 +489,6 @@ func main() {
 	}
 }
 ----------------------------------------------------------------------
-
-
-[[ls-beat]]
-=== Example: Building Lsbeat from Scratch
-
-https://github.com/kimjmin/lsbeat[Lsbeat] is similar to the `ls` command-line tool, but instead of printing the files and subdirectories to the screen,
-Lsbeat periodically ships them to Elasticsearch for storage.
-
-To help you learn how to build a Beat, we've created this http://elastic.co//blog/build-your-own-beat[blog post]
-that describes how to build Lsbeat from scratch. You can refer to the Lsbeat implementation as a working example.
 
 [[newbeat-sharing]]
 === Sharing Your Beat with the Community

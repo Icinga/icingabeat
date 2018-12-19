@@ -31,8 +31,6 @@ metricbeat.modules:
 - module: system
   metricsets:
     - cpu             # CPU usage
-    - filesystem      # File system usage for each mountpoint
-    - fsstat          # File system summary metrics
     - load            # CPU load averages
     - memory          # Memory usage
     - network         # Network IO
@@ -41,6 +39,8 @@ metricbeat.modules:
     - uptime          # System Uptime
     #- core           # Per CPU core usage
     #- diskio         # Disk IO
+    #- filesystem     # File system usage for each mountpoint
+    #- fsstat         # File system summary metrics
     #- raid           # Raid
     #- socket         # Sockets and connection info (linux only)
   enabled: true
@@ -131,6 +131,8 @@ The following metricsets are available:
 
 * <<metricbeat-metricset-system-socket,socket>>
 
+* <<metricbeat-metricset-system-socket_summary,socket_summary>>
+
 * <<metricbeat-metricset-system-uptime,uptime>>
 
 include::system/core.asciidoc[]
@@ -156,6 +158,8 @@ include::system/process_summary.asciidoc[]
 include::system/raid.asciidoc[]
 
 include::system/socket.asciidoc[]
+
+include::system/socket_summary.asciidoc[]
 
 include::system/uptime.asciidoc[]
 

@@ -9,6 +9,7 @@ INTEGRATION_TESTS = os.environ.get('INTEGRATION_TESTS', False)
 if INTEGRATION_TESTS:
     from compose.cli.command import get_project
     from compose.service import BuildAction
+    from compose.service import ConvergenceStrategy
 
 
 class ComposeMixin(object):
@@ -23,7 +24,7 @@ class ComposeMixin(object):
     COMPOSE_PROJECT_DIR = '.'
 
     # timeout waiting for health (seconds)
-    COMPOSE_TIMEOUT = 60
+    COMPOSE_TIMEOUT = 300
 
     @classmethod
     def compose_up(cls):
@@ -31,6 +32,9 @@ class ComposeMixin(object):
         Ensure *only* the services defined under `COMPOSE_SERVICES` are running and healthy
         """
         if not INTEGRATION_TESTS or not cls.COMPOSE_SERVICES:
+            return
+
+        if os.environ.get('NO_COMPOSE'):
             return
 
         def print_logs(container):
@@ -43,6 +47,7 @@ class ComposeMixin(object):
 
         project = cls.compose_project()
         project.up(
+            strategy=ConvergenceStrategy.always,
             service_names=cls.COMPOSE_SERVICES,
             do_build=BuildAction.force,
             timeout=30)

@@ -1,3 +1,20 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 package jmx
 
 import (
@@ -11,12 +28,20 @@ import (
 type JMXMapping struct {
 	MBean      string
 	Attributes []Attribute
+	Target     Target
 }
 
 type Attribute struct {
 	Attr  string
 	Field string
 	Event string
+}
+
+// Target inputs the value you want to set for jolokia target block
+type Target struct {
+	URL      string
+	User     string
+	Password string
 }
 
 // RequestBlock is used to build the request blocks of the following format:
@@ -35,7 +60,12 @@ type Attribute struct {
 //       "attribute":[
 //          "CollectionTime",
 //          "CollectionCount"
-//       ]
+//       ],
+//       "target":{
+//          "url":"service:jmx:rmi:///jndi/rmi://targethost:9999/jmxrmi",
+//          "user":"jolokia",
+//          "password":"s!cr!t"
+//       }
 //    }
 // ]
 type RequestBlock struct {
@@ -43,6 +73,20 @@ type RequestBlock struct {
 	MBean     string                 `json:"mbean"`
 	Attribute []string               `json:"attribute"`
 	Config    map[string]interface{} `json:"config"`
+	Target    *TargetBlock           `json:"target,omitempty"`
+}
+
+// TargetBlock is used to build the target blocks of the following format into RequestBlock.
+//
+// "target":{
+//    "url":"service:jmx:rmi:///jndi/rmi://targethost:9999/jmxrmi",
+//    "user":"jolokia",
+//    "password":"s!cr!t"
+// }
+type TargetBlock struct {
+	URL      string `json:"url"`
+	User     string `json:"user,omitempty"`
+	Password string `json:"password,omitempty"`
 }
 
 type attributeMappingKey struct {
@@ -99,7 +143,7 @@ func buildRequestBodyAndMapping(mappings []JMXMapping) ([]byte, AttributeMapping
 
 	// At least Jolokia 1.5 responses with canonicalized MBean names when using
 	// wildcards, even when canonicalNaming is set to false, this makes mappings to fail.
-	// So use canonicalzed names everywhere.
+	// So use canonicalized names everywhere.
 	// If Jolokia returns non-canonicalized MBean names, then we'll need to canonicalize
 	// them or change our approach to mappings.
 	config := map[string]interface{}{
@@ -115,6 +159,13 @@ func buildRequestBodyAndMapping(mappings []JMXMapping) ([]byte, AttributeMapping
 			Type:   "read",
 			MBean:  mbean,
 			Config: config,
+		}
+
+		if len(mapping.Target.URL) != 0 {
+			rb.Target = new(TargetBlock)
+			rb.Target.URL = mapping.Target.URL
+			rb.Target.User = mapping.Target.User
+			rb.Target.Password = mapping.Target.Password
 		}
 
 		for _, attribute := range mapping.Attributes {

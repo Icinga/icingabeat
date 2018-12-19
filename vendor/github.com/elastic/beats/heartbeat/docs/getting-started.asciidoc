@@ -81,24 +81,28 @@ tar xzvf heartbeat-{version}-darwin-x86_64.tar.gz
 
 endif::[]
 
-
-[[docker]]
-*docker:*
+[[linux]]
+*linux:*
 
 ifeval::["{release-state}"=="unreleased"]
 
-Version {stack-version} of {beatname_uc} has not yet been released.
+Version {version} of {beatname_uc} has not yet been released.
 
 endif::[]
 
 ifeval::["{release-state}"!="unreleased"]
 
-["source", "shell", subs="attributes"]
+["source","sh",subs="attributes"]
 ------------------------------------------------
-docker pull {dockerimage}
+curl -L -O {downloads}/heartbeat/heartbeat-{version}-linux-x86_64.tar.gz
+tar xzvf heartbeat-{version}-linux-x86_64.tar.gz
 ------------------------------------------------
-
 endif::[]
+
+[[docker]]
+*docker:*
+
+See <<running-on-docker, Running on Docker>> for deploying Docker containers.
 
 [[win]]
 *win:*
@@ -192,18 +196,7 @@ was started. Heartbeat adds the `@every` keyword to the syntax provided by the
 See <<configuring-howto-heartbeat>> for a full description of each
 configuration option.
 
-. If you are sending output directly to Elasticsearch (and not using Logstash),
-set the IP address and port where Heartbeat can find the Elasticsearch
-installation:
-+
-[source,yaml]
-----------------------------------------------------------------------
-output.elasticsearch:
-  hosts: ["192.168.1.42:9200"]
-----------------------------------------------------------------------
-+
-If you are sending output to Logstash, make sure you
-<<logstash-output,Configure the Logstash output>> instead.
+include::../../libbeat/docs/step-configure-output.asciidoc[]
 
 include::../../libbeat/docs/step-configure-kibana-endpoint.asciidoc[]
 
@@ -216,13 +209,11 @@ include::../../libbeat/docs/step-look-at-config.asciidoc[]
 [[heartbeat-template]]
 === Step 3: Load the index template in Elasticsearch
 
-:allplatforms:
 include::../../libbeat/docs/shared-template-load.asciidoc[]
 
 [[load-kibana-dashboards]]
 === Step 4: Set up the Kibana dashboards
 
-:allplatforms:
 include::../../libbeat/docs/dashboards.asciidoc[]
 
 [[heartbeat-starting]]
@@ -236,29 +227,22 @@ NOTE: If you use an init.d script to start Heartbeat on deb or rpm, you can't
 specify command line flags (see <<command-line-options>>). To specify flags,
 start Heartbeat in the foreground.
 
-*deb:*
+*deb and rpm:*
 
 ["source","sh",subs="attributes"]
 ----------------------------------------------------------------------
 sudo service {beatname_lc}-elastic start
 ----------------------------------------------------------------------
 
-*rpm:*
-
-["source","sh",subs="attributes"]
-----------------------------------------------------------------------
-sudo service {beatname_lc}-elastic start
-----------------------------------------------------------------------
-
-*mac:*
+*mac and linux:*
 
 ["source","sh",subs="attributes"]
 ----------------------------------------------------------------------
 sudo chown root heartbeat.yml <1>
-sudo ./heartbeat -e -c heartbeat.yml -d "publish"
+sudo ./heartbeat -e
 ----------------------------------------------------------------------
 <1> You'll be running Heartbeat as root, so you need to change ownership of the
-configuration file, or run Heartbeat with `-strict.perms=false` specified. See
+configuration file, or run Heartbeat with `--strict.perms=false` specified. See
 {libbeat}/config-file-permissions.html[Config File Ownership and Permissions]
 in the _Beats Platform Reference_.
 
@@ -286,4 +270,5 @@ include::../../libbeat/docs/opendashboards.asciidoc[]
 The dashboards are provided as examples. We recommend that you
 {kibana-ref}/dashboard.html[customize] them to meet your needs.
 
+[role="screenshot"]
 image:./images/heartbeat-statistics.png[Heartbeat statistics]

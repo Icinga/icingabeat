@@ -1,3 +1,20 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 package udp
 
 import (
@@ -79,7 +96,15 @@ func (u *Server) run() {
 				continue
 			}
 
-			u.log.Errorw("Error reading from the socket", "error", err)
+			// Closed network error string will never change in Go 1.X
+			// https://github.com/golang/go/issues/4373
+			opErr, ok := err.(*net.OpError)
+			if ok && strings.Contains(opErr.Err.Error(), "use of closed network connection") {
+				u.log.Info("Connection has been closed")
+				return
+			}
+
+			u.log.Errorf("Error reading from the socket %s", err)
 
 			// On Windows send the current buffer and mark it as truncated.
 			// The buffer will have content but length will return 0, addr will be nil.
@@ -98,8 +123,8 @@ func (u *Server) run() {
 // Stop stops the current udp server.
 func (u *Server) Stop() {
 	u.log.Info("Stopping UDP server")
-	u.Listener.Close()
 	close(u.done)
+	u.Listener.Close()
 	u.wg.Wait()
 	u.log.Info("UDP server stopped")
 }

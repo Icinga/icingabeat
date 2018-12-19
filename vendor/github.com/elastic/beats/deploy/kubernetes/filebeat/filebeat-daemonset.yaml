@@ -35,6 +35,8 @@ spec:
           value:
         securityContext:
           runAsUser: 0
+          # If using Red Hat OpenShift uncomment this:
+          #privileged: true
         resources:
           limits:
             memory: 200Mi
@@ -66,8 +68,8 @@ spec:
         configMap:
           defaultMode: 0600
           name: filebeat-inputs
-      # We set an `emptyDir` here to ensure the manifest will deploy correctly.
-      # It's recommended to change this to a `hostPath` folder, to ensure internal data
-      # files survive pod changes (ie: version upgrade)
+      # data folder stores a registry of read status for all files, so we don't send everything again on a Filebeat pod restart
       - name: data
-        emptyDir: {}
+        hostPath:
+          path: /var/lib/filebeat-data
+          type: DirectoryOrCreate

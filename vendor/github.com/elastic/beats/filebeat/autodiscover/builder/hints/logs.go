@@ -1,3 +1,20 @@
+// Licensed to Elasticsearch B.V. under one or more contributor
+// license agreements. See the NOTICE file distributed with
+// this work for additional information regarding copyright
+// ownership. Elasticsearch B.V. licenses this file to you under
+// the Apache License, Version 2.0 (the "License"); you may
+// not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 package hints
 
 import (
@@ -22,10 +39,11 @@ const (
 	multiline    = "multiline"
 	includeLines = "include_lines"
 	excludeLines = "exclude_lines"
+	processors   = "processors"
 )
 
 // validModuleNames to sanitize user input
-var validModuleNames = regexp.MustCompile("[^a-zA-Z0-9]+")
+var validModuleNames = regexp.MustCompile("[^a-zA-Z0-9\\_\\-]+")
 
 type logHints struct {
 	Key      string
@@ -66,8 +84,22 @@ func (l *logHints) CreateConfig(event bus.Event) []*common.Config {
 		hints, _ = hIface.(common.MapStr)
 	}
 
-	if builder.IsNoOp(hints, l.Key) == true {
-		return []*common.Config{config}
+	if builder.IsNoOp(hints, l.Key) {
+		logp.Debug("hints.builder", "disabled config in event: %+v", event)
+		return []*common.Config{}
+	}
+
+	inputConfig := l.getInputs(hints)
+	if inputConfig != nil {
+		configs := []*common.Config{}
+		for _, cfg := range inputConfig {
+			if config, err := common.NewConfigFrom(cfg); err == nil {
+				configs = append(configs, config)
+			}
+		}
+		logp.Debug("hints.builder", "generated config %+v", configs)
+		// Apply information in event to the template to generate the final config
+		return template.ApplyConfigTemplate(event, configs)
 	}
 
 	tempCfg := common.MapStr{}
@@ -80,6 +112,10 @@ func (l *logHints) CreateConfig(event bus.Event) []*common.Config {
 	}
 	if elines := l.getExcludeLines(hints); len(elines) != 0 {
 		tempCfg.Put(excludeLines, elines)
+	}
+
+	if procs := l.getProcessors(hints); len(procs) != 0 {
+		tempCfg.Put(processors, procs)
 	}
 
 	// Merge config template with the configs from the annotations
@@ -106,7 +142,6 @@ func (l *logHints) CreateConfig(event bus.Event) []*common.Config {
 		}
 		config, _ = common.NewConfigFrom(moduleConf)
 	}
-
 	logp.Debug("hints.builder", "generated config %+v", config)
 
 	// Apply information in event to the template to generate the final config
@@ -129,6 +164,14 @@ func (l *logHints) getModule(hints common.MapStr) string {
 	module := builder.GetHintString(hints, l.Key, "module")
 	// for security, strip module name
 	return validModuleNames.ReplaceAllString(module, "")
+}
+
+func (l *logHints) getInputs(hints common.MapStr) []common.MapStr {
+	return builder.GetHintAsConfigs(hints, l.Key)
+}
+
+func (l *logHints) getProcessors(hints common.MapStr) []common.MapStr {
+	return builder.GetProcessors(hints, l.Key)
 }
 
 type filesetConfig struct {
@@ -172,7 +215,7 @@ func (l *logHints) getFilesets(hints common.MapStr, module string) map[string]*f
 		}
 	}
 
-	// No fileseat defined, return defaults for the module, all streams to all filesets
+	// No fileset defined, return defaults for the module, all streams to all filesets
 	if !configured {
 		for _, conf := range filesets {
 			conf.Enabled = true

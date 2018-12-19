@@ -91,4 +91,19 @@ jenkins_setup() {
   # Workaround for Python virtualenv path being too long.
   export TEMP_PYTHON_ENV=$(mktemp -d)
   export PYTHON_ENV="${TEMP_PYTHON_ENV}/python-env"
+
+  # Write cached magefile binaries to workspace to ensure
+  # each run starts from a clean slate.
+  export MAGEFILE_CACHE="${WORKSPACE}/.magefile"
+}
+
+docker_setup() {
+  OS="$(uname)"
+  case $OS in
+    'Darwin')
+      # Start the docker machine VM (ignore error if it's already running).
+      docker-machine start default || true
+      eval $(docker-machine env default)
+      ;;
+  esac
 }

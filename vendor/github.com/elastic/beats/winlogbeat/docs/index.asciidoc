@@ -12,6 +12,8 @@ include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
 :discuss_forum: beats/{beatname_lc}
 :beat_default_index_prefix: {beatname_lc}
 :has_ml_jobs: yes
+:win_os:
+:win_only:
 
 include::../../libbeat/docs/shared-beats-attributes.asciidoc[]
 
@@ -29,9 +31,7 @@ include::./fields.asciidoc[]
 
 include::../../libbeat/docs/monitoring/monitoring-beats.asciidoc[]
 
-include::./securing-winlogbeat.asciidoc[]
-
-include::../../libbeat/docs/security/securing-beats.asciidoc[]
+include::../../libbeat/docs/shared-securing-beat.asciidoc[]
 
 include::./troubleshooting.asciidoc[]
 
