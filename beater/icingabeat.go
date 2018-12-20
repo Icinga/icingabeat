@@ -17,6 +17,8 @@ type Icingabeat struct {
 	client beat.Client
 }
 
+var target_key = "icinga."
+
 // New beater
 func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	config := config.DefaultConfig

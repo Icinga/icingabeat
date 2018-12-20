@@ -65,11 +65,11 @@ func BuildStatusEvents(body []byte) []beat.Event {
 										delete(value.(map[string]interface{}), "zones")
 									}
 								}
-								event.Fields.Put(key, value)
+								event.Fields.Put(target_key + key, value)
 							}
 
 						default:
-							event.Fields.Put(key, value)
+							event.Fields.Put(target_key + key, value)
 						}
 
 					}
@@ -83,22 +83,21 @@ func BuildStatusEvents(body []byte) []beat.Event {
 						case interface{}:
 							key = "perfdata." + perfdata.(map[string]interface{})["label"].(string)
 							value = perfdata
-							event.Fields.Put(key, value)
+							event.Fields.Put(target_key + key, value)
 
 						}
 					}
 
 				case "name":
-					key = "type"
 					value = "icingabeat.status." + strings.ToLower(value.(string))
-					event.Fields.Put(key, value)
+					event.Fields.Put("type", value)
 
 				default:
-					event.Fields.Put(key, value)
+					event.Fields.Put(target_key + key, value)
 				}
 			}
 
-			if statusAvailable, _ := event.Fields.HasKey("status"); statusAvailable == true {
+			if statusAvailable, _ := event.Fields.HasKey(target_key + "status"); statusAvailable == true {
 				statusEvents = append(statusEvents, event)
 			}
 		}

@@ -317,6 +317,26 @@ OS family (e.g. redhat, debian, freebsd, windows).
 
 --
 
+*`host.ip`*::
++
+--
+type: ip
+
+List of IP-addresses.
+
+
+--
+
+*`host.mac`*::
++
+--
+type: keyword
+
+List of hardware-addresses, usually MAC-addresses.
+
+
+--
+
 [[exported-fields-icingabeat]]
 == icingabeat fields
 
@@ -343,7 +363,38 @@ Type of the document
 
 --
 
-*`service`*::
+
+*`icinga.timestamp`*::
++
+--
+type: date
+
+Timestamp of event occurrence
+
+
+--
+
+*`icinga.type`*::
++
+--
+type: keyword
+
+Type of the document
+
+
+--
+
+*`icinga.host`*::
++
+--
+type: keyword
+
+Host that triggered the event
+
+
+--
+
+*`icinga.service`*::
 +
 --
 type: keyword
@@ -353,7 +404,7 @@ Service that triggered the event
 
 --
 
-*`state`*::
+*`icinga.state`*::
 +
 --
 type: integer
@@ -363,7 +414,7 @@ State of the check
 
 --
 
-*`state_type`*::
+*`icinga.state_type`*::
 +
 --
 type: integer
@@ -373,7 +424,7 @@ State type of the check
 
 --
 
-*`author`*::
+*`icinga.author`*::
 +
 --
 type: keyword
@@ -383,7 +434,7 @@ Author of a message
 
 --
 
-*`notification_type`*::
+*`icinga.notification_type`*::
 +
 --
 type: keyword
@@ -393,7 +444,7 @@ Type of notification
 
 --
 
-*`text`*::
+*`icinga.text`*::
 +
 --
 type: text
@@ -403,7 +454,7 @@ Text of a message
 
 --
 
-*`users`*::
+*`icinga.users`*::
 +
 --
 type: keyword
@@ -413,7 +464,7 @@ Affected users of a notification
 
 --
 
-*`acknowledgement_type`*::
+*`icinga.acknowledgement_type`*::
 +
 --
 type: integer
@@ -423,7 +474,7 @@ Type of an acknowledgement
 
 --
 
-*`expiry`*::
+*`icinga.expiry`*::
 +
 --
 type: date
@@ -433,7 +484,7 @@ Expiry of an acknowledgement
 
 --
 
-*`notify`*::
+*`icinga.notify`*::
 +
 --
 type: keyword
@@ -443,7 +494,7 @@ If has been sent out
 
 --
 
-*`check_result.active`*::
+*`icinga.check_result.active`*::
 +
 --
 type: boolean
@@ -453,7 +504,7 @@ If check was active or passive
 
 --
 
-*`check_result.check_source`*::
+*`icinga.check_result.check_source`*::
 +
 --
 type: keyword
@@ -463,7 +514,7 @@ Icinga instance that scheduled the check
 
 --
 
-*`check_result.command`*::
+*`icinga.check_result.command`*::
 +
 --
 type: text
@@ -473,7 +524,7 @@ Command that was executed
 
 --
 
-*`check_result.execution_end`*::
+*`icinga.check_result.execution_end`*::
 +
 --
 type: date
@@ -483,7 +534,7 @@ Time when execution of check ended
 
 --
 
-*`check_result.execution_start`*::
+*`icinga.check_result.execution_start`*::
 +
 --
 type: date
@@ -493,7 +544,7 @@ Time when execution of check started
 
 --
 
-*`check_result.exit_status`*::
+*`icinga.check_result.exit_status`*::
 +
 --
 type: integer
@@ -503,7 +554,7 @@ Exit status
 
 --
 
-*`check_result.output`*::
+*`icinga.check_result.output`*::
 +
 --
 type: text
@@ -513,7 +564,7 @@ Output of check
 
 --
 
-*`check_result.performance_data`*::
+*`icinga.check_result.performance_data`*::
 +
 --
 type: text
@@ -523,7 +574,7 @@ Performance data in text format
 
 --
 
-*`check_result.schedule_end`*::
+*`icinga.check_result.schedule_end`*::
 +
 --
 type: date
@@ -533,7 +584,7 @@ Time when scheduling of the check ended
 
 --
 
-*`check_result.schedule_start`*::
+*`icinga.check_result.schedule_start`*::
 +
 --
 type: date
@@ -543,7 +594,7 @@ Time when check was scheduled
 
 --
 
-*`check_result.state`*::
+*`icinga.check_result.state`*::
 +
 --
 type: integer
@@ -553,7 +604,17 @@ State of the check
 
 --
 
-*`check_result.type`*::
+*`icinga.check_result.ttl`*::
++
+--
+type: integer
+
+TTL, only valid if passive check
+
+
+--
+
+*`icinga.check_result.type`*::
 +
 --
 type: keyword
@@ -563,7 +624,7 @@ Type of this event
 
 --
 
-*`check_result.vars_after.attempt`*::
+*`icinga.check_result.vars_after.attempt`*::
 +
 --
 type: integer
@@ -573,7 +634,7 @@ Check attempt after check execution
 
 --
 
-*`check_result.vars_after.reachable`*::
+*`icinga.check_result.vars_after.reachable`*::
 +
 --
 type: boolean
@@ -583,7 +644,7 @@ Reachable state after check execution
 
 --
 
-*`check_result.vars_after.state`*::
+*`icinga.check_result.vars_after.state`*::
 +
 --
 type: integer
@@ -593,7 +654,7 @@ State of the check after execution
 
 --
 
-*`check_result.vars_after.state_type`*::
+*`icinga.check_result.vars_after.state_type`*::
 +
 --
 type: integer
@@ -603,7 +664,7 @@ State type after execution
 
 --
 
-*`check_result.vars_before.attempt`*::
+*`icinga.check_result.vars_before.attempt`*::
 +
 --
 type: integer
@@ -613,7 +674,7 @@ Check attempt before check execution
 
 --
 
-*`check_result.vars_before.reachable`*::
+*`icinga.check_result.vars_before.reachable`*::
 +
 --
 type: boolean
@@ -623,7 +684,7 @@ Reachable state before check execution
 
 --
 
-*`check_result.vars_before.state`*::
+*`icinga.check_result.vars_before.state`*::
 +
 --
 type: integer
@@ -633,7 +694,7 @@ Check state before check execution
 
 --
 
-*`check_result.vars_before.state_type`*::
+*`icinga.check_result.vars_before.state_type`*::
 +
 --
 type: integer
@@ -643,7 +704,7 @@ State type before check execution
 
 --
 
-*`comment.__name`*::
+*`icinga.comment.__name`*::
 +
 --
 type: text
@@ -653,7 +714,7 @@ Unique identifier of a comment
 
 --
 
-*`comment.author`*::
+*`icinga.comment.author`*::
 +
 --
 type: keyword
@@ -663,7 +724,7 @@ Author of a comment
 
 --
 
-*`comment.entry_time`*::
+*`icinga.comment.entry_time`*::
 +
 --
 type: date
@@ -673,7 +734,7 @@ Entry time of a comment
 
 --
 
-*`comment.entry_type`*::
+*`icinga.comment.entry_type`*::
 +
 --
 type: integer
@@ -683,7 +744,7 @@ Entry type of a comment
 
 --
 
-*`comment.expire_time`*::
+*`icinga.comment.expire_time`*::
 +
 --
 type: date
@@ -693,7 +754,7 @@ Expire time of a comment
 
 --
 
-*`comment.host_name`*::
+*`icinga.comment.host_name`*::
 +
 --
 type: keyword
@@ -703,7 +764,7 @@ Host name of a comment
 
 --
 
-*`comment.legacy_id`*::
+*`icinga.comment.legacy_id`*::
 +
 --
 type: integer
@@ -713,7 +774,7 @@ Legacy ID of a comment
 
 --
 
-*`comment.name`*::
+*`icinga.comment.name`*::
 +
 --
 type: keyword
@@ -723,7 +784,7 @@ Identifier of a comment
 
 --
 
-*`comment.package`*::
+*`icinga.comment.package`*::
 +
 --
 type: keyword
@@ -733,7 +794,7 @@ Config package of a comment
 
 --
 
-*`comment.service_name`*::
+*`icinga.comment.service_name`*::
 +
 --
 type: keyword
@@ -743,7 +804,7 @@ Service name of a comment
 
 --
 
-*`comment.templates`*::
+*`icinga.comment.templates`*::
 +
 --
 type: text
@@ -753,7 +814,7 @@ Templates used by a comment
 
 --
 
-*`comment.text`*::
+*`icinga.comment.text`*::
 +
 --
 type: text
@@ -763,7 +824,7 @@ Text of a comment
 
 --
 
-*`comment.type`*::
+*`icinga.comment.type`*::
 +
 --
 type: keyword
@@ -773,7 +834,7 @@ Comment type
 
 --
 
-*`comment.version`*::
+*`icinga.comment.version`*::
 +
 --
 type: keyword
@@ -783,7 +844,7 @@ Config version of comment object
 
 --
 
-*`comment.zone`*::
+*`icinga.comment.zone`*::
 +
 --
 type: keyword
@@ -793,7 +854,7 @@ Zone where comment was generated
 
 --
 
-*`downtime.__name`*::
+*`icinga.downtime.__name`*::
 +
 --
 type: text
@@ -803,7 +864,7 @@ Unique identifier of a downtime
 
 --
 
-*`downtime.author`*::
+*`icinga.downtime.author`*::
 +
 --
 type: keyword
@@ -813,7 +874,7 @@ Author of a downtime
 
 --
 
-*`downtime.comment`*::
+*`icinga.downtime.comment`*::
 +
 --
 type: text
@@ -823,7 +884,7 @@ Text of a downtime
 
 --
 
-*`downtime.config_owner`*::
+*`icinga.downtime.config_owner`*::
 +
 --
 type: text
@@ -833,7 +894,7 @@ Config owner
 
 --
 
-*`downtime.duration`*::
+*`icinga.downtime.duration`*::
 +
 --
 type: integer
@@ -843,7 +904,7 @@ Duration of a downtime
 
 --
 
-*`downtime.end_time`*::
+*`icinga.downtime.end_time`*::
 +
 --
 type: date
@@ -853,7 +914,7 @@ Timestamp of downtime end
 
 --
 
-*`downtime.entry_time`*::
+*`icinga.downtime.entry_time`*::
 +
 --
 type: date
@@ -863,7 +924,7 @@ Timestamp when downtime was created
 
 --
 
-*`downtime.fixed`*::
+*`icinga.downtime.fixed`*::
 +
 --
 type: boolean
@@ -873,7 +934,7 @@ If downtime is fixed or flexible
 
 --
 
-*`downtime.host_name`*::
+*`icinga.downtime.host_name`*::
 +
 --
 type: keyword
@@ -883,7 +944,7 @@ Hostname of a downtime
 
 --
 
-*`downtime.legacy_id`*::
+*`icinga.downtime.legacy_id`*::
 +
 --
 type: integer
@@ -893,7 +954,7 @@ The integer ID of a downtime
 
 --
 
-*`downtime.name`*::
+*`icinga.downtime.name`*::
 +
 --
 type: keyword
@@ -903,7 +964,7 @@ Downtime config identifier
 
 --
 
-*`downtime.package`*::
+*`icinga.downtime.package`*::
 +
 --
 type: keyword
@@ -913,7 +974,7 @@ Configuration package of downtime
 
 --
 
-*`downtime.scheduled_by`*::
+*`icinga.downtime.scheduled_by`*::
 +
 --
 type: text
@@ -923,7 +984,7 @@ By whom downtime was scheduled
 
 --
 
-*`downtime.service_name`*::
+*`icinga.downtime.service_name`*::
 +
 --
 type: keyword
@@ -933,7 +994,7 @@ Service name of a downtime
 
 --
 
-*`downtime.start_time`*::
+*`icinga.downtime.start_time`*::
 +
 --
 type: date
@@ -943,7 +1004,7 @@ Timestamp when downtime starts
 
 --
 
-*`downtime.templates`*::
+*`icinga.downtime.templates`*::
 +
 --
 type: text
@@ -953,7 +1014,7 @@ Templates used by this downtime
 
 --
 
-*`downtime.trigger_time`*::
+*`icinga.downtime.trigger_time`*::
 +
 --
 type: date
@@ -963,7 +1024,7 @@ Timestamp when downtime was triggered
 
 --
 
-*`downtime.triggered_by`*::
+*`icinga.downtime.triggered_by`*::
 +
 --
 type: text
@@ -973,7 +1034,7 @@ By whom downtime was triggered
 
 --
 
-*`downtime.triggers`*::
+*`icinga.downtime.triggers`*::
 +
 --
 type: text
@@ -983,7 +1044,7 @@ Downtime triggers
 
 --
 
-*`downtime.type`*::
+*`icinga.downtime.type`*::
 +
 --
 type: keyword
@@ -993,7 +1054,7 @@ Downtime type
 
 --
 
-*`downtime.version`*::
+*`icinga.downtime.version`*::
 +
 --
 type: keyword
@@ -1003,7 +1064,7 @@ Config version of downtime
 
 --
 
-*`downtime.was_cancelled`*::
+*`icinga.downtime.was_cancelled`*::
 +
 --
 type: boolean
@@ -1013,7 +1074,7 @@ If downtime was cancelled
 
 --
 
-*`downtime.zone`*::
+*`icinga.downtime.zone`*::
 +
 --
 type: keyword
@@ -1023,7 +1084,7 @@ Zone of downtime
 
 --
 
-*`status.active_host_checks`*::
+*`icinga.status.active_host_checks`*::
 +
 --
 type: integer
@@ -1033,7 +1094,7 @@ Active host checks
 
 --
 
-*`status.active_host_checks_15min`*::
+*`icinga.status.active_host_checks_15min`*::
 +
 --
 type: integer
@@ -1043,7 +1104,7 @@ Active host checks in the last 15 minutes
 
 --
 
-*`status.active_host_checks_1min`*::
+*`icinga.status.active_host_checks_1min`*::
 +
 --
 type: integer
@@ -1053,7 +1114,7 @@ Acitve host checks in the last minute
 
 --
 
-*`status.active_host_checks_5min`*::
+*`icinga.status.active_host_checks_5min`*::
 +
 --
 type: integer
@@ -1063,7 +1124,7 @@ Active host checks in the last 5 minutes
 
 --
 
-*`status.active_service_checks`*::
+*`icinga.status.active_service_checks`*::
 +
 --
 type: integer
@@ -1073,7 +1134,7 @@ Active service checks
 
 --
 
-*`status.active_service_checks_15min`*::
+*`icinga.status.active_service_checks_15min`*::
 +
 --
 type: integer
@@ -1083,7 +1144,7 @@ Active service checks in the last 15 minutes
 
 --
 
-*`status.active_service_checks_1min`*::
+*`icinga.status.active_service_checks_1min`*::
 +
 --
 type: integer
@@ -1093,7 +1154,7 @@ Active service checks in the last minute
 
 --
 
-*`status.active_service_checks_5min`*::
+*`icinga.status.active_service_checks_5min`*::
 +
 --
 type: integer
@@ -1103,7 +1164,7 @@ Active service checks in the last 5 minutes
 
 --
 
-*`status.api.identity`*::
+*`icinga.status.api.identity`*::
 +
 --
 type: keyword
@@ -1113,7 +1174,7 @@ API identity
 
 --
 
-*`status.api.num_conn_endpoints`*::
+*`icinga.status.api.num_conn_endpoints`*::
 +
 --
 type: integer
@@ -1123,7 +1184,7 @@ Number of connected endpoints
 
 --
 
-*`status.api.num_endpoints`*::
+*`icinga.status.api.num_endpoints`*::
 +
 --
 type: integer
@@ -1133,7 +1194,7 @@ Total number of endpoints
 
 --
 
-*`status.api.num_not_conn_endpoints`*::
+*`icinga.status.api.num_not_conn_endpoints`*::
 +
 --
 type: integer
@@ -1143,7 +1204,7 @@ Number of not connected endpoints
 
 --
 
-*`status.avg_execution_time`*::
+*`icinga.status.avg_execution_time`*::
 +
 --
 type: integer
@@ -1153,7 +1214,7 @@ Average execution time of checks
 
 --
 
-*`status.avg_latency`*::
+*`icinga.status.avg_latency`*::
 +
 --
 type: integer
@@ -1163,7 +1224,7 @@ Average latency time
 
 --
 
-*`status.checkercomponent.checker.idle`*::
+*`icinga.status.checkercomponent.checker.idle`*::
 +
 --
 type: integer
@@ -1173,7 +1234,7 @@ Idle checks
 
 --
 
-*`status.checkercomponent.checker.pending`*::
+*`icinga.status.checkercomponent.checker.pending`*::
 +
 --
 type: integer
@@ -1183,7 +1244,7 @@ Pending checks
 
 --
 
-*`status.filelogger.main-log`*::
+*`icinga.status.filelogger.main-log`*::
 +
 --
 type: integer
@@ -1193,7 +1254,7 @@ Mainlog enabled
 
 --
 
-*`status.icingaapplication.app.enable_event_handlers`*::
+*`icinga.status.icingaapplication.app.enable_event_handlers`*::
 +
 --
 type: boolean
@@ -1203,7 +1264,7 @@ Event handlers enabled
 
 --
 
-*`status.icingaapplication.app.enable_flapping`*::
+*`icinga.status.icingaapplication.app.enable_flapping`*::
 +
 --
 type: boolean
@@ -1213,7 +1274,7 @@ Flapping detection enabled
 
 --
 
-*`status.icingaapplication.app.enable_host_checks`*::
+*`icinga.status.icingaapplication.app.enable_host_checks`*::
 +
 --
 type: boolean
@@ -1223,7 +1284,7 @@ Host checks enabled
 
 --
 
-*`status.icingaapplication.app.enable_notifications`*::
+*`icinga.status.icingaapplication.app.enable_notifications`*::
 +
 --
 type: boolean
@@ -1233,7 +1294,7 @@ Notifications enabled
 
 --
 
-*`status.icingaapplication.app.enable_perfdata`*::
+*`icinga.status.icingaapplication.app.enable_perfdata`*::
 +
 --
 type: boolean
@@ -1243,7 +1304,7 @@ Perfdata enabled
 
 --
 
-*`status.icingaapplication.app.enable_service_checks`*::
+*`icinga.status.icingaapplication.app.enable_service_checks`*::
 +
 --
 type: boolean
@@ -1253,7 +1314,7 @@ Service checks enabled
 
 --
 
-*`status.icingaapplication.app.node_name`*::
+*`icinga.status.icingaapplication.app.node_name`*::
 +
 --
 type: keyword
@@ -1263,7 +1324,7 @@ Node name
 
 --
 
-*`status.icingaapplication.app.pid`*::
+*`icinga.status.icingaapplication.app.pid`*::
 +
 --
 type: integer
@@ -1273,7 +1334,7 @@ PID
 
 --
 
-*`status.icingaapplication.app.program_start`*::
+*`icinga.status.icingaapplication.app.program_start`*::
 +
 --
 type: integer
@@ -1283,7 +1344,7 @@ Time when Icinga started
 
 --
 
-*`status.icingaapplication.app.version`*::
+*`icinga.status.icingaapplication.app.version`*::
 +
 --
 type: keyword
@@ -1293,7 +1354,7 @@ Version
 
 --
 
-*`status.idomysqlconnection.ido-mysql.connected`*::
+*`icinga.status.idomysqlconnection.ido-mysql.connected`*::
 +
 --
 type: boolean
@@ -1303,7 +1364,7 @@ IDO connected
 
 --
 
-*`status.idomysqlconnection.ido-mysql.instance_name`*::
+*`icinga.status.idomysqlconnection.ido-mysql.instance_name`*::
 +
 --
 type: keyword
@@ -1313,7 +1374,7 @@ IDO Instance name
 
 --
 
-*`status.idomysqlconnection.ido-mysql.query_queue_items`*::
+*`icinga.status.idomysqlconnection.ido-mysql.query_queue_items`*::
 +
 --
 type: integer
@@ -1323,7 +1384,7 @@ IDO query items in the queue
 
 --
 
-*`status.idomysqlconnection.ido-mysql.version`*::
+*`icinga.status.idomysqlconnection.ido-mysql.version`*::
 +
 --
 type: keyword
@@ -1333,7 +1394,7 @@ IDO schema version
 
 --
 
-*`status.max_execution_time`*::
+*`icinga.status.max_execution_time`*::
 +
 --
 type: integer
@@ -1343,7 +1404,7 @@ Max execution time
 
 --
 
-*`status.max_latency`*::
+*`icinga.status.max_latency`*::
 +
 --
 type: integer
@@ -1353,7 +1414,7 @@ Max latency
 
 --
 
-*`status.min_execution_time`*::
+*`icinga.status.min_execution_time`*::
 +
 --
 type: integer
@@ -1363,7 +1424,7 @@ Min execution time
 
 --
 
-*`status.min_latency`*::
+*`icinga.status.min_latency`*::
 +
 --
 type: integer
@@ -1373,7 +1434,7 @@ Min latency
 
 --
 
-*`status.notificationcomponent.notification`*::
+*`icinga.status.notificationcomponent.notification`*::
 +
 --
 type: integer
@@ -1383,7 +1444,7 @@ Notification
 
 --
 
-*`status.num_hosts_acknowledged`*::
+*`icinga.status.num_hosts_acknowledged`*::
 +
 --
 type: integer
@@ -1393,7 +1454,7 @@ Amount of acknowledged hosts
 
 --
 
-*`status.num_hosts_down`*::
+*`icinga.status.num_hosts_down`*::
 +
 --
 type: integer
@@ -1403,7 +1464,7 @@ Amount of down hosts
 
 --
 
-*`status.num_hosts_flapping`*::
+*`icinga.status.num_hosts_flapping`*::
 +
 --
 type: integer
@@ -1413,7 +1474,7 @@ Amount of flapping hosts
 
 --
 
-*`status.num_hosts_in_downtime`*::
+*`icinga.status.num_hosts_in_downtime`*::
 +
 --
 type: integer
@@ -1423,7 +1484,7 @@ Amount of hosts in downtime
 
 --
 
-*`status.num_hosts_pending`*::
+*`icinga.status.num_hosts_pending`*::
 +
 --
 type: integer
@@ -1433,7 +1494,7 @@ Amount of pending hosts
 
 --
 
-*`status.num_hosts_unreachable`*::
+*`icinga.status.num_hosts_unreachable`*::
 +
 --
 type: integer
@@ -1443,7 +1504,7 @@ Amount of unreachable hosts
 
 --
 
-*`status.num_hosts_up`*::
+*`icinga.status.num_hosts_up`*::
 +
 --
 type: integer
@@ -1453,7 +1514,7 @@ Amount of hosts in up state
 
 --
 
-*`status.num_services_acknowledged`*::
+*`icinga.status.num_services_acknowledged`*::
 +
 --
 type: integer
@@ -1463,7 +1524,7 @@ Amount of acknowledged services
 
 --
 
-*`status.num_services_critical`*::
+*`icinga.status.num_services_critical`*::
 +
 --
 type: integer
@@ -1473,7 +1534,7 @@ Amount of critical services
 
 --
 
-*`status.num_services_flapping`*::
+*`icinga.status.num_services_flapping`*::
 +
 --
 type: integer
@@ -1483,7 +1544,7 @@ Amount of flapping services
 
 --
 
-*`status.num_services_in_downtime`*::
+*`icinga.status.num_services_in_downtime`*::
 +
 --
 type: integer
@@ -1493,7 +1554,7 @@ Amount of services in downtime
 
 --
 
-*`status.num_services_ok`*::
+*`icinga.status.num_services_ok`*::
 +
 --
 type: integer
@@ -1503,7 +1564,7 @@ Amount of services in ok state
 
 --
 
-*`status.num_services_pending`*::
+*`icinga.status.num_services_pending`*::
 +
 --
 type: integer
@@ -1513,7 +1574,7 @@ Amount of pending services
 
 --
 
-*`status.num_services_unknown`*::
+*`icinga.status.num_services_unknown`*::
 +
 --
 type: integer
@@ -1523,7 +1584,7 @@ Amount of unknown services
 
 --
 
-*`status.num_services_unreachable`*::
+*`icinga.status.num_services_unreachable`*::
 +
 --
 type: integer
@@ -1533,7 +1594,7 @@ Amount of unreachable services
 
 --
 
-*`status.num_services_warning`*::
+*`icinga.status.num_services_warning`*::
 +
 --
 type: integer
@@ -1543,7 +1604,7 @@ Amount of services in warning state
 
 --
 
-*`status.passive_host_checks`*::
+*`icinga.status.passive_host_checks`*::
 +
 --
 type: integer
@@ -1553,7 +1614,7 @@ Amount of passive host checks
 
 --
 
-*`status.passive_host_checks_15min`*::
+*`icinga.status.passive_host_checks_15min`*::
 +
 --
 type: integer
@@ -1563,7 +1624,7 @@ Amount of passive host checks in the last 15 minutes
 
 --
 
-*`status.passive_host_checks_1min`*::
+*`icinga.status.passive_host_checks_1min`*::
 +
 --
 type: integer
@@ -1573,7 +1634,7 @@ Amount of passive host checks in the last minute
 
 --
 
-*`status.passive_host_checks_5min`*::
+*`icinga.status.passive_host_checks_5min`*::
 +
 --
 type: integer
@@ -1583,7 +1644,7 @@ Amount of passive host checks in the last 5 minutes
 
 --
 
-*`status.passive_service_checks`*::
+*`icinga.status.passive_service_checks`*::
 +
 --
 type: integer
@@ -1593,7 +1654,7 @@ Amount of passive service checks
 
 --
 
-*`status.passive_service_checks_15min`*::
+*`icinga.status.passive_service_checks_15min`*::
 +
 --
 type: integer
@@ -1603,7 +1664,7 @@ Amount of passive service checks in the last 15 minutes
 
 --
 
-*`status.passive_service_checks_1min`*::
+*`icinga.status.passive_service_checks_1min`*::
 +
 --
 type: integer
@@ -1613,7 +1674,7 @@ Amount of passive service checks in the last minute
 
 --
 
-*`status.passive_service_checks_5min`*::
+*`icinga.status.passive_service_checks_5min`*::
 +
 --
 type: integer
@@ -1623,7 +1684,7 @@ Amount of passive service checks in the last 5 minutes
 
 --
 
-*`status.uptime`*::
+*`icinga.status.uptime`*::
 +
 --
 type: integer
@@ -1647,6 +1708,16 @@ Kubernetes metadata added by the kubernetes processor
 type: keyword
 
 Kubernetes pod name
+
+
+--
+
+*`kubernetes.pod.uid`*::
++
+--
+type: keyword
+
+Kubernetes Pod UID
 
 
 --

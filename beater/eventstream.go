@@ -51,35 +51,35 @@ func BuildEventstreamEvent(e []byte) beat.Event {
 	event.Fields = common.MapStr{}
 
 	for key, value := range icingaEvent {
-		event.Fields.Put(key, value)
+		event.Fields.Put(target_key + key, value)
 	}
 
 	logp.Debug("icingabeat", "Type: %v", icingaEvent["type"])
 	switch icingaEvent["type"] {
 	case "CheckResult", "StateChange", "Notification":
 		checkResult := icingaEvent["check_result"].(map[string]interface{})
-		event.Fields.Put("check_result.execution_start", FloatToTimestamp(checkResult["execution_start"].(float64)))
-		event.Fields.Put("check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
-		event.Fields.Put("check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
-		event.Fields.Put("check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
+		event.Fields.Put(target_key + "check_result.execution_start", FloatToTimestamp(checkResult["execution_start"].(float64)))
+		event.Fields.Put(target_key + "check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
+		event.Fields.Put(target_key + "check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
+		event.Fields.Put(target_key + "check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
 		event.Fields.Delete("check_result.performance_data")
 
 	case "AcknowledgementSet":
 		event.Delete("comment")
-		event.Fields.Put("comment.text", icingaEvent["comment"])
-		event.Fields.Put("expiry", FloatToTimestamp(icingaEvent["expiry"].(float64)))
+		event.Fields.Put(target_key + "comment.text", icingaEvent["comment"])
+		event.Fields.Put(target_key + "expiry", FloatToTimestamp(icingaEvent["expiry"].(float64)))
 
 	case "CommentAdded", "CommentRemoved":
 		comment := icingaEvent["comment"].(map[string]interface{})
-		event.Fields.Put("comment.entry_time", FloatToTimestamp(comment["entry_time"].(float64)))
-		event.Fields.Put("comment.expire_time", FloatToTimestamp(comment["expire_time"].(float64)))
+		event.Fields.Put(target_key + "comment.entry_time", FloatToTimestamp(comment["entry_time"].(float64)))
+		event.Fields.Put(target_key + "comment.expire_time", FloatToTimestamp(comment["expire_time"].(float64)))
 
 	case "DowntimeAdded", "DowntimeRemoved", "DowntimeStarted", "DowntimeTriggered":
 		downtime := icingaEvent["downtime"].(map[string]interface{})
-		event.Fields.Put("downtime.end_time", FloatToTimestamp(downtime["end_time"].(float64)))
-		event.Fields.Put("downtime.entry_time", FloatToTimestamp(downtime["entry_time"].(float64)))
-		event.Fields.Put("downtime.start_time", FloatToTimestamp(downtime["start_time"].(float64)))
-		event.Fields.Put("downtime.trigger_time", FloatToTimestamp(downtime["trigger_time"].(float64)))
+		event.Fields.Put(target_key + "downtime.end_time", FloatToTimestamp(downtime["end_time"].(float64)))
+		event.Fields.Put(target_key + "downtime.entry_time", FloatToTimestamp(downtime["entry_time"].(float64)))
+		event.Fields.Put(target_key + "downtime.start_time", FloatToTimestamp(downtime["start_time"].(float64)))
+		event.Fields.Put(target_key + "downtime.trigger_time", FloatToTimestamp(downtime["trigger_time"].(float64)))
 	}
 
 	event.Fields.Put("type", "icingabeat.event."+strings.ToLower(icingaEvent["type"].(string)))
