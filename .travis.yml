@@ -31,6 +31,7 @@ before_install:
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/icinga/icingabeat/
   - cd $HOME/gopath/src/github.com/icinga/icingabeat/
   - go get github.com/Masterminds/glide
+  - go get github.com/magefile/mage/mg
 
 install:
   - true
