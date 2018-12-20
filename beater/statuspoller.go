@@ -65,11 +65,11 @@ func BuildStatusEvents(body []byte) []beat.Event {
 										delete(value.(map[string]interface{}), "zones")
 									}
 								}
-								event.Fields.Put(target_key + key, value)
+								event.Fields.Put(target_key+key, value)
 							}
 
 						default:
-							event.Fields.Put(target_key + key, value)
+							event.Fields.Put(target_key+key, value)
 						}
 
 					}
@@ -83,7 +83,7 @@ func BuildStatusEvents(body []byte) []beat.Event {
 						case interface{}:
 							key = "perfdata." + perfdata.(map[string]interface{})["label"].(string)
 							value = perfdata
-							event.Fields.Put(target_key + key, value)
+							event.Fields.Put(target_key+key, value)
 
 						}
 					}
@@ -93,7 +93,7 @@ func BuildStatusEvents(body []byte) []beat.Event {
 					event.Fields.Put("type", value)
 
 				default:
-					event.Fields.Put(target_key + key, value)
+					event.Fields.Put(target_key+key, value)
 				}
 			}
 
