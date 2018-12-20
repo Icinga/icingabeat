@@ -1,0 +1,134 @@
+{
+    "objects": [
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                }, 
+                "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+                "title": "Notification Types", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"histogram\", \"params\": {\"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"customInterval\": \"2h\", \"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"icinga.notification_type\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"Notification Types\"}"
+            }, 
+            "id": "af54ac40-e4cd-11e7-b4d1-8383451ae5a4", 
+            "type": "visualization", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                }, 
+                "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+                "title": "Notification Types (Pie)", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"icinga.notification_type\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Types (Pie)\"}"
+            }, 
+            "id": "caabba10-e4cd-11e7-b4d1-8383451ae5a4", 
+            "type": "visualization", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                }, 
+                "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+                "title": "Notification Services", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"icinga.service\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Services\"}"
+            }, 
+            "id": "fcb31150-e4ca-11e7-b4d1-8383451ae5a4", 
+            "type": "visualization", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                }, 
+                "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+                "title": "Notification Hosts", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"icinga.host\", \"order\": \"desc\", \"size\": 500}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Hosts\"}"
+            }, 
+            "id": "e5a012a0-e4c6-11e7-b4d1-8383451ae5a4", 
+            "type": "visualization", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "", 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                }, 
+                "savedSearchId": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+                "title": "Notifications by User", 
+                "uiStateJSON": "{}", 
+                "version": 1, 
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"field\": \"icinga.users\", \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notifications by User\"}"
+            }, 
+            "id": "e95ca140-e4cd-11e7-b4d1-8383451ae5a4", 
+            "type": "visualization", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "columns": [
+                    "host", 
+                    "service", 
+                    "users", 
+                    "text"
+                ], 
+                "description": "", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"index\": \"icingabeat-*\", \"version\": true, \"highlightAll\": true, \"query\": {\"query\": \"type:icingabeat.event.notification\", \"language\": \"lucene\"}}"
+                }, 
+                "sort": [
+                    "@timestamp", 
+                    "desc"
+                ], 
+                "title": "Notifications", 
+                "version": 1
+            }, 
+            "id": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
+            "type": "search", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }, 
+        {
+            "attributes": {
+                "description": "Summary of notifications received by Icinga", 
+                "hits": 0, 
+                "kibanaSavedObjectMeta": {
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}, \"version\": true, \"highlightAll\": true}"
+                }, 
+                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
+                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 2, \"y\": 0, \"w\": 12, \"x\": 0}, \"type\": \"visualization\", \"version\": \"6.1.0\", \"panelIndex\": \"1\", \"id\": \"af54ac40-e4cd-11e7-b4d1-8383451ae5a4\"}, {\"gridData\": {\"i\": \"2\", \"h\": 2, \"y\": 2, \"w\": 3, \"x\": 0}, \"type\": \"visualization\", \"version\": \"6.1.0\", \"panelIndex\": \"2\", \"id\": \"caabba10-e4cd-11e7-b4d1-8383451ae5a4\"}, {\"gridData\": {\"i\": \"3\", \"h\": 2, \"y\": 2, \"w\": 3, \"x\": 3}, \"type\": \"visualization\", \"version\": \"6.1.0\", \"panelIndex\": \"3\", \"id\": \"fcb31150-e4ca-11e7-b4d1-8383451ae5a4\"}, {\"gridData\": {\"i\": \"4\", \"h\": 2, \"y\": 2, \"w\": 3, \"x\": 6}, \"type\": \"visualization\", \"version\": \"6.1.0\", \"panelIndex\": \"4\", \"id\": \"e5a012a0-e4c6-11e7-b4d1-8383451ae5a4\"}, {\"gridData\": {\"i\": \"5\", \"h\": 2, \"y\": 2, \"w\": 3, \"x\": 9}, \"type\": \"visualization\", \"version\": \"6.1.0\", \"panelIndex\": \"5\", \"id\": \"e95ca140-e4cd-11e7-b4d1-8383451ae5a4\"}, {\"gridData\": {\"i\": \"6\", \"h\": 11, \"y\": 4, \"w\": 12, \"x\": 0}, \"type\": \"search\", \"version\": \"6.1.0\", \"panelIndex\": \"6\", \"id\": \"fa782860-e4bd-11e7-b4d1-8383451ae5a4\"}]", 
+                "timeRestore": false, 
+                "title": "Icingabeat-Notifications", 
+                "uiStateJSON": "{}", 
+                "version": 1
+            }, 
+            "id": "ed031e90-e4ce-11e7-b4d1-8383451ae5a4", 
+            "type": "dashboard", 
+            "updated_at": "2018-12-20T14:56:11.752Z", 
+            "version": 1
+        }
+    ], 
+    "version": "6.5.3"
+}
