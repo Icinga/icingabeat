@@ -25,7 +25,7 @@ for more information
 
 #### Requirements
 
-* [Golang](https://golang.org/dl/) 1.9
+* [Golang](https://golang.org/dl/) 1.10
 
 #### Clone
 
@@ -62,18 +62,8 @@ To run Icingabeat with debugging output enabled, run:
 To test Icingabeat, run the following command:
 
 ```shell
-make testsuite
+make ci
 ```
-
-alternatively:
-```shell
-make unit-tests
-make system-tests
-make integration-tests
-make coverage-report
-```
-
-The test coverage is reported in the folder `./build/coverage/`
 
 #### Update
 
