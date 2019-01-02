@@ -62,7 +62,7 @@ func BuildEventstreamEvent(e []byte) beat.Event {
 		event.Fields.Put(target_key+"check_result.execution_end", FloatToTimestamp(checkResult["execution_end"].(float64)))
 		event.Fields.Put(target_key+"check_result.schedule_start", FloatToTimestamp(checkResult["schedule_start"].(float64)))
 		event.Fields.Put(target_key+"check_result.schedule_end", FloatToTimestamp(checkResult["schedule_end"].(float64)))
-		event.Fields.Delete(target_key+"check_result.performance_data")
+		event.Fields.Delete(target_key + "check_result.performance_data")
 
 	case "AcknowledgementSet":
 		event.Delete("comment")
