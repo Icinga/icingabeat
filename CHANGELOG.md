@@ -1,4 +1,14 @@
 # Icingabeat CHANGELOG
+
+## v6.5.4
+
+## Features
+* Update libbeat to version 6.5.4
+* Move all field names to 'icinga' namespace
+
+## Bugs
+* Prevent usage of reserved keywords
+
 ## v6.3.3
 
 ### Features
