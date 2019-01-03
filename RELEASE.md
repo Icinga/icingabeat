@@ -14,14 +14,7 @@ git commit -am "Update AUTHORS"
 ## 2. Changelog
 Update [CHANGELOG.md] with all relevant information.
 
-## 3. Version
-Version numbers are incremented regarding the [SemVer 1.0.0] specification. 
-Update the version number in the following files:
-
-* `version.yml`
-* `vendor/github.com/elastic/beats/dev-tools/packer/version.yml`
-
-## 4. Build
+## 3. Build
 Build packages:
 
 ``` bash
@@ -36,7 +29,7 @@ export SNAPSHOT=false
 make package-dashboards
 ```
 
-## 5. Git Tag
+## 4. Git Tag
 Commit all changes to the `master` branch
 
 ``` bash
@@ -56,7 +49,6 @@ Push tags
 git push --tags
 ```
 
-[SemVer 1.0.0]: http://semver.org/spec/v1.0.0.html
 [CHANGELOG.md]: CHANGELOG.md
 [AUTHORS]: AUTHORS
 [.mailmap]: .mailmap
