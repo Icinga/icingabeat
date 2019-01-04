@@ -71,7 +71,7 @@ Make sure you have configured Icingabeat properly before starting it. Use one
 of the following commands to start Icingabeat:
 
 * `service icingabeat start` or
-* `systemctl icingabeat start` or
+* `systemctl start icingabeat` or
 * `/etc/init.d/icingabeat start`
 
 ## Dashboards
