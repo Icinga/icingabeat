@@ -33,7 +33,9 @@ import (
 func init() {
 	devtools.SetBuildVariableSources(devtools.DefaultBeatBuildVariableSources)
 
-	devtools.BeatDescription = "One sentence description of the Beat."
+	devtools.BeatVendor = "Icinga"
+	devtools.BeatURL = "https://icinga.com/docs/icingabeat"
+	devtools.BeatDescription = "Icingabeat ships Icinga 2 events and states to Elasticsearch or Logstash."
 }
 
 // Build builds the Beat binary.
