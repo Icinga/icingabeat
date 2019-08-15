@@ -30,7 +30,6 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/cfgfile"
 	"github.com/elastic/beats/libbeat/common"
-	"github.com/elastic/beats/libbeat/common/cfgwarn"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/metricbeat/mb"
 	"github.com/elastic/beats/metricbeat/mb/module"
@@ -93,15 +92,13 @@ func DefaultCreator() beat.Creator {
 	return Creator(
 		WithModuleOptions(
 			module.WithMetricSetInfo(),
+			module.WithServiceName(),
 		),
 	)
 }
 
 // newMetricbeat creates and returns a new Metricbeat instance.
 func newMetricbeat(b *beat.Beat, c *common.Config, options ...Option) (*Metricbeat, error) {
-	// List all registered modules and metricsets.
-	logp.Debug("modules", "%s", mb.Registry.String())
-
 	config := defaultConfig
 	if err := c.Unpack(&config); err != nil {
 		return nil, errors.Wrap(err, "error reading configuration file")
@@ -120,6 +117,9 @@ func newMetricbeat(b *beat.Beat, c *common.Config, options ...Option) (*Metricbe
 		applyOption(metricbeat)
 	}
 
+	// List all registered modules and metricsets.
+	logp.Debug("modules", "Available modules and metricsets: %s", mb.Registry.String())
+
 	if b.InSetupCmd {
 		// Return without instantiating the metricsets.
 		return metricbeat, nil
@@ -135,12 +135,6 @@ func newMetricbeat(b *beat.Beat, c *common.Config, options ...Option) (*Metricbe
 		}
 
 		failed := false
-
-		err := cfgwarn.CheckRemoved5xSettings(moduleCfg, "filters")
-		if err != nil {
-			errs = append(errs, err)
-			failed = true
-		}
 
 		connector, err := module.NewConnector(b.Publisher, moduleCfg, nil)
 		if err != nil {

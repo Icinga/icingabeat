@@ -5,6 +5,5 @@ paths:
 {{ end }}
 exclude_files: [".gz$"]
 
-fields:
-  service.name: "elasticsearch"
-fields_under_root: true
+processors:
+- add_locale: ~

@@ -36,7 +36,7 @@ import (
 )
 
 const (
-	fpmVersion = "1.10.0"
+	fpmVersion = "1.11.0"
 
 	// Docker images. See https://github.com/elastic/golang-crossbuild.
 	beatsFPMImage = "docker.elastic.co/beats-dev/fpm"
@@ -53,6 +53,7 @@ var (
 	GOARM        = EnvOr("GOARM", "")
 	Platform     = MakePlatformAttributes(GOOS, GOARCH, GOARM)
 	BinaryExt    = ""
+	XPackDir     = "../x-pack"
 	RaceDetector = false
 	TestCoverage = false
 
@@ -63,12 +64,18 @@ var (
 	BeatVendor      = EnvOr("BEAT_VENDOR", "Elastic")
 	BeatLicense     = EnvOr("BEAT_LICENSE", "ASL 2.0")
 	BeatURL         = EnvOr("BEAT_URL", "https://www.elastic.co/products/beats/"+BeatName)
+	BeatUser        = EnvOr("BEAT_USER", "root")
+
+	BeatProjectType ProjectType
 
 	Snapshot bool
 
+	versionQualified bool
+	versionQualifier string
+
 	FuncMap = map[string]interface{}{
 		"beat_doc_branch":   BeatDocBranch,
-		"beat_version":      BeatVersion,
+		"beat_version":      BeatQualifiedVersion,
 		"commit":            CommitHash,
 		"date":              BuildDate,
 		"elastic_beats_dir": ElasticBeatsDir,
@@ -97,9 +104,24 @@ func init() {
 
 	Snapshot, err = strconv.ParseBool(EnvOr("SNAPSHOT", "false"))
 	if err != nil {
-		panic(errors.Errorf("failed to parse SNAPSHOT env value", err))
+		panic(errors.Wrap(err, "failed to parse SNAPSHOT env value"))
 	}
+
+	versionQualifier, versionQualified = os.LookupEnv("VERSION_QUALIFIER")
 }
+
+// ProjectType specifies the type of project (OSS vs X-Pack).
+type ProjectType uint8
+
+// Project types.
+const (
+	OSSProject ProjectType = iota
+	XPackProject
+	CommunityProject
+)
+
+// ErrUnknownProjectType is returned if an unknown ProjectType value is used.
+var ErrUnknownProjectType = fmt.Errorf("unknown ProjectType")
 
 // EnvMap returns map containing the common settings variables and all variables
 // from the environment. args are appended to the output prior to adding the
@@ -123,6 +145,7 @@ func varMap(args ...map[string]interface{}) map[string]interface{} {
 		"GOARM":           GOARM,
 		"Platform":        Platform,
 		"BinaryExt":       BinaryExt,
+		"XPackDir":        XPackDir,
 		"BeatName":        BeatName,
 		"BeatServiceName": BeatServiceName,
 		"BeatIndexPrefix": BeatIndexPrefix,
@@ -130,7 +153,9 @@ func varMap(args ...map[string]interface{}) map[string]interface{} {
 		"BeatVendor":      BeatVendor,
 		"BeatLicense":     BeatLicense,
 		"BeatURL":         BeatURL,
+		"BeatUser":        BeatUser,
 		"Snapshot":        Snapshot,
+		"Qualifier":       versionQualifier,
 	}
 
 	// Add the extra args to the map.
@@ -146,18 +171,21 @@ func varMap(args ...map[string]interface{}) map[string]interface{} {
 func dumpVariables() (string, error) {
 	var dumpTemplate = `## Variables
 
-GOOS            = {{.GOOS}}
-GOARCH          = {{.GOARCH}}
-GOARM           = {{.GOARM}}
-Platform        = {{.Platform}}
-BinaryExt       = {{.BinaryExt}}
-BeatName        = {{.BeatName}}
-BeatServiceName = {{.BeatServiceName}}
-BeatIndexPrefix = {{.BeatIndexPrefix}}
-BeatDescription = {{.BeatDescription}}
-BeatVendor      = {{.BeatVendor}}
-BeatLicense     = {{.BeatLicense}}
-BeatURL         = {{.BeatURL}}
+GOOS             = {{.GOOS}}
+GOARCH           = {{.GOARCH}}
+GOARM            = {{.GOARM}}
+Platform         = {{.Platform}}
+BinaryExt        = {{.BinaryExt}}
+XPackDir         = {{.XPackDir}}
+BeatName         = {{.BeatName}}
+BeatServiceName  = {{.BeatServiceName}}
+BeatIndexPrefix  = {{.BeatIndexPrefix}}
+BeatDescription  = {{.BeatDescription}}
+BeatVendor       = {{.BeatVendor}}
+BeatLicense      = {{.BeatLicense}}
+BeatURL          = {{.BeatURL}}
+BeatUser         = {{.BeatUser}}
+VersionQualifier = {{.Qualifier}}
 
 ## Functions
 
@@ -241,8 +269,10 @@ func findElasticBeatsDir() (string, error) {
 
 	const devToolsImportPath = elasticBeatsImportPath + "/dev-tools/mage"
 
-	// Search in project vendor directories.
+	// Search in project vendor directories. Order is relevant
 	searchPaths := []string{
+		// beats directory of apm-server
+		filepath.Join(repo.RootDir, "_beats/dev-tools/vendor"),
 		filepath.Join(repo.RootDir, repo.SubDir, "vendor", devToolsImportPath),
 		filepath.Join(repo.RootDir, "vendor", devToolsImportPath),
 	}
@@ -254,24 +284,6 @@ func findElasticBeatsDir() (string, error) {
 	}
 
 	return "", errors.Errorf("failed to find %v in the project's vendor", devToolsImportPath)
-}
-
-// SetElasticBeatsDir explicitly sets the location of the Elastic Beats
-// directory. If not set then it will attempt to locate it.
-func SetElasticBeatsDir(dir string) {
-	elasticBeatsDirLock.Lock()
-	defer elasticBeatsDirLock.Unlock()
-
-	info, err := os.Stat(dir)
-	if err != nil {
-		panic(errors.Wrapf(err, "failed to read elastic beats dir at %v", dir))
-	}
-
-	if !info.IsDir() {
-		panic(errors.Errorf("elastic beats dir=%v is not a directory", dir))
-	}
-
-	elasticBeatsDirValue = filepath.Clean(dir)
 }
 
 var (
@@ -311,9 +323,23 @@ var (
 	beatVersionOnce  sync.Once
 )
 
+// BeatQualifiedVersion returns the Beat's qualified version.  The value can be overwritten by
+// setting VERSION_QUALIFIER in the environment.
+func BeatQualifiedVersion() (string, error) {
+	version, err := beatVersion()
+	if err != nil {
+		return "", err
+	}
+	// version qualifier can intentionally be set to "" to override build time var
+	if !versionQualified || versionQualifier == "" {
+		return version, nil
+	}
+	return version + "-" + versionQualifier, nil
+}
+
 // BeatVersion returns the Beat's version. The value can be overridden by
 // setting BEAT_VERSION in the environment.
-func BeatVersion() (string, error) {
+func beatVersion() (string, error) {
 	beatVersionOnce.Do(func() {
 		beatVersionValue = os.Getenv("BEAT_VERSION")
 		if beatVersionValue != "" {
@@ -389,7 +415,7 @@ func getBuildVariableSources() *BuildVariableSources {
 		return buildVariableSources
 	}
 
-	panic(errors.Errorf("magefile must call mage.SetBuildVariableSources() "+
+	panic(errors.Errorf("magefile must call devtools.SetBuildVariableSources() "+
 		"because it is not an elastic beat (repo=%+v)", repo.RootImportPath))
 }
 

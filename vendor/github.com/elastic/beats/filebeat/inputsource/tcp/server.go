@@ -25,6 +25,8 @@ import (
 	"net"
 	"sync"
 
+	"golang.org/x/net/netutil"
+
 	"github.com/elastic/beats/filebeat/inputsource"
 	"github.com/elastic/beats/libbeat/common/transport/tlscommon"
 	"github.com/elastic/beats/libbeat/logp"
@@ -48,25 +50,24 @@ type Server struct {
 // New creates a new tcp server
 func New(
 	config *Config,
+	splitFunc bufio.SplitFunc,
 	callback inputsource.NetworkFunc,
 ) (*Server, error) {
-
-	if len(config.LineDelimiter) == 0 {
-		return nil, fmt.Errorf("empty line delimiter")
-	}
-
 	tlsConfig, err := tlscommon.LoadTLSServerConfig(config.TLS)
 	if err != nil {
 		return nil, err
 	}
 
-	sf := splitFunc([]byte(config.LineDelimiter))
+	if splitFunc == nil {
+		return nil, fmt.Errorf("SplitFunc can't be empty")
+	}
+
 	return &Server{
 		config:    config,
 		callback:  callback,
 		clients:   make(map[*client]struct{}, 0),
 		done:      make(chan struct{}),
-		splitFunc: sf,
+		splitFunc: splitFunc,
 		log:       logp.NewLogger("tcp").With("address", config.Host),
 		tlsConfig: tlsConfig,
 	}, nil
@@ -176,12 +177,26 @@ func (s *Server) allClients() []*client {
 }
 
 func (s *Server) createServer() (net.Listener, error) {
+	var l net.Listener
+	var err error
 	if s.tlsConfig != nil {
 		t := s.tlsConfig.BuildModuleConfig(s.config.Host)
 		s.log.Info("Listening over TLS")
-		return tls.Listen("tcp", s.config.Host, t)
+		l, err = tls.Listen("tcp", s.config.Host, t)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		l, err = net.Listen("tcp", s.config.Host)
+		if err != nil {
+			return nil, err
+		}
 	}
-	return net.Listen("tcp", s.config.Host)
+
+	if s.config.MaxConnections > 0 {
+		return netutil.LimitListener(l, s.config.MaxConnections), nil
+	}
+	return l, nil
 }
 
 func (s *Server) clientsCount() int {
@@ -190,7 +205,8 @@ func (s *Server) clientsCount() int {
 	return len(s.clients)
 }
 
-func splitFunc(lineDelimiter []byte) bufio.SplitFunc {
+// SplitFunc allows to create a `bufio.SplitFunc` based on a delimiter provided.
+func SplitFunc(lineDelimiter []byte) bufio.SplitFunc {
 	ld := []byte(lineDelimiter)
 	if bytes.Equal(ld, []byte("\n")) {
 		// This will work for most usecases and will also strip \r if present.

@@ -30,14 +30,18 @@ import (
 	"github.com/elastic/beats/libbeat/common/cfgwarn"
 	"github.com/elastic/beats/libbeat/logp"
 
-	conf "github.com/elastic/beats/journalbeat/config"
+	"github.com/elastic/beats/journalbeat/config"
+	_ "github.com/elastic/beats/journalbeat/include"
+
+	// Add dedicated processors
+	_ "github.com/elastic/beats/libbeat/processors/decode_csv_fields"
 )
 
 // Journalbeat instance
 type Journalbeat struct {
 	inputs []*input.Input
 	done   chan struct{}
-	config conf.Config
+	config config.Config
 
 	pipeline   beat.Pipeline
 	checkpoint *checkpoint.Checkpoint
@@ -48,23 +52,7 @@ type Journalbeat struct {
 func New(b *beat.Beat, cfg *common.Config) (beat.Beater, error) {
 	cfgwarn.Experimental("Journalbeat is experimental.")
 
-	if cfg.HasField("seek") {
-		cfgwarn.Deprecate("7.0.0", "global seek is deprecated, Use seek on input level instead.")
-	}
-
-	if cfg.HasField("backoff") {
-		cfgwarn.Deprecate("7.0.0", "global backoff is deprecated, Use backoff on input level instead.")
-	}
-
-	if cfg.HasField("max_backoff") {
-		cfgwarn.Deprecate("7.0.0", "global max_backoff is deprecated, Use max_backoff on input level instead.")
-	}
-
-	if cfg.HasField("include_matches") {
-		cfgwarn.Deprecate("7.0.0", "global include_matches is deprecated, Use include_matches on input level instead.")
-	}
-
-	config := conf.DefaultConfig
+	config := config.DefaultConfig
 	if err := cfg.Unpack(&config); err != nil {
 		return nil, fmt.Errorf("error reading config file: %v", err)
 	}

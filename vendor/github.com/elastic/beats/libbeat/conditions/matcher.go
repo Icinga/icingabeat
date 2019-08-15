@@ -86,15 +86,14 @@ func (c Matcher) Check(event ValuesMap) bool {
 				return false
 			}
 
-		case []string:
+		case []interface{}, []string:
 			if !matcher.MatchAnyString(v) {
 				return false
 			}
-
 		default:
 			str, err := ExtractString(value)
 			if err != nil {
-				logp.Warn("unexpected type %T in %v condition as it accepts only strings.", value, c.name)
+				logp.L().Named(logName).Warnf("unexpected type %T in %v condition as it accepts only strings.", value, c.name)
 				return false
 			}
 

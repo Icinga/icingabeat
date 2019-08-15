@@ -24,12 +24,13 @@ import (
 )
 
 func init() {
-	if err := asset.SetFields("metricbeat", "http", Asset); err != nil {
+	if err := asset.SetFields("metricbeat", "http", asset.ModuleFieldsPri, AssetHttp); err != nil {
 		panic(err)
 	}
 }
 
-// Asset returns asset data
-func Asset() string {
-	return "eJzMlDFTwzAMhff8Cl1mesfQKQMzE8fQjWNw49fGbRIbSynk33NumtCkLkevlEOj5XzvyVI0oy3ajAoRlxCJkRIZpY+LxXOaEGlw7o0TY+uMHhIiopCiyuqmRELkUUIxMlqrhIghYuo1Z/SSMpfpHaUBnL4mRCuDUnO2Z8yoVhUG1RDSukDxtulPItpjyjHJ460By3AeA56F9rEv7UAiU6+sr1S4eXRtqj+qBkrD8wTa+bDLDXKZpL41Q7Qo0Fk6gIlRS1S5ghRWR4W3aN+tn+Z+qtyBqWHoqPDS6vYGsk61pVV6XPBXq9nZmvErve5Q/7HZHjnM7sy751bjBu/OoqThGB0fqnJhNczv51FHrvCKL/E0EJ+s0Mo29ZWmIwb+aEpPOtXrbng0ThdPafg+/ILe5IzjeRpv3T7O7UaG38FfY+SEMBhYQmIWPgMAAP//T4yYaw=="
+// AssetHttp returns asset data.
+// This is the base64 encoded gzipped contents of ../metricbeat/module/http.
+func AssetHttp() string {
+	return "eJzMlDFv6jAUhff8iqPMD+kNTBne/KanN7BVHdz4AIbETn1vaPn3lYEgkhokSofe0Tbf+Y6MM8OW+wpr1a4A1GnDCuXfxeJ/WQCWUkfXqQu+wp8CANIW2mD7hgUQ2dAIK6xMAQhVnV9JhadSpCl/oUzg8rkAlo6NlerAmMGblufUNLrvEiWGfljJZI8pl6TI156i5/Uc8Cp0mEO1EwnOL0NsTTp5cWyaP2pDYxllAj16hJcNa51s3ZQBFmselU5gCL1mmksXvPBbqh9RP7F7ZE23o82m18EyG73l/i1E+8VsUaO95Oh8N22XXsr89zxr1K2jkXuczsR/QbEMvX9QeiIweG1kdKV3/1PS79FSo6uFl3c6/hAMc+25CuOO8RGRT4TbAh8BAAD//zeEPwk="
 }
