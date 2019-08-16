@@ -5,10 +5,10 @@
                 "description": "Summary of check results received by Icinga", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}, \"version\": true, \"highlightAll\": true}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"version\\\": true, \\\"highlightAll\\\": true}\""
                 }, 
-                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
-                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 8, \"y\": 0, \"w\": 48, \"x\": 0}, \"panelRefName\": \"panel_0\", \"version\": \"7.3.0\", \"panelIndex\": \"1\"}, {\"gridData\": {\"i\": \"2\", \"h\": 20, \"y\": 8, \"w\": 12, \"x\": 0}, \"panelRefName\": \"panel_1\", \"version\": \"7.3.0\", \"panelIndex\": \"2\"}, {\"gridData\": {\"i\": \"3\", \"h\": 20, \"y\": 8, \"w\": 16, \"x\": 12}, \"panelRefName\": \"panel_2\", \"version\": \"7.3.0\", \"panelIndex\": \"3\"}, {\"gridData\": {\"i\": \"4\", \"h\": 20, \"y\": 8, \"w\": 20, \"x\": 28}, \"panelRefName\": \"panel_3\", \"version\": \"7.3.0\", \"panelIndex\": \"4\"}]", 
+                "optionsJSON": "\"{\\\"useMargins\\\": true, \\\"darkTheme\\\": false, \\\"hidePanelTitles\\\": false}\"", 
+                "panelsJSON": "\"[{\\\"gridData\\\": {\\\"i\\\": \\\"1\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 48, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_0\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"1\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"2\\\", \\\"h\\\": 20, \\\"y\\\": 8, \\\"w\\\": 12, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_1\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"2\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"3\\\", \\\"h\\\": 20, \\\"y\\\": 8, \\\"w\\\": 16, \\\"x\\\": 12}, \\\"panelRefName\\\": \\\"panel_2\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"3\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"4\\\", \\\"h\\\": 20, \\\"y\\\": 8, \\\"w\\\": 20, \\\"x\\\": 28}, \\\"panelRefName\\\": \\\"panel_3\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"4\\\"}]\"", 
                 "timeRestore": false, 
                 "title": "Icingabeat-CheckResults", 
                 "version": 1
@@ -47,13 +47,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "CheckResults by State", 
-                "uiStateJSON": "{\"vis\": {\"colors\": {\"Unknown\": \"#962D82\", \"Critical\": \"#BF1B00\", \"Ok\": \"#629E51\", \"Warning\": \"#E5AC0E\"}}}", 
+                "uiStateJSON": "\"{\\\"vis\\\": {\\\"colors\\\": {\\\"Unknown\\\": \\\"#962D82\\\", \\\"Critical\\\": \\\"#BF1B00\\\", \\\"Ok\\\": \\\"#629E51\\\", \\\"Warning\\\": \\\"#E5AC0E\\\"}}}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"histogram\", \"params\": {\"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"field\": \"@timestamp\", \"interval\": \"auto\", \"min_doc_count\": 1, \"extended_bounds\": {}}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"filters\": [{\"input\": {\"query\": \"icinga.check_result.state:0\", \"language\": \"lucene\"}, \"label\": \"Ok\"}, {\"input\": {\"query\": \"icinga.check_result.state:1\", \"language\": \"lucene\"}, \"label\": \"Warning\"}, {\"input\": {\"query\": \"icinga.check_result.state:3\", \"language\": \"lucene\"}, \"label\": \"Critical\"}, {\"input\": {\"query\": \"icinga.check_result.state:4\", \"language\": \"lucene\"}, \"label\": \"Unknown\"}]}, \"type\": \"filters\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"CheckResults by State\"}"
+                "visState": "\"{\\\"type\\\": \\\"histogram\\\", \\\"params\\\": {\\\"seriesParams\\\": [{\\\"showCircles\\\": true, \\\"show\\\": \\\"true\\\", \\\"data\\\": {\\\"id\\\": \\\"1\\\", \\\"label\\\": \\\"Count\\\"}, \\\"mode\\\": \\\"stacked\\\", \\\"drawLinesBetweenPoints\\\": true, \\\"valueAxis\\\": \\\"ValueAxis-1\\\", \\\"type\\\": \\\"histogram\\\"}], \\\"type\\\": \\\"histogram\\\", \\\"categoryAxes\\\": [{\\\"style\\\": {}, \\\"scale\\\": {\\\"type\\\": \\\"linear\\\"}, \\\"show\\\": true, \\\"title\\\": {}, \\\"labels\\\": {\\\"truncate\\\": 100, \\\"show\\\": true}, \\\"position\\\": \\\"bottom\\\", \\\"type\\\": \\\"category\\\", \\\"id\\\": \\\"CategoryAxis-1\\\"}], \\\"legendPosition\\\": \\\"right\\\", \\\"addTimeMarker\\\": false, \\\"addLegend\\\": true, \\\"grid\\\": {\\\"style\\\": {\\\"color\\\": \\\"#eee\\\"}, \\\"categoryLines\\\": false}, \\\"times\\\": [], \\\"addTooltip\\\": true, \\\"valueAxes\\\": [{\\\"style\\\": {}, \\\"scale\\\": {\\\"type\\\": \\\"linear\\\", \\\"mode\\\": \\\"normal\\\"}, \\\"name\\\": \\\"LeftAxis-1\\\", \\\"show\\\": true, \\\"title\\\": {\\\"text\\\": \\\"Count\\\"}, \\\"labels\\\": {\\\"filter\\\": false, \\\"rotate\\\": 0, \\\"truncate\\\": 100, \\\"show\\\": true}, \\\"position\\\": \\\"left\\\", \\\"type\\\": \\\"value\\\", \\\"id\\\": \\\"ValueAxis-1\\\"}]}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"field\\\": \\\"@timestamp\\\", \\\"interval\\\": \\\"auto\\\", \\\"min_doc_count\\\": 1, \\\"extended_bounds\\\": {}}, \\\"type\\\": \\\"date_histogram\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}, {\\\"params\\\": {\\\"filters\\\": [{\\\"input\\\": {\\\"query\\\": \\\"icinga.check_result.state:0\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"label\\\": \\\"Ok\\\"}, {\\\"input\\\": {\\\"query\\\": \\\"icinga.check_result.state:1\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"label\\\": \\\"Warning\\\"}, {\\\"input\\\": {\\\"query\\\": \\\"icinga.check_result.state:3\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"label\\\": \\\"Critical\\\"}, {\\\"input\\\": {\\\"query\\\": \\\"icinga.check_result.state:4\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"label\\\": \\\"Unknown\\\"}]}, \\\"type\\\": \\\"filters\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"3\\\", \\\"schema\\\": \\\"group\\\"}], \\\"title\\\": \\\"CheckResults by State\\\"}\""
             }, 
             "id": "a32bdf10-e4be-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -74,13 +74,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "CheckResult Count", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"metric\", \"params\": {\"type\": \"metric\", \"metric\": {\"style\": {\"bgFill\": \"#000\", \"bgColor\": false, \"fontSize\": 60, \"subText\": \"\", \"labelColor\": false}, \"colorSchema\": \"Green to Red\", \"invertColors\": false, \"labels\": {\"show\": true}, \"useRanges\": false, \"percentageMode\": false, \"colorsRange\": [{\"to\": 10000, \"from\": 0}], \"metricColorMode\": \"None\"}, \"addTooltip\": true, \"addLegend\": false}, \"aggs\": [{\"params\": {\"customLabel\": \"CheckResults received\"}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}], \"title\": \"CheckResult Count\"}"
+                "visState": "\"{\\\"type\\\": \\\"metric\\\", \\\"params\\\": {\\\"type\\\": \\\"metric\\\", \\\"metric\\\": {\\\"style\\\": {\\\"bgFill\\\": \\\"#000\\\", \\\"bgColor\\\": false, \\\"fontSize\\\": 60, \\\"subText\\\": \\\"\\\", \\\"labelColor\\\": false}, \\\"colorSchema\\\": \\\"Green to Red\\\", \\\"invertColors\\\": false, \\\"labels\\\": {\\\"show\\\": true}, \\\"useRanges\\\": false, \\\"percentageMode\\\": false, \\\"colorsRange\\\": [{\\\"to\\\": 10000, \\\"from\\\": 0}], \\\"metricColorMode\\\": \\\"None\\\"}, \\\"addTooltip\\\": true, \\\"addLegend\\\": false}, \\\"aggs\\\": [{\\\"params\\\": {\\\"customLabel\\\": \\\"CheckResults received\\\"}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}], \\\"title\\\": \\\"CheckResult Count\\\"}\""
             }, 
             "id": "3bf26530-e4be-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -101,13 +101,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Hosts Tag Cloud", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"tagcloud\", \"params\": {\"maxFontSize\": 72, \"showLabel\": true, \"minFontSize\": 18, \"orientation\": \"single\", \"scale\": \"linear\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Hosts\", \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.host.keyword\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 50}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Hosts Tag Cloud\"}"
+                "visState": "\"{\\\"type\\\": \\\"tagcloud\\\", \\\"params\\\": {\\\"maxFontSize\\\": 72, \\\"showLabel\\\": true, \\\"minFontSize\\\": 18, \\\"orientation\\\": \\\"single\\\", \\\"scale\\\": \\\"linear\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"customLabel\\\": \\\"Hosts\\\", \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.host\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 50}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Hosts Tag Cloud\\\"}\""
             }, 
             "id": "4a9d5c50-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -128,13 +128,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Services Tag Cloud", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"tagcloud\", \"params\": {\"maxFontSize\": 72, \"showLabel\": true, \"minFontSize\": 18, \"orientation\": \"single\", \"scale\": \"linear\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"customLabel\": \"Services\", \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.service.keyword\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 500}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Services Tag Cloud\"}"
+                "visState": "\"{\\\"type\\\": \\\"tagcloud\\\", \\\"params\\\": {\\\"maxFontSize\\\": 72, \\\"showLabel\\\": true, \\\"minFontSize\\\": 18, \\\"orientation\\\": \\\"single\\\", \\\"scale\\\": \\\"linear\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"customLabel\\\": \\\"Services\\\", \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.service\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 500}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Services Tag Cloud\\\"}\""
             }, 
             "id": "6a23e300-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -159,7 +159,7 @@
                 "description": "", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.event.checkresult\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"type:icingabeat.event.checkresult\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"indexRefName\\\": \\\"kibanaSavedObjectMeta.searchSourceJSON.index\\\", \\\"version\\\": true, \\\"highlightAll\\\": true}\""
                 }, 
                 "sort": [
                     "@timestamp", 

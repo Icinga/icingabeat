@@ -5,10 +5,10 @@
                 "description": "Summary of Icinga Metrics", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}, \"version\": true, \"highlightAll\": true}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"version\\\": true, \\\"highlightAll\\\": true}\""
                 }, 
-                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
-                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 0}, \"panelRefName\": \"panel_0\", \"version\": \"7.3.0\", \"panelIndex\": \"1\"}, {\"gridData\": {\"i\": \"2\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 12}, \"panelRefName\": \"panel_1\", \"version\": \"7.3.0\", \"panelIndex\": \"2\"}, {\"gridData\": {\"i\": \"3\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 24}, \"panelRefName\": \"panel_2\", \"version\": \"7.3.0\", \"panelIndex\": \"3\"}, {\"gridData\": {\"i\": \"4\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 36}, \"panelRefName\": \"panel_3\", \"version\": \"7.3.0\", \"panelIndex\": \"4\"}, {\"gridData\": {\"i\": \"5\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 0}, \"panelRefName\": \"panel_4\", \"version\": \"7.3.0\", \"panelIndex\": \"5\"}, {\"gridData\": {\"i\": \"6\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 16}, \"panelRefName\": \"panel_5\", \"version\": \"7.3.0\", \"panelIndex\": \"6\"}, {\"gridData\": {\"i\": \"7\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 32}, \"panelRefName\": \"panel_6\", \"version\": \"7.3.0\", \"panelIndex\": \"7\"}, {\"gridData\": {\"i\": \"8\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 0}, \"panelRefName\": \"panel_7\", \"version\": \"7.3.0\", \"panelIndex\": \"8\"}, {\"gridData\": {\"i\": \"9\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 16}, \"panelRefName\": \"panel_8\", \"version\": \"7.3.0\", \"panelIndex\": \"9\"}, {\"gridData\": {\"i\": \"10\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 32}, \"panelRefName\": \"panel_9\", \"version\": \"7.3.0\", \"panelIndex\": \"10\"}]", 
+                "optionsJSON": "\"{\\\"useMargins\\\": true, \\\"darkTheme\\\": false, \\\"hidePanelTitles\\\": false}\"", 
+                "panelsJSON": "\"[{\\\"gridData\\\": {\\\"i\\\": \\\"1\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 12, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_0\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"1\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"2\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 12, \\\"x\\\": 12}, \\\"panelRefName\\\": \\\"panel_1\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"2\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"3\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 12, \\\"x\\\": 24}, \\\"panelRefName\\\": \\\"panel_2\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"3\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"4\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 12, \\\"x\\\": 36}, \\\"panelRefName\\\": \\\"panel_3\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"4\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"5\\\", \\\"h\\\": 12, \\\"y\\\": 8, \\\"w\\\": 16, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_4\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"5\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"6\\\", \\\"h\\\": 12, \\\"y\\\": 8, \\\"w\\\": 16, \\\"x\\\": 16}, \\\"panelRefName\\\": \\\"panel_5\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"6\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"7\\\", \\\"h\\\": 12, \\\"y\\\": 8, \\\"w\\\": 16, \\\"x\\\": 32}, \\\"panelRefName\\\": \\\"panel_6\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"7\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"8\\\", \\\"h\\\": 12, \\\"y\\\": 20, \\\"w\\\": 16, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_7\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"8\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"9\\\", \\\"h\\\": 12, \\\"y\\\": 20, \\\"w\\\": 16, \\\"x\\\": 16}, \\\"panelRefName\\\": \\\"panel_8\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"9\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"10\\\", \\\"h\\\": 12, \\\"y\\\": 20, \\\"w\\\": 16, \\\"x\\\": 32}, \\\"panelRefName\\\": \\\"panel_9\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"10\\\"}]\"", 
                 "timeRestore": false, 
                 "title": "Icingabeat-Status", 
                 "version": 1
@@ -77,12 +77,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "Icinga Logo", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"markdown\", \"params\": {\"markdown\": \"![Icinga Logo](https://www.icinga.com/wp-content/uploads/2014/06/icinga_logo.png)\", \"fontSize\": 12}, \"aggs\": [], \"title\": \"Icinga Logo\"}"
+                "visState": "\"{\\\"type\\\": \\\"markdown\\\", \\\"params\\\": {\\\"markdown\\\": \\\"![Icinga Logo](https://www.icinga.com/wp-content/uploads/2014/06/icinga_logo.png)\\\", \\\"fontSize\\\": 12}, \\\"aggs\\\": [], \\\"title\\\": \\\"Icinga Logo\\\"}\""
             }, 
             "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -97,13 +97,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Icinga Version", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.icingaapplication.app.version.keyword\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Icinga Version\"}"
+                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"top\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"_key\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.status.icingaapplication.app.version\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Icinga Version\\\"}\""
             }, 
             "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -124,13 +124,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "MySQL Schema Version", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.idomysqlconnection.ido-mysql.version.keyword\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"MySQL Schema Version\"}"
+                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"top\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"_key\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.status.idomysqlconnection.ido-mysql.version\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"MySQL Schema Version\\\"}\""
             }, 
             "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -151,13 +151,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Nodes", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.icingaapplication.app.node_name.keyword\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Nodes\"}"
+                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"top\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"_key\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.status.icingaapplication.app.node_name\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Nodes\\\"}\""
             }, 
             "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -178,12 +178,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "Hostchecks by time", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.active_host_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Hostchecks\\\"),.es(metric='avg:icinga.status.active_host_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_host_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"Hostchecks by time\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.status.active_host_checks_1min').color(#070F4E).label(\\\\\\\"1 min\\\\\\\").title(\\\\\\\"Amount of Hostchecks\\\\\\\"),.es(metric='avg:icinga.status.active_host_checks_5min').color(#2772DB).label(\\\\\\\"5 min\\\\\\\"),.es(metric='avg:icinga.status.active_host_checks_15min').color(#3AB1C8).label(\\\\\\\"15 min\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"Hostchecks by time\\\"}\""
             }, 
             "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -198,12 +198,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "Servicechecks by time", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.active_service_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Servicechecks\\\"),.es(metric='avg:icinga.status.active_service_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_service_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"Servicechecks by time\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.status.active_service_checks_1min').color(#070F4E).label(\\\\\\\"1 min\\\\\\\").title(\\\\\\\"Amount of Servicechecks\\\\\\\"),.es(metric='avg:icinga.status.active_service_checks_5min').color(#2772DB).label(\\\\\\\"5 min\\\\\\\"),.es(metric='avg:icinga.status.active_service_checks_15min').color(#3AB1C8).label(\\\\\\\"15 min\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"Servicechecks by time\\\"}\""
             }, 
             "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -218,12 +218,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "Endpoints comparisson", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.api.num_endpoints').label(\\\"Endpoints\\\"), .es(metric='avg:icinga.status.api.num_not_conn_endpoints').label(\\\"Endpoints not connected\\\").title(\\\"Connected Endpoints\\\")\"}, \"aggs\": [], \"title\": \"Endpoints comparisson\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.status.api.num_endpoints').label(\\\\\\\"Endpoints\\\\\\\"), .es(metric='avg:icinga.status.api.num_not_conn_endpoints').label(\\\\\\\"Endpoints not connected\\\\\\\").title(\\\\\\\"Connected Endpoints\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"Endpoints comparisson\\\"}\""
             }, 
             "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -238,12 +238,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "States of Hosts", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.num_hosts_up').color(#3EC8AC).label(\\\"Up\\\").title(\\\"States of Hosts\\\"),.es(metric='avg:icinga.status.num_hosts_down').color(#E94822).label(\\\"Down\\\"),.es(metric='avg:icinga.status.num_hosts_unreachable').color(#6E60A0).label(\\\"Unreachable\\\")\"}, \"aggs\": [], \"title\": \"States of Hosts\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.status.num_hosts_up').color(#3EC8AC).label(\\\\\\\"Up\\\\\\\").title(\\\\\\\"States of Hosts\\\\\\\"),.es(metric='avg:icinga.status.num_hosts_down').color(#E94822).label(\\\\\\\"Down\\\\\\\"),.es(metric='avg:icinga.status.num_hosts_unreachable').color(#6E60A0).label(\\\\\\\"Unreachable\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"States of Hosts\\\"}\""
             }, 
             "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -258,12 +258,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "States of Services", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.num_services_ok').color(#3EC8AC).label(\\\"Ok\\\").title(\\\"States of Services\\\"),.es(metric='avg:icinga.status.num_services_warning').color(#F2910A).label(\\\"Warning\\\"),.es(metric='avg:icinga.status.num_services_critical').color(#E94822).label(\\\"Critical\\\")\"}, \"aggs\": [], \"title\": \"States of Services\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.status.num_services_ok').color(#3EC8AC).label(\\\\\\\"Ok\\\\\\\").title(\\\\\\\"States of Services\\\\\\\"),.es(metric='avg:icinga.status.num_services_warning').color(#F2910A).label(\\\\\\\"Warning\\\\\\\"),.es(metric='avg:icinga.status.num_services_critical').color(#E94822).label(\\\\\\\"Critical\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"States of Services\\\"}\""
             }, 
             "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -278,12 +278,12 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{}"
+                    "searchSourceJSON": "\"{}\""
                 }, 
                 "title": "MySQL Queries", 
-                "uiStateJSON": "{}", 
+                "uiStateJSON": "\"{}\"", 
                 "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_1min.value').color(#616EEF).label(\\\"1 min\\\").title(\\\"MySQL Queries\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_5mins.value').color(#09A8FA).label(\\\"5 min\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_15mins.value').color(#41C5D3).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"MySQL Queries\"}"
+                "visState": "\"{\\\"type\\\": \\\"timelion\\\", \\\"params\\\": {\\\"interval\\\": \\\"1m\\\", \\\"expression\\\": \\\".es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_1min.value').color(#616EEF).label(\\\\\\\"1 min\\\\\\\").title(\\\\\\\"MySQL Queries\\\\\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_5mins.value').color(#09A8FA).label(\\\\\\\"5 min\\\\\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_15mins.value').color(#41C5D3).label(\\\\\\\"15 min\\\\\\\")\\\"}, \\\"aggs\\\": [], \\\"title\\\": \\\"MySQL Queries\\\"}\""
             }, 
             "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -302,7 +302,7 @@
                 "description": "", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.status*\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
+                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"type:icingabeat.status*\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"indexRefName\\\": \\\"kibanaSavedObjectMeta.searchSourceJSON.index\\\", \\\"version\\\": true, \\\"highlightAll\\\": true}\""
                 }, 
                 "sort": [
                     "@timestamp", 
