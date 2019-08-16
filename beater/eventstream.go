@@ -83,7 +83,7 @@ func BuildEventstreamEvent(e []byte) beat.Event {
 	}
 
 	event.Fields.Put("type", "icingabeat.event."+strings.ToLower(icingaEvent["type"].(string)))
-	event.Fields.Put("timestamp", FloatToTimestamp(icingaEvent["timestamp"].(float64)))
+	event.Fields.Put(target_key+"timestamp", FloatToTimestamp(icingaEvent["timestamp"].(float64)))
 
 	return event
 }

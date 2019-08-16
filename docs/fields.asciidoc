@@ -3477,16 +3477,6 @@ example: stretch
 Data received from the Icinga 2 API
 
 
-*`timestamp`*::
-+
---
-Timestamp of event occurrence
-
-
-type: date
-
---
-
 *`type`*::
 +
 --

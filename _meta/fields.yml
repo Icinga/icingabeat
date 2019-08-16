@@ -2,10 +2,6 @@
   title: icingabeat
   description: Data received from the Icinga 2 API
   fields:
-    - name: timestamp
-      type: date
-      description: >
-        Timestamp of event occurrence
 
     - name: type
       type: keyword
