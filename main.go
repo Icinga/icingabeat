@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/icinga/icingabeat/cmd"
+
+	_ "github.com/icinga/icingabeat/include"
 )
 
 func main() {
