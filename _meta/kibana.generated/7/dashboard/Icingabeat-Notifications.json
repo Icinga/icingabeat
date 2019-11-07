@@ -50,8 +50,8 @@
                 }
             ], 
             "type": "dashboard", 
-            "updated_at": "2019-08-16T08:16:10.241Z", 
-            "version": "WzcyLDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzIzNywxXQ=="
         }, 
         {
             "attributes": {
@@ -67,7 +67,7 @@
             }, 
             "id": "af54ac40-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -77,8 +77,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:38:03.155Z", 
-            "version": "Wzk0LDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzIzOCwxXQ=="
         }, 
         {
             "attributes": {
@@ -94,7 +94,7 @@
             }, 
             "id": "caabba10-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -104,8 +104,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:38:30.964Z", 
-            "version": "Wzk1LDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzIzOSwxXQ=="
         }, 
         {
             "attributes": {
@@ -121,7 +121,7 @@
             }, 
             "id": "fcb31150-e4ca-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -131,8 +131,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:32:50.772Z", 
-            "version": "WzkyLDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzI0MCwxXQ=="
         }, 
         {
             "attributes": {
@@ -148,7 +148,7 @@
             }, 
             "id": "e5a012a0-e4c6-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -158,8 +158,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:32:34.851Z", 
-            "version": "WzkxLDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzI0MSwxXQ=="
         }, 
         {
             "attributes": {
@@ -175,7 +175,7 @@
             }, 
             "id": "e95ca140-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -185,8 +185,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:38:44.520Z", 
-            "version": "Wzk2LDFd"
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzI0MiwxXQ=="
         }, 
         {
             "attributes": {
@@ -202,15 +202,17 @@
                     "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.event.notification\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
                 }, 
                 "sort": [
-                    "@timestamp", 
-                    "desc"
+                    [
+                        "@timestamp", 
+                        "desc"
+                    ]
                 ], 
                 "title": "Notifications", 
                 "version": 1
             }, 
             "id": "fa782860-e4bd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "search": "7.0.0"
+                "search": "7.4.0"
             }, 
             "references": [
                 {
@@ -220,9 +222,9 @@
                 }
             ], 
             "type": "search", 
-            "updated_at": "2019-08-16T08:40:11.159Z", 
-            "version": "WzEwMSwxXQ=="
+            "updated_at": "2019-11-07T11:25:34.939Z", 
+            "version": "WzI0MywxXQ=="
         }
     ], 
-    "version": "7.3.0"
+    "version": "7.4.2"
 }

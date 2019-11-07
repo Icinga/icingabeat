@@ -70,8 +70,8 @@
                 }
             ], 
             "type": "dashboard", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "Wzg0LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0NCwxXQ=="
         }, 
         {
             "attributes": {
@@ -86,12 +86,12 @@
             }, 
             "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "WzczLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0NSwxXQ=="
         }, 
         {
             "attributes": {
@@ -107,7 +107,7 @@
             }, 
             "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -117,8 +117,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:23:22.833Z", 
-            "version": "Wzg4LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0NiwxXQ=="
         }, 
         {
             "attributes": {
@@ -134,7 +134,7 @@
             }, 
             "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -144,8 +144,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:23:50.898Z", 
-            "version": "Wzg5LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0NywxXQ=="
         }, 
         {
             "attributes": {
@@ -161,7 +161,7 @@
             }, 
             "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -171,8 +171,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:24:58.922Z", 
-            "version": "WzkwLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0OCwxXQ=="
         }, 
         {
             "attributes": {
@@ -187,12 +187,12 @@
             }, 
             "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "Wzc3LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI0OSwxXQ=="
         }, 
         {
             "attributes": {
@@ -207,12 +207,12 @@
             }, 
             "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "Wzc4LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1MCwxXQ=="
         }, 
         {
             "attributes": {
@@ -227,12 +227,12 @@
             }, 
             "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "Wzc5LDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1MSwxXQ=="
         }, 
         {
             "attributes": {
@@ -247,12 +247,12 @@
             }, 
             "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "WzgwLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1MiwxXQ=="
         }, 
         {
             "attributes": {
@@ -267,12 +267,12 @@
             }, 
             "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "WzgxLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1MywxXQ=="
         }, 
         {
             "attributes": {
@@ -287,12 +287,12 @@
             }, 
             "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "WzgyLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1NCwxXQ=="
         }, 
         {
             "attributes": {
@@ -305,15 +305,17 @@
                     "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.status*\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
                 }, 
                 "sort": [
-                    "@timestamp", 
-                    "desc"
+                    [
+                        "@timestamp", 
+                        "desc"
+                    ]
                 ], 
                 "title": "Statuspoller", 
                 "version": 1
             }, 
             "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "search": "7.0.0"
+                "search": "7.4.0"
             }, 
             "references": [
                 {
@@ -323,9 +325,9 @@
                 }
             ], 
             "type": "search", 
-            "updated_at": "2019-08-16T08:16:11.269Z", 
-            "version": "WzgzLDFd"
+            "updated_at": "2019-11-07T11:25:35.948Z", 
+            "version": "WzI1NSwxXQ=="
         }
     ], 
-    "version": "7.3.0"
+    "version": "7.4.2"
 }

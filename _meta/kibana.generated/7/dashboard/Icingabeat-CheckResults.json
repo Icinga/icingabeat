@@ -40,8 +40,8 @@
                 }
             ], 
             "type": "dashboard", 
-            "updated_at": "2019-08-16T08:16:09.159Z", 
-            "version": "WzY1LDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzMSwxXQ=="
         }, 
         {
             "attributes": {
@@ -57,7 +57,7 @@
             }, 
             "id": "a32bdf10-e4be-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -67,8 +67,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:09.159Z", 
-            "version": "WzYwLDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzMiwxXQ=="
         }, 
         {
             "attributes": {
@@ -84,7 +84,7 @@
             }, 
             "id": "3bf26530-e4be-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -94,8 +94,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:16:09.159Z", 
-            "version": "WzYxLDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzMywxXQ=="
         }, 
         {
             "attributes": {
@@ -111,7 +111,7 @@
             }, 
             "id": "4a9d5c50-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -121,8 +121,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:22:15.365Z", 
-            "version": "Wzg2LDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzNCwxXQ=="
         }, 
         {
             "attributes": {
@@ -138,7 +138,7 @@
             }, 
             "id": "6a23e300-e4c0-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "visualization": "7.3.0"
+                "visualization": "7.4.2"
             }, 
             "references": [
                 {
@@ -148,8 +148,8 @@
                 }
             ], 
             "type": "visualization", 
-            "updated_at": "2019-08-16T08:22:38.687Z", 
-            "version": "Wzg3LDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzNSwxXQ=="
         }, 
         {
             "attributes": {
@@ -162,15 +162,17 @@
                     "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.event.checkresult\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
                 }, 
                 "sort": [
-                    "@timestamp", 
-                    "desc"
+                    [
+                        "@timestamp", 
+                        "desc"
+                    ]
                 ], 
                 "title": "CheckResults", 
                 "version": 1
             }, 
             "id": "eb7896b0-e4bd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
-                "search": "7.0.0"
+                "search": "7.4.0"
             }, 
             "references": [
                 {
@@ -180,9 +182,9 @@
                 }
             ], 
             "type": "search", 
-            "updated_at": "2019-08-16T08:16:09.159Z", 
-            "version": "WzY0LDFd"
+            "updated_at": "2019-11-07T11:25:33.914Z", 
+            "version": "WzIzNiwxXQ=="
         }
     ], 
-    "version": "7.3.0"
+    "version": "7.4.2"
 }
