@@ -5,10 +5,10 @@
                 "description": "Summary of notifications received by Icinga", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"version\\\": true, \\\"highlightAll\\\": true}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}, \"version\": true, \"highlightAll\": true}"
                 }, 
-                "optionsJSON": "\"{\\\"useMargins\\\": true, \\\"darkTheme\\\": false, \\\"hidePanelTitles\\\": false}\"", 
-                "panelsJSON": "\"[{\\\"gridData\\\": {\\\"i\\\": \\\"1\\\", \\\"h\\\": 8, \\\"y\\\": 0, \\\"w\\\": 48, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_0\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"1\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"2\\\", \\\"h\\\": 8, \\\"y\\\": 8, \\\"w\\\": 12, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_1\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"2\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"3\\\", \\\"h\\\": 8, \\\"y\\\": 8, \\\"w\\\": 12, \\\"x\\\": 12}, \\\"panelRefName\\\": \\\"panel_2\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"3\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"4\\\", \\\"h\\\": 8, \\\"y\\\": 8, \\\"w\\\": 12, \\\"x\\\": 24}, \\\"panelRefName\\\": \\\"panel_3\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"4\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"5\\\", \\\"h\\\": 8, \\\"y\\\": 8, \\\"w\\\": 12, \\\"x\\\": 36}, \\\"panelRefName\\\": \\\"panel_4\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"5\\\"}, {\\\"gridData\\\": {\\\"i\\\": \\\"6\\\", \\\"h\\\": 44, \\\"y\\\": 16, \\\"w\\\": 48, \\\"x\\\": 0}, \\\"panelRefName\\\": \\\"panel_5\\\", \\\"version\\\": \\\"7.3.0\\\", \\\"panelIndex\\\": \\\"6\\\"}]\"", 
+                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
+                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 8, \"y\": 0, \"w\": 48, \"x\": 0}, \"panelRefName\": \"panel_0\", \"version\": \"7.3.0\", \"panelIndex\": \"1\"}, {\"gridData\": {\"i\": \"2\", \"h\": 8, \"y\": 8, \"w\": 12, \"x\": 0}, \"panelRefName\": \"panel_1\", \"version\": \"7.3.0\", \"panelIndex\": \"2\"}, {\"gridData\": {\"i\": \"3\", \"h\": 8, \"y\": 8, \"w\": 12, \"x\": 12}, \"panelRefName\": \"panel_2\", \"version\": \"7.3.0\", \"panelIndex\": \"3\"}, {\"gridData\": {\"i\": \"4\", \"h\": 8, \"y\": 8, \"w\": 12, \"x\": 24}, \"panelRefName\": \"panel_3\", \"version\": \"7.3.0\", \"panelIndex\": \"4\"}, {\"gridData\": {\"i\": \"5\", \"h\": 8, \"y\": 8, \"w\": 12, \"x\": 36}, \"panelRefName\": \"panel_4\", \"version\": \"7.3.0\", \"panelIndex\": \"5\"}, {\"gridData\": {\"i\": \"6\", \"h\": 44, \"y\": 16, \"w\": 48, \"x\": 0}, \"panelRefName\": \"panel_5\", \"version\": \"7.3.0\", \"panelIndex\": \"6\"}]", 
                 "timeRestore": false, 
                 "title": "Icingabeat-Notifications", 
                 "version": 1
@@ -57,13 +57,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Notification Types", 
-                "uiStateJSON": "\"{}\"", 
+                "uiStateJSON": "{}", 
                 "version": 1, 
-                "visState": "\"{\\\"type\\\": \\\"histogram\\\", \\\"params\\\": {\\\"categoryAxes\\\": [{\\\"style\\\": {}, \\\"scale\\\": {\\\"type\\\": \\\"linear\\\"}, \\\"show\\\": true, \\\"title\\\": {}, \\\"labels\\\": {\\\"truncate\\\": 100, \\\"show\\\": true}, \\\"position\\\": \\\"bottom\\\", \\\"type\\\": \\\"category\\\", \\\"id\\\": \\\"CategoryAxis-1\\\"}], \\\"seriesParams\\\": [{\\\"showCircles\\\": true, \\\"show\\\": \\\"true\\\", \\\"data\\\": {\\\"id\\\": \\\"1\\\", \\\"label\\\": \\\"Count\\\"}, \\\"mode\\\": \\\"stacked\\\", \\\"drawLinesBetweenPoints\\\": true, \\\"valueAxis\\\": \\\"ValueAxis-1\\\", \\\"type\\\": \\\"histogram\\\"}], \\\"type\\\": \\\"histogram\\\", \\\"labels\\\": {\\\"show\\\": false}, \\\"legendPosition\\\": \\\"right\\\", \\\"addTimeMarker\\\": false, \\\"addLegend\\\": true, \\\"grid\\\": {\\\"style\\\": {\\\"color\\\": \\\"#eee\\\"}, \\\"categoryLines\\\": false}, \\\"times\\\": [], \\\"addTooltip\\\": true, \\\"valueAxes\\\": [{\\\"style\\\": {}, \\\"scale\\\": {\\\"type\\\": \\\"linear\\\", \\\"mode\\\": \\\"normal\\\"}, \\\"name\\\": \\\"LeftAxis-1\\\", \\\"show\\\": true, \\\"title\\\": {\\\"text\\\": \\\"Count\\\"}, \\\"labels\\\": {\\\"filter\\\": false, \\\"rotate\\\": 0, \\\"truncate\\\": 100, \\\"show\\\": true}, \\\"position\\\": \\\"left\\\", \\\"type\\\": \\\"value\\\", \\\"id\\\": \\\"ValueAxis-1\\\"}]}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"interval\\\": \\\"auto\\\", \\\"extended_bounds\\\": {}, \\\"field\\\": \\\"@timestamp\\\", \\\"timeRange\\\": {\\\"to\\\": \\\"now\\\", \\\"from\\\": \\\"now-15m\\\"}, \\\"useNormalizedEsInterval\\\": true, \\\"drop_partials\\\": false, \\\"min_doc_count\\\": 1}, \\\"type\\\": \\\"date_histogram\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.notification_type\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"3\\\", \\\"schema\\\": \\\"group\\\"}], \\\"title\\\": \\\"Notification Types\\\"}\""
+                "visState": "{\"type\": \"histogram\", \"params\": {\"categoryAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\"}, \"show\": true, \"title\": {}, \"labels\": {\"truncate\": 100, \"show\": true}, \"position\": \"bottom\", \"type\": \"category\", \"id\": \"CategoryAxis-1\"}], \"seriesParams\": [{\"showCircles\": true, \"show\": \"true\", \"data\": {\"id\": \"1\", \"label\": \"Count\"}, \"mode\": \"stacked\", \"drawLinesBetweenPoints\": true, \"valueAxis\": \"ValueAxis-1\", \"type\": \"histogram\"}], \"type\": \"histogram\", \"labels\": {\"show\": false}, \"legendPosition\": \"right\", \"addTimeMarker\": false, \"addLegend\": true, \"grid\": {\"style\": {\"color\": \"#eee\"}, \"categoryLines\": false}, \"times\": [], \"addTooltip\": true, \"valueAxes\": [{\"style\": {}, \"scale\": {\"type\": \"linear\", \"mode\": \"normal\"}, \"name\": \"LeftAxis-1\", \"show\": true, \"title\": {\"text\": \"Count\"}, \"labels\": {\"filter\": false, \"rotate\": 0, \"truncate\": 100, \"show\": true}, \"position\": \"left\", \"type\": \"value\", \"id\": \"ValueAxis-1\"}]}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"interval\": \"auto\", \"extended_bounds\": {}, \"field\": \"@timestamp\", \"timeRange\": {\"to\": \"now\", \"from\": \"now-15m\"}, \"useNormalizedEsInterval\": true, \"drop_partials\": false, \"min_doc_count\": 1}, \"type\": \"date_histogram\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.notification_type\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"3\", \"schema\": \"group\"}], \"title\": \"Notification Types\"}"
             }, 
             "id": "af54ac40-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -84,13 +84,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Notification Types (Pie)", 
-                "uiStateJSON": "\"{}\"", 
+                "uiStateJSON": "{}", 
                 "version": 1, 
-                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"right\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.notification_type\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Notification Types (Pie)\\\"}\""
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.notification_type\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Types (Pie)\"}"
             }, 
             "id": "caabba10-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -111,13 +111,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Notification Services", 
-                "uiStateJSON": "\"{}\"", 
+                "uiStateJSON": "{}", 
                 "version": 1, 
-                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"right\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.service\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Notification Services\\\"}\""
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.service\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Services\"}"
             }, 
             "id": "fcb31150-e4ca-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -138,13 +138,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Notification Hosts", 
-                "uiStateJSON": "\"{}\"", 
+                "uiStateJSON": "{}", 
                 "version": 1, 
-                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"right\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.host\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 500}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Notification Hosts\\\"}\""
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.host\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 500}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notification Hosts\"}"
             }, 
             "id": "e5a012a0-e4c6-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -165,13 +165,13 @@
             "attributes": {
                 "description": "", 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"\\\", \\\"language\\\": \\\"lucene\\\"}}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
                 }, 
                 "savedSearchRefName": "search_0", 
                 "title": "Notifications by User", 
-                "uiStateJSON": "\"{}\"", 
+                "uiStateJSON": "{}", 
                 "version": 1, 
-                "visState": "\"{\\\"type\\\": \\\"pie\\\", \\\"params\\\": {\\\"isDonut\\\": true, \\\"addTooltip\\\": true, \\\"labels\\\": {\\\"values\\\": true, \\\"last_level\\\": true, \\\"truncate\\\": 100, \\\"show\\\": false}, \\\"legendPosition\\\": \\\"right\\\", \\\"addLegend\\\": true, \\\"type\\\": \\\"pie\\\"}, \\\"aggs\\\": [{\\\"params\\\": {}, \\\"type\\\": \\\"count\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"1\\\", \\\"schema\\\": \\\"metric\\\"}, {\\\"params\\\": {\\\"orderBy\\\": \\\"1\\\", \\\"missingBucket\\\": false, \\\"missingBucketLabel\\\": \\\"Missing\\\", \\\"field\\\": \\\"icinga.users\\\", \\\"otherBucketLabel\\\": \\\"Other\\\", \\\"otherBucket\\\": false, \\\"order\\\": \\\"desc\\\", \\\"size\\\": 5}, \\\"type\\\": \\\"terms\\\", \\\"enabled\\\": true, \\\"id\\\": \\\"2\\\", \\\"schema\\\": \\\"segment\\\"}], \\\"title\\\": \\\"Notifications by User\\\"}\""
+                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"right\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"1\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.users\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Notifications by User\"}"
             }, 
             "id": "e95ca140-e4cd-11e7-b4d1-8383451ae5a4", 
             "migrationVersion": {
@@ -199,7 +199,7 @@
                 "description": "", 
                 "hits": 0, 
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "\"{\\\"filter\\\": [], \\\"query\\\": {\\\"query\\\": \\\"type:icingabeat.event.notification\\\", \\\"language\\\": \\\"lucene\\\"}, \\\"indexRefName\\\": \\\"kibanaSavedObjectMeta.searchSourceJSON.index\\\", \\\"version\\\": true, \\\"highlightAll\\\": true}\""
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.event.notification\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
                 }, 
                 "sort": [
                     "@timestamp", 
