@@ -28,12 +28,19 @@ import (
 	"github.com/magefile/mage/sh"
 
 	devtools "github.com/elastic/beats/dev-tools/mage"
+	"github.com/elastic/beats/dev-tools/mage/target/common"
+	metricbeat "github.com/elastic/beats/metricbeat/scripts/mage"
 )
 
 func init() {
 	devtools.SetBuildVariableSources(devtools.DefaultBeatBuildVariableSources)
 
 	devtools.BeatDescription = "One sentence description of the Beat."
+}
+
+// CollectAll generates the docs and the fields.
+func CollectAll() {
+	mg.Deps(CollectDocs, FieldsDocs)
 }
 
 // Build builds the Beat binary.
@@ -109,6 +116,11 @@ func FieldsDocs() error {
 	return devtools.Docs.FieldDocs(output)
 }
 
+// CollectDocs creates the documentation under docs/
+func CollectDocs() error {
+	return metricbeat.CollectDocs()
+}
+
 // GoTestUnit executes the Go unit tests.
 // Use TEST_COVERAGE=true to enable code coverage profiling.
 // Use RACE_DETECTOR=true to enable the race detector.
@@ -125,5 +137,22 @@ func GoTestIntegration(ctx context.Context) error {
 
 // Config generates both the short/reference/docker configs.
 func Config() error {
-	return devtools.Config(devtools.AllConfigTypes, devtools.ConfigFileParams{}, ".")
+	customDeps := devtools.ConfigFileParams{
+		ShortParts:     []string{"_meta/short.yml", devtools.LibbeatDir("_meta/config.yml.tmpl")},
+		ReferenceParts: []string{"_meta/reference.yml", devtools.LibbeatDir("_meta/config.reference.yml.tmpl")},
+		DockerParts:    []string{"_meta/docker.yml", devtools.LibbeatDir("_meta/config.docker.yml")},
+		ExtraVars:      map[string]interface{}{"BeatName": devtools.BeatName},
+	}
+	return devtools.Config(devtools.AllConfigTypes, customDeps, ".")
+}
+
+// Check formats code, updates generated content, check for common errors, and
+// checks for any modified files.
+func Check() {
+	common.Check()
+}
+
+// Fmt formats source code (.go and .py) and adds license headers.
+func Fmt() {
+	common.Fmt()
 }

@@ -1,5 +1,5 @@
 ////
-This file is generated! See scripts/docs_collector.py
+This file is generated! See scripts/mage/docs_collector.go
 ////
 
 [[metricbeat-module-kubernetes]]
@@ -21,11 +21,9 @@ example configuration on how to do it.
 The default metricsets are `container`, `node`, `pod`, `system` and `volume`.
 
 [float]
-=== Compability
+=== Compatibility
 
 The Kubernetes module is tested with Kubernetes 1.13.x and 1.14.x
-
-Dashboards for `scheduler` and `proxy` are not compatible with kibana versions below `7.2.0`
 
 [float]
 === Dashboard
@@ -79,7 +77,6 @@ metricbeat.modules:
 
   # Enriching parameters:
   add_metadata: true
-  in_cluster: true
   # When used outside the cluster:
   #host: node_name
   #kube_config: ~/.kube/config
@@ -94,12 +91,12 @@ metricbeat.modules:
     - state_statefulset
     - state_pod
     - state_container
+    - state_cronjob
   period: 10s
   hosts: ["kube-state-metrics:8080"]
 
   # Enriching parameters:
   add_metadata: true
-  in_cluster: true
   # When used outside the cluster:
   #host: node_name
   #kube_config: ~/.kube/config
@@ -172,6 +169,8 @@ The following metricsets are available:
 
 * <<metricbeat-metricset-kubernetes-state_container,state_container>>
 
+* <<metricbeat-metricset-kubernetes-state_cronjob,state_cronjob>>
+
 * <<metricbeat-metricset-kubernetes-state_deployment,state_deployment>>
 
 * <<metricbeat-metricset-kubernetes-state_node,state_node>>
@@ -203,6 +202,8 @@ include::kubernetes/proxy.asciidoc[]
 include::kubernetes/scheduler.asciidoc[]
 
 include::kubernetes/state_container.asciidoc[]
+
+include::kubernetes/state_cronjob.asciidoc[]
 
 include::kubernetes/state_deployment.asciidoc[]
 

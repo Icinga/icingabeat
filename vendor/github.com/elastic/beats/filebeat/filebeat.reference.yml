@@ -737,19 +737,16 @@ filebeat.inputs:
     # default to `required` otherwise it will be set to `none`.
     #ssl.client_authentication: "required"
 
-#------------------------------ Docker input --------------------------------
-# Experimental: Docker input reads and parses `json-file` logs from Docker
-#- type: docker
+#------------------------------ Container input --------------------------------
+#- type: container
   #enabled: false
 
-  # Combine partial lines flagged by `json-file` format
-  #combine_partials: true
+  # Paths for container logs that should be crawled and fetched.
+  #paths:
+  #  -/var/lib/docker/containers/*/*.log
 
-  # Use this to read from all containers, replace * with a container id to read from one:
-  #containers:
-  #  stream: all # can be all, stdout or stderr
-  #  ids:
-  #    - '*'
+  # Configure stream to filter to a specific stream: stdout, stderr or all (default)
+  #stream: all
 
 #========================== Filebeat autodiscover ==============================
 
@@ -764,7 +761,7 @@ filebeat.inputs:
 #        - condition:
 #            equals.docker.container.image: busybox
 #          config:
-#            - type: log
+#            - type: container
 #              paths:
 #                - /var/lib/docker/containers/${data.docker.container.id}/*.log
 
@@ -856,7 +853,7 @@ filebeat.inputs:
     #flush.min_events: 2048
 
     # Maximum duration after which events are available to the outputs,
-    # if the number of events stored in the queue is < min_flush_events.
+    # if the number of events stored in the queue is < `flush.min_events`.
     #flush.timeout: 1s
 
   # The spool queue will store events in a local spool file, before
@@ -1918,13 +1915,18 @@ logging.files:
 #logging.json: false
 
 
-#============================== Xpack Monitoring ===============================
+#============================== X-Pack Monitoring ===============================
 # Filebeat can export internal metrics to a central Elasticsearch monitoring
 # cluster.  This requires xpack monitoring to be enabled in Elasticsearch.  The
 # reporting is disabled by default.
 
 # Set to true to enable the monitoring reporter.
 #monitoring.enabled: false
+
+# Sets the UUID of the Elasticsearch cluster under which monitoring data for this
+# Filebeat instance will appear in the Stack Monitoring UI. If output.elasticsearch
+# is enabled, the UUID is derived from the Elasticsearch cluster referenced by output.elasticsearch.
+#monitoring.cluster_uuid:
 
 # Uncomment to send the metrics to Elasticsearch. Most settings from the
 # Elasticsearch output are accepted here as well.

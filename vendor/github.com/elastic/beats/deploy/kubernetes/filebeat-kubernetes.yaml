@@ -14,7 +14,6 @@ data:
         - /var/log/containers/*.log
       processors:
         - add_kubernetes_metadata:
-            in_cluster: true
             host: ${NODE_NAME}
             matchers:
             - logs_path:
@@ -62,7 +61,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
       - name: filebeat
-        image: docker.elastic.co/beats/filebeat:7.3.0
+        image: docker.elastic.co/beats/filebeat:7.4.1
         args: [
           "-c", "/etc/filebeat.yml",
           "-e",

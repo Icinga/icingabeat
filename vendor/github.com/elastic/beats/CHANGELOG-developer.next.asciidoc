@@ -24,6 +24,8 @@ The list below covers the major changes between 7.0.0-rc2 and master only.
 
 ==== Bugfixes
 
+- Stop using `mage:import` in community beats. This was ignoring the vendorized beats directory for some mage targets, using the code available in GOPATH, this causes inconsistencies and compilation problems if the version of the code in the GOPATH is different to the vendored one. Use of `mage:import` will continue to be unsupported in custom beats till beats is migrated to go modules, or mage supports vendored dependencies. {issue}13998[13998] {pull}[]
+
 ==== Added
 
 - Metricset generator generates beta modules by default now. {pull}10657[10657]
@@ -43,3 +45,4 @@ The list below covers the major changes between 7.0.0-rc2 and master only.
 - Use the go-lookslike library for testing in heartbeat. Eventually the mapval package will be replaced with it. {pull}12540[12540]
 - New ReporterV2 interfaces that can receive a context on `Fetch(ctx, reporter)`, or `Run(ctx, reporter)`. {pull}11981[11981]
 - Generate configuration from `mage` for all Beats. {pull}12618[12618]
+- Strip debug symbols from binaries to reduce binary sizes. {issue}12768[12768]

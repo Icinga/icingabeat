@@ -29,18 +29,15 @@ import (
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/tests/compose"
 	mbtest "github.com/elastic/beats/metricbeat/mb/testing"
-	"github.com/elastic/beats/metricbeat/module/redis"
 )
 
-var host = redis.GetRedisEnvHost() + ":" + redis.GetRedisEnvPort()
-
 func TestFetch(t *testing.T) {
-	compose.EnsureUp(t, "redis")
+	service := compose.EnsureUp(t, "redis")
 
-	addEntry(t, "foo", 1)
+	addEntry(t, service.Host(), "foo", 1)
 
-	ms := mbtest.NewReportingMetricSetV2Error(t, getConfig())
-	events, err := mbtest.ReportingFetchV2Error(ms)
+	ms := mbtest.NewFetcher(t, getConfig(service.Host()))
+	events, err := ms.FetchEvents()
 	if err != nil {
 		t.Fatal("fetch", err)
 	}
@@ -50,19 +47,16 @@ func TestFetch(t *testing.T) {
 }
 
 func TestData(t *testing.T) {
-	compose.EnsureUp(t, "redis")
+	service := compose.EnsureUp(t, "redis")
 
-	addEntry(t, "foo", 1)
+	addEntry(t, service.Host(), "foo", 1)
 
-	ms := mbtest.NewReportingMetricSetV2Error(t, getConfig())
-	err := mbtest.WriteEventsReporterV2Error(ms, t, "")
-	if err != nil {
-		t.Fatal("write", err)
-	}
+	ms := mbtest.NewFetcher(t, getConfig(service.Host()))
+	ms.WriteEvents(t, "")
 }
 
 func TestFetchMultipleKeyspaces(t *testing.T) {
-	compose.EnsureUp(t, "redis")
+	service := compose.EnsureUp(t, "redis")
 
 	expectedKeyspaces := map[string]uint{
 		"foo": 0,
@@ -72,10 +66,10 @@ func TestFetchMultipleKeyspaces(t *testing.T) {
 	expectedEvents := len(expectedKeyspaces)
 
 	for name, keyspace := range expectedKeyspaces {
-		addEntry(t, name, keyspace)
+		addEntry(t, service.Host(), name, keyspace)
 	}
 
-	config := getConfig()
+	config := getConfig(service.Host())
 	config["key.patterns"] = []map[string]interface{}{
 		{
 			"pattern":  "foo",
@@ -91,8 +85,8 @@ func TestFetchMultipleKeyspaces(t *testing.T) {
 		},
 	}
 
-	ms := mbtest.NewReportingMetricSetV2Error(t, config)
-	events, err := mbtest.ReportingFetchV2Error(ms)
+	ms := mbtest.NewFetcher(t, config)
+	events, err := ms.FetchEvents()
 
 	assert.Len(t, err, 0)
 	assert.Len(t, events, expectedEvents)
@@ -112,7 +106,7 @@ func TestFetchMultipleKeyspaces(t *testing.T) {
 }
 
 // addEntry adds an entry to redis
-func addEntry(t *testing.T, key string, keyspace uint) {
+func addEntry(t *testing.T, host string, key string, keyspace uint) {
 	// Insert at least one event to make sure db exists
 	c, err := rd.Dial("tcp", host)
 	if err != nil {
@@ -129,7 +123,7 @@ func addEntry(t *testing.T, key string, keyspace uint) {
 	}
 }
 
-func getConfig() map[string]interface{} {
+func getConfig(host string) map[string]interface{} {
 	return map[string]interface{}{
 		"module":     "redis",
 		"metricsets": []string{"key"},

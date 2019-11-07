@@ -28,12 +28,14 @@ import (
 	"github.com/magefile/mage/sh"
 
 	devtools "github.com/elastic/beats/dev-tools/mage"
+	"github.com/elastic/beats/dev-tools/mage/target/common"
 )
 
 func init() {
 	devtools.SetBuildVariableSources(devtools.DefaultBeatBuildVariableSources)
 
 	devtools.BeatDescription = "One sentence description of the Beat."
+	devtools.BeatVendor = "{full_name}"
 }
 
 // Build builds the Beat binary.
@@ -113,4 +115,15 @@ func GoTestIntegration(ctx context.Context) error {
 // Config generates both the short/reference/docker configs.
 func Config() error {
 	return devtools.Config(devtools.AllConfigTypes, devtools.ConfigFileParams{}, ".")
+}
+
+// Check formats code, updates generated content, check for common errors, and
+// checks for any modified files.
+func Check() {
+	common.Check()
+}
+
+// Fmt formats source code (.go and .py) and adds license headers.
+func Fmt() {
+	common.Fmt()
 }
