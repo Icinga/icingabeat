@@ -52,7 +52,7 @@ type Client struct {
 	bulkRequ *bulkRequest
 
 	// buffered json response reader
-	json jsonReader
+	json JSONReader
 
 	// additional configs
 	compressionLevel int
@@ -125,6 +125,7 @@ var (
 )
 
 var (
+	errExpectedItemsArray    = errors.New("expected items array")
 	errExpectedItemObject    = errors.New("expected item response object")
 	errExpectedStatusCode    = errors.New("expected item status code")
 	errUnexpectedEmptyObject = errors.New("empty object")
@@ -327,7 +328,7 @@ func (client *Client) publishEvents(
 	}
 
 	origCount := len(data)
-	data = bulkEncodePublishRequest(body, client.index, client.pipeline, eventType, data)
+	data = bulkEncodePublishRequest(client.GetVersion(), body, client.index, client.pipeline, eventType, data)
 	newCount := len(data)
 	if st != nil && origCount > newCount {
 		st.Dropped(origCount - newCount)
@@ -355,7 +356,7 @@ func (client *Client) publishEvents(
 		failedEvents = data
 		stats.fails = len(failedEvents)
 	} else {
-		client.json.init(result.raw)
+		client.json.init(result)
 		failedEvents, stats = bulkCollectPublishFails(&client.json, data)
 	}
 
@@ -384,6 +385,7 @@ func (client *Client) publishEvents(
 // fillBulkRequest encodes all bulk requests and returns slice of events
 // successfully added to bulk request.
 func bulkEncodePublishRequest(
+	version common.Version,
 	body bulkWriter,
 	index outputs.IndexSelector,
 	pipeline *outil.Selector,
@@ -393,7 +395,7 @@ func bulkEncodePublishRequest(
 	okEvents := data[:0]
 	for i := range data {
 		event := &data[i].Content
-		meta, err := createEventBulkMeta(index, pipeline, eventType, event)
+		meta, err := createEventBulkMeta(version, index, pipeline, eventType, event)
 		if err != nil {
 			logp.Err("Failed to encode event meta data: %s", err)
 			continue
@@ -409,6 +411,7 @@ func bulkEncodePublishRequest(
 }
 
 func createEventBulkMeta(
+	version common.Version,
 	indexSel outputs.IndexSelector,
 	pipelineSel *outil.Selector,
 	eventType string,
@@ -444,7 +447,7 @@ func createEventBulkMeta(
 		ID:       id,
 	}
 
-	if id != "" {
+	if id != "" || version.Major > 7 || (version.Major == 7 && version.Minor >= 5) {
 		return bulkCreateAction{meta}, nil
 	}
 	return bulkIndexAction{meta}, nil
@@ -471,38 +474,11 @@ func getPipeline(event *beat.Event, pipelineSel *outil.Selector) (string, error)
 // event failed due to some error in the event itself (e.g. does not respect mapping),
 // the event will be dropped.
 func bulkCollectPublishFails(
-	reader *jsonReader,
+	reader *JSONReader,
 	data []publisher.Event,
 ) ([]publisher.Event, bulkResultStats) {
-	if err := reader.expectDict(); err != nil {
-		logp.Err("Failed to parse bulk response: expected JSON object")
-		return nil, bulkResultStats{}
-	}
-
-	// find 'items' field in response
-	for {
-		kind, name, err := reader.nextFieldName()
-		if err != nil {
-			logp.Err("Failed to parse bulk response")
-			return nil, bulkResultStats{}
-		}
-
-		if kind == dictEnd {
-			logp.Err("Failed to parse bulk response: no 'items' field in response")
-			return nil, bulkResultStats{}
-		}
-
-		// found items array -> continue
-		if bytes.Equal(name, nameItems) {
-			break
-		}
-
-		reader.ignoreNext()
-	}
-
-	// check items field is an array
-	if err := reader.expectArray(); err != nil {
-		logp.Err("Failed to parse bulk response: expected items array")
+	if err := BulkReadToItems(reader); err != nil {
+		logp.Err("failed to parse bulk response: %v", err.Error())
 		return nil, bulkResultStats{}
 	}
 
@@ -510,7 +486,7 @@ func bulkCollectPublishFails(
 	failed := data[:0]
 	stats := bulkResultStats{}
 	for i := 0; i < count; i++ {
-		status, msg, err := itemStatus(reader)
+		status, msg, err := BulkReadItemStatus(reader)
 		if err != nil {
 			return nil, bulkResultStats{}
 		}
@@ -546,9 +522,43 @@ func bulkCollectPublishFails(
 	return failed, stats
 }
 
-func itemStatus(reader *jsonReader) (int, []byte, error) {
+// BulkReadToItems reads the bulk response up to (but not including) items
+func BulkReadToItems(reader *JSONReader) error {
+	if err := reader.ExpectDict(); err != nil {
+		return errExpectedObject
+	}
+
+	// find 'items' field in response
+	for {
+		kind, name, err := reader.nextFieldName()
+		if err != nil {
+			return err
+		}
+
+		if kind == dictEnd {
+			return errExpectedItemsArray
+		}
+
+		// found items array -> continue
+		if bytes.Equal(name, nameItems) {
+			break
+		}
+
+		reader.ignoreNext()
+	}
+
+	// check items field is an array
+	if err := reader.ExpectArray(); err != nil {
+		return errExpectedItemsArray
+	}
+
+	return nil
+}
+
+// BulkReadItemStatus reads the status and error fields from the bulk item
+func BulkReadItemStatus(reader *JSONReader) (int, []byte, error) {
 	// skip outer dictionary
-	if err := reader.expectDict(); err != nil {
+	if err := reader.ExpectDict(); err != nil {
 		return 0, nil, errExpectedItemObject
 	}
 
@@ -586,8 +596,8 @@ func itemStatus(reader *jsonReader) (int, []byte, error) {
 	return status, msg, nil
 }
 
-func itemStatusInner(reader *jsonReader) (int, []byte, error) {
-	if err := reader.expectDict(); err != nil {
+func itemStatusInner(reader *JSONReader) (int, []byte, error) {
+	if err := reader.ExpectDict(); err != nil {
 		return 0, nil, errExpectedItemObject
 	}
 

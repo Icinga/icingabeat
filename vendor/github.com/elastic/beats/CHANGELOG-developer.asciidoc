@@ -12,11 +12,26 @@ other Beats should be migrated.
 
 Note: This changelog was only started after the 6.3 release.
 
+=== Beats version 7.5.1
+https://github.com/elastic/beats/compare/v7.5.0..v7.5.1[Check the HEAD diff]
+
+=== Beats version 7.5.0
+https://github.com/elastic/beats/compare/v7.4.1..v7.5.0[Check the HEAD diff]
+
+==== Breaking changes
+
+- Build docker and kubernetes features only on supported platforms. {pull}13509[13509]
+- Need to register new processors to be used in the JS processor in their `init` functions. {pull}13509[13509]
+
+==== Added
+
+- Compare event by event in `testadata` framework to avoid sorting problems {pull}13747[13747]
+
 === Beats version 7.4.1
-https://github.com/elastic/beats/compare/v7.4.0..v7.4.1[Check the HEAD diff
+https://github.com/elastic/beats/compare/v7.4.0..v7.4.1[Check the HEAD diff]
 
 === Beats version 7.4.0
-https://github.com/elastic/beats/compare/v7.3.1..v7.4.0[Check the HEAD diff
+https://github.com/elastic/beats/compare/v7.3.1..v7.4.0[Check the HEAD diff]
 
 ==== Breaking changes
 
@@ -69,7 +84,6 @@ https://github.com/elastic/beats/compare/v7.1.1..v7.2.0[Check the HEAD diff]
 - Only Load minimal template if no fields are provided. {pull}12103[12103]
 - Add new option `IgnoreAllErrors` to `libbeat.common.schema` for skipping fields that failed while converting. {pull}12089[12089]
 - Deprecate setup cmds for `template` and `ilm-policy`. Add new setup cmd for `index-management`. {pull}12132[12132]
-
 
 === Beats version 7.1.1
 https://github.com/elastic/beats/compare/v7.1.0..v7.1.1[Check the HEAD diff]

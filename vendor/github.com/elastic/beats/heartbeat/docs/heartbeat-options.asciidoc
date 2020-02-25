@@ -33,7 +33,7 @@ heartbeat.monitors:
   check.receive: "Check"
 - type: http
   schedule: '@every 5s'
-  urls: ["http://localhost:80/service/status"]
+  hosts: ["http://localhost:80/service/status"]
   check.response.status: 200
 heartbeat.scheduler:
   limit: 10
@@ -68,7 +68,7 @@ monitor definitions only, e.g. what is normally under the `heartbeat.monitors` s
 # /path/to/my/monitors.d/localhost_service_check.yml
 - type: http
   schedule: '@every 5s'
-  urls: ["http://localhost:80/service/status"]
+  hosts: ["http://localhost:80/service/status"]
   check.response.status: 200
 ----------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ options that are specific to that monitor type.
 The type of monitor to run. One of:
 
 * `icmp`: Uses an ICMP (v4 and v6) Echo Request to ping the configured hosts.
-Requires root access. See <<monitor-icmp-options>>.
+Requires special permissions or root access. See <<monitor-icmp-options>>.
 * `tcp`: Connects via TCP and optionally verifies the endpoint by sending and/or
 receiving a custom payload. See <<monitor-tcp-options>>.
 * `http`: Connects via HTTP and optionally verifies that the host returns the
@@ -212,12 +212,27 @@ See <<filtering-and-enhancing-data>> for information about specifying
 processors in your config.
 
 [float]
+[[monitor-keep-null]]
+==== `keep_null`
+
+If this option is set to true, fields with `null` values will be published in
+the output document. By default, `keep_null` is set to `false`.
+
+[float]
 [[monitor-icmp-options]]
 === ICMP options
 
 These options configure {beatname_uc} to use ICMP (v4 and v6) Echo Requests to check
 the configured hosts. These options are valid when the <<monitor-type,`type`>> is
-`icmp`.
+`icmp`. Please note that on most platforms you must execute Heartbeat with elevated permissions
+to perform ICMP pings.
+
+On Linux, regular users may perform pings if the right file capabilities are set. Run
+`sudo setcap cap_net_raw+eip /path/to/heartbeat` to  grant {beatname_uc} ping capabilities on Linux.
+Alternatively, one may grant ping permissions to the user {beatname_uc} runs as. To grant ping permissions
+in this way, run `sudo sysctl -w net.ipv4.ping_group_range='myuserid myuserid'`.
+
+Other platforms may require {beatname_uc} to run as root or administrator to execute pings.
 
 [float]
 [[monitor-icmp-hosts]]
@@ -368,7 +383,7 @@ the host returns the expected response. These options are valid when the
 
 [float]
 [[monitor-http-urls]]
-==== `urls`
+==== `hosts`
 
 A list of URLs to ping.
 
@@ -378,7 +393,7 @@ Example configuration:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["http://myhost:80"]
+  hosts: ["http://myhost:80"]
 -------------------------------------------------------------------------------
 
 
@@ -419,7 +434,7 @@ Example configuration:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["https://myhost:443"]
+  hosts: ["https://myhost:443"]
   ssl:
     certificate_authorities: ['/etc/ca.crt']
     supported_protocols: ["TLSv1.0", "TLSv1.1", "TLSv1.2"]
@@ -446,7 +461,7 @@ Set `response.include_body_max_bytes` to control the maximum size of the stored 
 [[monitor-http-check]]
 ==== `check`
 
-An optional `request` to send to the remote host and the expected `response`. 
+An optional `request` to send to the remote host and the expected `response`.
 
 Example configuration:
 
@@ -454,7 +469,7 @@ Example configuration:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["http://myhost:80"]
+  hosts: ["http://myhost:80"]
   check.request.method: HEAD
   check.response.status: 200
 -------------------------------------------------------------------------------
@@ -493,7 +508,8 @@ Under `check.response`, specify these options:
 
 *`status`*:: The expected status code. 4xx and 5xx codes are considered `down` by default. Other codes are considered `up`.
 *`headers`*:: The required response headers.
-*`body`*:: A list of regular expressions to match the the body output. Only a single expression needs to match.
+*`body`*:: A list of regular expressions to match the the body output. Only a single expression needs to match. HTTP response
+bodies of up to 100MiB are supported.
 
 Example configuration:
 This monitor examines the
@@ -517,7 +533,8 @@ response body for the strings `saved` or `Saved`
       - saved
 -------------------------------------------------------------------------------
 
-*`json`*:: A list of <<conditions,condition>> expressions executed against the body when parsed as JSON.
+*`json`*:: A list of <<conditions,condition>> expressions executed against the body when parsed as JSON. Body sizes
+must be less than or equal to 100 MiB.
 
 The following configuration shows how to check the response when the body
 contains JSON:
@@ -526,7 +543,7 @@ contains JSON:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["https://myhost:80"]
+  hosts: ["https://myhost:80"]
   check.request:
     method: GET
     headers:
@@ -547,7 +564,7 @@ patterns:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["https://myhost:80"]
+  hosts: ["https://myhost:80"]
   check.request:
     method: GET
     headers:
@@ -566,7 +583,7 @@ regex:
 -------------------------------------------------------------------------------
 - type: http
   schedule: '@every 5s'
-  urls: ["https://myhost:80"]
+  hosts: ["https://myhost:80"]
   check.request:
     method: GET
     headers:
@@ -669,5 +686,3 @@ the following JSON objects in `dynamic.json`:
 restarts it with a schedule of 15 seconds between checks.
 <2> {beatname_uc} starts a new monitor that uses a TLS-based connection with a
 custom CA certificate.
-
-

@@ -15,6 +15,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
+// +build linux darwin windows
+
 package docker
 
 import (
@@ -128,6 +130,12 @@ func NewWatcher(host string, tls *TLSConfig, storeShortID bool) (Watcher, error)
 	}
 
 	client, err := NewClient(host, httpClient, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Extra check to confirm that Docker is available
+	_, err = client.Info(context.Background())
 	if err != nil {
 		return nil, err
 	}
@@ -300,13 +308,18 @@ func (w *watcher) watch() {
 
 			case err := <-errors:
 				// Restart watch call
-				logp.Err("Error watching for docker events: %v", err)
+				if err == context.DeadlineExceeded {
+					logp.Info("Context deadline exceeded for docker request, restarting watch call")
+				} else {
+					logp.Err("Error watching for docker events: %v", err)
+				}
+
 				time.Sleep(1 * time.Second)
 				break WATCH
 
 			case <-tickChan.C:
 				if time.Since(w.lastWatchReceivedEventTime) > dockerEventsWatchPityTimerTimeout {
-					logp.Info("No events received withing %s, restarting watch call", dockerEventsWatchPityTimerTimeout)
+					logp.Info("No events received within %s, restarting watch call", dockerEventsWatchPityTimerTimeout)
 					time.Sleep(1 * time.Second)
 					break WATCH
 				}

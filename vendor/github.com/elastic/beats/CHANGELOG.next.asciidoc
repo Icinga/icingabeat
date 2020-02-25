@@ -11,18 +11,20 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 *Affecting all Beats*
 
 - Update to Golang 1.12.1. {pull}11330[11330]
-- Disable Alibaba Cloud and Tencent Cloud metadata providers by default. {pull}13812[12812]
 
 *Auditbeat*
 
 
 *Filebeat*
 
+- Fix parsing of Elasticsearch node name by `elasticsearch/slowlog` fileset. {pull}14547[14547]
 
 *Heartbeat*
 
 
 *Journalbeat*
+
+- Remove broken dashboard. {pull}15288[15288]
 
 *Metricbeat*
 
@@ -35,28 +37,46 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 
 *Functionbeat*
 
+
 ==== Bugfixes
 
 *Affecting all Beats*
 
 - Fix a race condition with the Kafka pipeline client, it is possible that `Close()` get called before `Connect()` . {issue}11945[11945]
+- Allow users to configure only `cluster_uuid` setting under `monitoring` namespace. {pull}14338[14338]
 
 *Auditbeat*
 
 
 *Filebeat*
 
-- panw module: Use geo.name instead of geo.country_iso_code for free-form location. {issue}13272[13272]
+- cisco/asa fileset: Fix parsing of 302021 message code. {pull}14519[14519]
+- Fix filebeat azure dashboards, event category should be `Alert`. {pull}14668[14668]
+- Check content-type when creating new reader in s3 input. {pull}15252[15252] {issue}15225[15225]
+- Fix session reset detection and a crash in Netflow input. {pull}14904[14904]
+- netflow: Allow for options templates without scope fields. {pull}15449[15449]
+- netflow: Fix bytes/packets counters on some devices (NSEL and Netstream). {pull}15449[15449]
+- netflow: Fix compatibility with some Cisco devices by changing the field `class_id` from short to long. {pull}15449[15449]
+- Fixed dashboard for Cisco ASA Firewall. {issue}15420[15420] {pull}15553[15553]
 
 *Heartbeat*
 
+- Fix recording of SSL cert metadata for Expired/Unvalidated x509 certs. {pull}13687[13687]
 
 *Journalbeat*
 
 
 *Metricbeat*
 
-- Ignore prometheus untyped metrics with NaN value. {issue}13750[13750] {pull}13790[13790]
+- Fix checking tagsFilter using length in cloudwatch metricset. {pull}14525[14525]
+- Fixed bug with `elasticsearch/cluster_stats` metricset not recording license expiration date correctly. {issue}14541[14541] {pull}14591[14591]
+- Log bulk failures from bulk API requests to monitoring cluster. {issue}14303[14303] {pull}14356[14356]
+- Fix regular expression to detect instance name in perfmon metricset. {issue}14273[14273] {pull}14666[14666]
+- Fixed bug with `elasticsearch/cluster_stats` metricset not recording license ID in the correct field. {pull}14592[14592]
+- Fix `docker.container.size` fields values {issue}14979[14979] {pull}15224[15224]
+- Make `kibana` module more resilient to Kibana unavailability. {issue}15258[15258] {pull}15270[15270]
+- Fix panic exception with some unicode strings in perfmon metricset. {issue}15264[15264]
+- Make `logstash` module more resilient to Logstash unavailability. {issue}15276[15276] {pull}15306[15306]
 
 *Packetbeat*
 
@@ -71,9 +91,7 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 
 *Affecting all Beats*
 
-- Decouple Debug logging from fail_on_error logic for rename, copy, truncate processors {pull}12451[12451]
-- Allow a beat to ship monitoring data directly to an Elasticsearch monitoring cluster. {pull}9260[9260]
-- Add `providers` setting to `add_cloud_metadata` processor. {pull}13812[13812]
+- Add a friendly log message when a request to docker has exceeded the deadline. {pull}15336[15336]
 
 *Auditbeat*
 
@@ -81,7 +99,8 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 *Filebeat*
 
 - `container` and `docker` inputs now support reading of labels and env vars written by docker JSON file logging driver. {issue}8358[8358]
-- Use correct OS path separator in `add_kubernetes_metadata` to support Windows nodes. {pull}9205[9205]
+- Add `index` option to all inputs to directly set a per-input index value. {pull}14010[14010]
+- Include log.source.address for unparseable syslog messages. {issue}13268[13268] {pull}15453[15453]
 
 *Heartbeat*
 
@@ -92,6 +111,7 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 
 
 *Packetbeat*
+
 
 *Functionbeat*
 
@@ -112,6 +132,7 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 
 *Metricbeat*
 
+
 *Packetbeat*
 
 *Winlogbeat*
@@ -121,3 +142,4 @@ https://github.com/elastic/beats/compare/v7.0.0-alpha2...master[Check the HEAD d
 ==== Known Issue
 
 *Journalbeat*
+

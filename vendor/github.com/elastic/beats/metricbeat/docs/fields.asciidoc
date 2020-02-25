@@ -14,7 +14,9 @@ grouped in the following categories:
 
 * <<exported-fields-aerospike>>
 * <<exported-fields-apache>>
+* <<exported-fields-appsearch>>
 * <<exported-fields-aws>>
+* <<exported-fields-azure>>
 * <<exported-fields-beat-common>>
 * <<exported-fields-beat>>
 * <<exported-fields-ceph>>
@@ -61,6 +63,7 @@ grouped in the following categories:
 * <<exported-fields-redis>>
 * <<exported-fields-statsd>>
 * <<exported-fields-system>>
+* <<exported-fields-tomcat>>
 * <<exported-fields-traefik>>
 * <<exported-fields-uwsgi>>
 * <<exported-fields-vsphere>>
@@ -821,12 +824,294 @@ type: long
 
 --
 
+[[exported-fields-appsearch]]
+== App Search fields
+
+App Search module
+
+
+
+[float]
+=== appsearch
+
+
+
+
+[float]
+=== stats
+
+App Search stats
+
+
+
+[float]
+=== jvm
+
+JVM stats
+
+
+
+[float]
+=== memory_usage
+
+Memory usage
+
+
+
+*`appsearch.stats.jvm.memory_usage.heap_init.bytes`*::
++
+--
+Heap init used by the JVM in bytes.
+
+
+type: long
+
+--
+
+*`appsearch.stats.jvm.memory_usage.heap_used.bytes`*::
++
+--
+Heap used by the JVM in bytes.
+
+
+type: long
+
+--
+
+*`appsearch.stats.jvm.memory_usage.heap_committed.bytes`*::
++
+--
+Committed heap to the JVM in bytes.
+
+
+type: long
+
+--
+
+*`appsearch.stats.jvm.memory_usage.heap_max.bytes`*::
++
+--
+Max heap used by the JVM in bytes
+
+
+type: long
+
+--
+
+*`appsearch.stats.jvm.memory_usage.non_heap_init.bytes`*::
++
+--
+Non-Heap initial memory used by the JVM in bytes.
+
+
+type: long
+
+--
+
+*`appsearch.stats.jvm.memory_usage.non_heap_committed.bytes`*::
++
+--
+Non-Heap committed memory used by the JVM in bytes.
+
+
+type: long
+
+--
+
+[float]
+=== queues
+
+Worker queues
+
+
+
+*`appsearch.stats.queues.analytics_events.count`*::
++
+--
+Number of pending jobs in the `analytics_events` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.document_destroyer.count`*::
++
+--
+Number of pending jobs in the `document_destroyer` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.engine_destroyer.count`*::
++
+--
+Number of pending jobs in the `engine_destroyer` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.index_adder.count`*::
++
+--
+Number of pending jobs in the `index_adder` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.indexed_doc_remover.count`*::
++
+--
+Number of pending jobs in the `indexed_doc_remover` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.mailer.count`*::
++
+--
+Number of pending jobs in the `mailer` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.refresh_document_counts.count`*::
++
+--
+Number of pending jobs in the `refresh_document_counts` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.reindexer.count`*::
++
+--
+Number of pending jobs in the `reindexer` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.schema_updater.count`*::
++
+--
+Number of pending jobs in the `schema_updater` queue.
+
+
+type: long
+
+--
+
+*`appsearch.stats.queues.failed.count`*::
++
+--
+Number of failed jobs waiting to be retried.
+
+
+type: long
+
+--
+
+[float]
+=== requests
+
+Request metrics
+
+
+
+*`appsearch.stats.requests.count`*::
++
+--
+Number of recently completed requests
+
+
+type: long
+
+--
+
+[float]
+=== api.duration
+
+API response time metrics
+
+
+
+*`appsearch.stats.requests.api.duration.avg.ms`*::
++
+--
+Average response time in milliseconds
+
+
+type: long
+
+--
+
+*`appsearch.stats.requests.api.duration.max.ms`*::
++
+--
+Max response time in milliseconds
+
+
+type: long
+
+--
+
+[float]
+=== web.duration
+
+Dashboard response time metrics
+
+
+
+*`appsearch.stats.requests.web.duration.avg.ms`*::
++
+--
+Average response time in milliseconds
+
+
+type: long
+
+--
+
+*`appsearch.stats.requests.web.duration.max.ms`*::
++
+--
+Max response time in milliseconds
+
+
+type: long
+
+--
+
 [[exported-fields-aws]]
 == aws fields
 
 `aws` module collects AWS monitoring metrics from AWS Cloudwatch.
 
 
+
+*`cloud.account.name`*::
++
+--
+The cloud account name or alias used to identify different entities in a multi-tenant environment.
+
+
+type: keyword
+
+--
 
 [float]
 === aws
@@ -841,6 +1126,16 @@ Tag key value pairs from aws resources.
 
 
 type: object
+
+--
+
+*`aws.s3.bucket.name`*::
++
+--
+Name of a S3 bucket.
+
+
+type: keyword
 
 --
 
@@ -1777,22 +2072,42 @@ type: long
 
 --
 
+*`aws.rds.db_instance.db_cluster_identifier`*::
++
+--
+This identifier is the unique key that identifies a DB cluster specifically for Amazon Aurora DB cluster.
+
+
+type: keyword
+
+--
+
+*`aws.rds.db_instance.role`*::
++
+--
+DB roles like WRITER or READER, specifically for Amazon Aurora DB cluster.
+
+
+type: keyword
+
+--
+
+*`aws.rds.db_instance.engine_name`*::
++
+--
+Each DB instance runs a DB engine, like MySQL, MariaDB, PostgreSQL and etc.
+
+
+type: keyword
+
+--
+
 [float]
 === s3_daily_storage
 
 `s3_daily_storage` contains the daily storage metrics that were scraped from AWS CloudWatch which contains monitoring metrics sent by AWS S3.
 
 
-
-*`aws.s3_daily_storage.bucket.name`*::
-+
---
-Name of a S3 bucket.
-
-
-type: keyword
-
---
 
 *`aws.s3_daily_storage.bucket.size.bytes`*::
 +
@@ -1822,16 +2137,6 @@ type: long
 `s3_request` contains request metrics that were scraped from AWS CloudWatch which contains monitoring metrics sent by AWS S3.
 
 
-
-*`aws.s3_request.bucket.name`*::
-+
---
-Name of a S3 bucket.
-
-
-type: keyword
-
---
 
 *`aws.s3_request.requests.total`*::
 +
@@ -2113,6 +2418,133 @@ SQS queue name
 
 
 type: keyword
+
+--
+
+[[exported-fields-azure]]
+== azure fields
+
+azure module
+
+
+
+[float]
+=== azure
+
+
+
+
+*`azure.namespace`*::
++
+--
+The namespace selected
+
+
+type: keyword
+
+--
+
+*`azure.subscription_id`*::
++
+--
+The subscription ID
+
+
+type: keyword
+
+--
+
+*`azure.dimensions.*`*::
++
+--
+Azure metric dimensions.
+
+
+type: object
+
+--
+
+[float]
+=== resource
+
+The resource specified
+
+
+
+*`azure.resource.name`*::
++
+--
+The name of the resource
+
+
+type: keyword
+
+--
+
+*`azure.resource.type`*::
++
+--
+The type of the resource
+
+
+type: keyword
+
+--
+
+*`azure.resource.group`*::
++
+--
+The resource group
+
+
+type: keyword
+
+--
+
+*`azure.resource.tags.*`*::
++
+--
+Azure resource tags.
+
+
+type: object
+
+--
+
+*`azure.resource.compute_vm.*.*`*::
++
+--
+compute_vm
+
+
+type: object
+
+--
+
+*`azure.resource.compute_vm_scaleset.*.*`*::
++
+--
+compute_vm_scaleset
+
+
+type: object
+
+--
+
+[float]
+=== monitor
+
+monitor
+
+
+
+*`azure.resource.monitor.metrics.*.*`*::
++
+--
+Metrics returned.
+
+
+type: object
 
 --
 
@@ -4882,6 +5314,18 @@ format: percent
 
 --
 
+*`docker.cpu.kernel.norm.pct`*::
++
+--
+Percentage of time in kernel space normalized by the number of CPU cores.
+
+
+type: scaled_float
+
+format: percent
+
+--
+
 *`docker.cpu.kernel.ticks`*::
 +
 --
@@ -4896,6 +5340,18 @@ type: long
 +
 --
 Percentage of total CPU time in the system.
+
+
+type: scaled_float
+
+format: percent
+
+--
+
+*`docker.cpu.system.norm.pct`*::
++
+--
+Percentage of total CPU time in the system normalized by the number of CPU cores.
 
 
 type: scaled_float
@@ -4926,6 +5382,18 @@ format: percent
 
 --
 
+*`docker.cpu.user.norm.pct`*::
++
+--
+Percentage of time in user space normalized by the number of CPU cores.
+
+
+type: scaled_float
+
+format: percent
+
+--
+
 *`docker.cpu.user.ticks`*::
 +
 --
@@ -4948,10 +5416,34 @@ format: percent
 
 --
 
+*`docker.cpu.total.norm.pct`*::
++
+--
+Total CPU usage normalized by the number of CPU cores.
+
+
+type: scaled_float
+
+format: percent
+
+--
+
 *`docker.cpu.core.*.pct`*::
 +
 --
 Percentage of CPU time in this core.
+
+
+type: object
+
+format: percent
+
+--
+
+*`docker.cpu.core.*.norm.pct`*::
++
+--
+Percentage of CPU time in this core, normalized by the number of CPU cores.
 
 
 type: object
@@ -10029,6 +10521,54 @@ type: long
 +
 --
 Memory used for fielddata.
+
+
+type: long
+
+--
+
+[float]
+=== enrich
+
+Enrich stats
+
+
+
+*`elasticsearch.enrich.queue.size`*::
++
+--
+Number of search requests in the queue.
+
+
+type: long
+
+--
+
+
+*`elasticsearch.enrich.remote_requests.current`*::
++
+--
+Current number of outstanding remote requests.
+
+
+type: long
+
+--
+
+*`elasticsearch.enrich.remote_requests.total`*::
++
+--
+Number of outstanding remote requests executed since node startup.
+
+
+type: long
+
+--
+
+*`elasticsearch.enrich.executed_searches.total`*::
++
+--
+Number of search requests that enrich processors have executed since node startup.
 
 
 type: long
@@ -15570,7 +16110,7 @@ type: date
 Message recorded for the given event
 
 
-type: keyword
+type: text
 
 --
 
@@ -17283,6 +17823,58 @@ type: long
 --
 
 [float]
+=== resourcequota
+
+kubernetes resourcequota metrics
+
+
+
+*`kubernetes.resourcequota.created.sec`*::
++
+--
+Epoch seconds since the ResourceQuota was created
+
+type: double
+
+--
+
+*`kubernetes.resourcequota.quota`*::
++
+--
+Quota informed (hard or used) for the resource
+
+type: double
+
+--
+
+*`kubernetes.resourcequota.name`*::
++
+--
+ResourceQuota name
+
+type: keyword
+
+--
+
+*`kubernetes.resourcequota.type`*::
++
+--
+Quota information type, `hard` or `used`
+
+type: keyword
+
+--
+
+*`kubernetes.resourcequota.resource`*::
++
+--
+Resource name the quota applies to
+
+type: keyword
+
+--
+
+[float]
 === statefulset
 
 kubernetes stateful set metrics
@@ -18916,7 +19508,7 @@ Reports data from the query execution system.
 
 
 
-*`mongodb.metrics.query_executor.scanned_indexes`*::
+*`mongodb.metrics.query_executor.scanned_indexes.count`*::
 +
 --
 The total number of index items scanned during queries and query-plan evaluation.
@@ -18926,7 +19518,7 @@ type: long
 
 --
 
-*`mongodb.metrics.query_executor.scanned_documents`*::
+*`mongodb.metrics.query_executor.scanned_documents.count`*::
 +
 --
 The total number of documents scanned during queries and query-plan evaluation.
@@ -19370,7 +19962,7 @@ Reports on the operation of the resource use of the ttl index process.
 
 
 
-*`mongodb.metrics.ttl.deleted_documents`*::
+*`mongodb.metrics.ttl.deleted_documents.count`*::
 +
 --
 The total number of documents deleted from collections with a ttl index.
@@ -19380,7 +19972,7 @@ type: long
 
 --
 
-*`mongodb.metrics.ttl.passes`*::
+*`mongodb.metrics.ttl.passes.count`*::
 +
 --
 The number of times the background process removes documents from collections with a ttl index.
@@ -27894,7 +28486,7 @@ type: float
 *`system.diskio.iostat.request.avg_size`*::
 +
 --
-The average size (in sectors) of the requests that were issued to the device.
+The average size (in bytes) of the requests that were issued to the device.
 
 
 type: float
@@ -28371,6 +28963,42 @@ format: bytes
 
 --
 
+*`system.memory.swap.out.pages`*::
++
+--
+count of pages swapped out
+
+type: long
+
+--
+
+*`system.memory.swap.in.pages`*::
++
+--
+count of pages swapped in
+
+type: long
+
+--
+
+*`system.memory.swap.readahead.pages`*::
++
+--
+swap readahead pages
+
+type: long
+
+--
+
+*`system.memory.swap.readahead.cached`*::
++
+--
+swap readahead cache hits
+
+type: long
+
+--
+
 *`system.memory.swap.used.pct`*::
 +
 --
@@ -28470,6 +29098,30 @@ Default size for huge pages.
 type: long
 
 format: bytes
+
+--
+
+[float]
+=== swap.out
+
+huge pages swapped out
+
+
+*`system.memory.hugepages.swap.out.pages`*::
++
+--
+pages swapped out
+
+type: long
+
+--
+
+*`system.memory.hugepages.swap.out.fallback`*::
++
+--
+Count of huge pages that must be split before swapout
+
+type: long
 
 --
 
@@ -30009,6 +30661,317 @@ The OS uptime in milliseconds.
 type: long
 
 format: duration
+
+--
+
+[[exported-fields-tomcat]]
+== Tomcat fields
+
+Tomcat module
+
+
+
+
+[float]
+=== cache
+
+Catalina Cache metrics from the WebResourceRoot
+
+
+*`tomcat.cache.mbean`*::
++
+--
+Mbean that this event is related to
+
+type: keyword
+
+--
+
+*`tomcat.cache.hit.total`*::
++
+--
+The number of requests for resources that were served from the cache
+
+type: long
+
+--
+
+*`tomcat.cache.size.total.kb`*::
++
+--
+The current estimate of the cache size in kilobytes
+
+type: long
+
+--
+
+*`tomcat.cache.size.max.kb`*::
++
+--
+The maximum permitted size of the cache in kilobytes
+
+type: long
+
+--
+
+*`tomcat.cache.lookup.total`*::
++
+--
+The number of requests for resources
+
+type: long
+
+--
+
+*`tomcat.cache.ttl.ms`*::
++
+--
+The time-to-live for cache entries in milliseconds
+
+type: long
+
+--
+
+[float]
+=== memory
+
+Memory metrics from java.lang JMX
+
+
+*`tomcat.memory.mbean`*::
++
+--
+Mbean that this event is related to
+
+type: keyword
+
+--
+
+*`tomcat.memory.heap.usage.committed`*::
++
+--
+Committed heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.heap.usage.max`*::
++
+--
+Max heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.heap.usage.used`*::
++
+--
+Used heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.heap.usage.init`*::
++
+--
+Initial heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.other.usage.committed`*::
++
+--
+Committed non-heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.other.usage.max`*::
++
+--
+Max non-heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.other.usage.used`*::
++
+--
+Used non-heap memory usage
+
+type: long
+
+--
+
+*`tomcat.memory.other.usage.init`*::
++
+--
+Initial non-heap memory usage
+
+type: long
+
+--
+
+[float]
+=== requests
+
+Requests processor metrics from GlobalRequestProcessor JMX
+
+
+*`tomcat.requests.mbean`*::
++
+--
+Mbean that this event is related to
+
+type: keyword
+
+--
+
+*`tomcat.requests.total`*::
++
+--
+Number of requests processed
+
+type: long
+
+--
+
+*`tomcat.requests.bytes.received`*::
++
+--
+Amount of data received, in bytes
+
+type: long
+
+--
+
+*`tomcat.requests.bytes.sent`*::
++
+--
+Amount of data sent, in bytes
+
+type: long
+
+--
+
+*`tomcat.requests.processing.ms`*::
++
+--
+Total time to process the requests
+
+type: long
+
+--
+
+*`tomcat.requests.errors.total`*::
++
+--
+Number of errors
+
+type: long
+
+--
+
+[float]
+=== threading
+
+Threading metrics from the Catalina's ThreadPool JMX
+
+
+*`tomcat.threading.busy`*::
++
+--
+Current busy threads from the ThreadPool
+
+type: long
+
+--
+
+*`tomcat.threading.max`*::
++
+--
+Max threads from the ThreadPool
+
+type: long
+
+--
+
+*`tomcat.threading.current`*::
++
+--
+Current number of threads, taken from the ThreadPool
+
+type: long
+
+--
+
+*`tomcat.threading.keep_alive.total`*::
++
+--
+Total keep alive on the ThreadPool
+
+type: long
+
+--
+
+*`tomcat.threading.keep_alive.timeout.ms`*::
++
+--
+Keep alive timeout on the ThreadPool
+
+type: long
+
+--
+
+*`tomcat.threading.started.total`*::
++
+--
+Current started threads at JVM level (from java.lang:type=Threading)
+
+type: long
+
+--
+
+*`tomcat.threading.user.time.ms`*::
++
+--
+User time in milliseconds (from java.lang:type=Threading)
+
+type: long
+
+--
+
+*`tomcat.threading.cpu.time.ms`*::
++
+--
+CPU time in milliseconds (from java.lang:type=Threading)
+
+type: long
+
+--
+
+*`tomcat.threading.total`*::
++
+--
+Total threads at the JVM level (from java.lang:type=Threading)
+
+type: long
+
+--
+
+*`tomcat.threading.peak`*::
++
+--
+Peak number of threads at JVM level (from java.lang:type=Threading)
+
+type: long
 
 --
 
