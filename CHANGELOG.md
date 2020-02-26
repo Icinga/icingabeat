@@ -1,5 +1,10 @@
 # Icingabeat CHANGELOG
 
+## v7.5.2
+
+### Features
+* Update libbeat to version 7.5.2
+
 ## v7.4.2
 
 ### Features
