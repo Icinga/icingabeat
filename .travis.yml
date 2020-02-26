@@ -6,7 +6,7 @@ services:
 language: go
 
 go:
-  - "1.10"
+  - "1.13"
 
 os:
   - linux
@@ -32,6 +32,7 @@ before_install:
   - cd $HOME/gopath/src/github.com/icinga/icingabeat/
   - go get github.com/Masterminds/glide
   - go get github.com/magefile/mage/mg
+  - go get github.com/sirupsen/logrus
 
 install:
   - true
