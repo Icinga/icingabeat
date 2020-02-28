@@ -19,7 +19,7 @@ import (
 func init() {
 	devtools.SetBuildVariableSources(devtools.DefaultBeatBuildVariableSources)
 
-	devtools.BeatDescription = "One sentence description of the Beat."
+	devtools.BeatDescription = "Icingabeat fetches data from the Icinga 2 API and forwards it to Elasticsearch or Logstash."
 	devtools.BeatVendor = "{full_name}"
 }
 
