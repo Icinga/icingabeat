@@ -8,12 +8,12 @@ import (
 
 	"github.com/magefile/mage/mg"
 
-	devtools "github.com/elastic/beats/dev-tools/mage"
-	"github.com/elastic/beats/dev-tools/mage/target/build"
-	"github.com/elastic/beats/dev-tools/mage/target/common"
-	"github.com/elastic/beats/dev-tools/mage/target/pkg"
-	"github.com/elastic/beats/dev-tools/mage/target/unittest"
-	"github.com/elastic/beats/dev-tools/mage/target/update"
+	devtools "github.com/elastic/beats/v7/dev-tools/mage"
+	"github.com/elastic/beats/v7/dev-tools/mage/target/build"
+	"github.com/elastic/beats/v7/dev-tools/mage/target/common"
+	"github.com/elastic/beats/v7/dev-tools/mage/target/pkg"
+	"github.com/elastic/beats/v7/dev-tools/mage/target/unittest"
+	"github.com/elastic/beats/v7/dev-tools/mage/target/update"
 )
 
 func init() {
@@ -21,6 +21,8 @@ func init() {
 
 	devtools.BeatDescription = "Icingabeat fetches data from the Icinga 2 API and forwards it to Elasticsearch or Logstash."
 	devtools.BeatVendor = "{full_name}"
+	devtools.BeatProjectType = devtools.CommunityProject
+	devtools.CrossBuildMountModcache = true
 }
 
 // Package packages the Beat for distribution.

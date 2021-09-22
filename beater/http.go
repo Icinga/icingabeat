@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/elastic/beats/libbeat/logp"
+	"github.com/elastic/beats/v7/libbeat/logp"
 )
 
 func requestURL(bt *Icingabeat, method string, URL *url.URL) (*http.Response, error) {
