@@ -21,6 +21,7 @@ replace (
 
 require (
 	github.com/blakesmith/ar v0.0.0-20190502131153-809d4375e1fb // indirect
+	github.com/cavaliercoder/go-rpm v0.0.0-20200122174316-8cb9fd9c31a8 // indirect
 	github.com/elastic/beats/v7 v7.14.2 // indirect
 	github.com/magefile/mage v1.11.0 // indirect
 	golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e // indirect
