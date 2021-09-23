@@ -1,5 +1,6 @@
 BEAT_NAME=icingabeat
 BEAT_PATH=github.com/icinga/icingabeat
+BEAT_DOC_URL?=https://icinga.com/docs/icingabeat
 BEAT_GOPATH=$(firstword $(subst :, ,${GOPATH}))
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false
