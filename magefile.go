@@ -21,6 +21,7 @@ func init() {
 
 	devtools.BeatDescription = "Icingabeat fetches data from the Icinga 2 API and forwards it to Elasticsearch or Logstash."
 	devtools.BeatVendor = "Icinga GmbH"
+	devtools.BeatURL = "https://icinga.com/docs/icingabeat"
 	devtools.BeatProjectType = devtools.CommunityProject
 	devtools.CrossBuildMountModcache = true
 }
