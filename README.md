@@ -25,7 +25,7 @@ for more information
 
 #### Requirements
 
-* [Golang](https://golang.org/dl/) 1.13
+* [Golang](https://golang.org/dl/) 1.16
 
 #### Clone
 
@@ -65,6 +65,7 @@ vendoring as described above. To build packages of your beat, run the following
 command:
 
 ```shell
+export PLATFORMS="linux/amd64 linux/386"
 mage package
 ```
 
