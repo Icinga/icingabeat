@@ -2,332 +2,332 @@
     "objects": [
         {
             "attributes": {
-                "description": "Summary of Icinga Metrics", 
-                "hits": 0, 
+                "description": "Summary of Icinga Metrics",
+                "hits": 0,
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}, \"version\": true, \"highlightAll\": true}"
-                }, 
-                "optionsJSON": "{\"useMargins\": true, \"darkTheme\": false, \"hidePanelTitles\": false}", 
-                "panelsJSON": "[{\"gridData\": {\"i\": \"1\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 0}, \"panelRefName\": \"panel_0\", \"version\": \"7.3.0\", \"panelIndex\": \"1\"}, {\"gridData\": {\"i\": \"2\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 12}, \"panelRefName\": \"panel_1\", \"version\": \"7.3.0\", \"panelIndex\": \"2\"}, {\"gridData\": {\"i\": \"3\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 24}, \"panelRefName\": \"panel_2\", \"version\": \"7.3.0\", \"panelIndex\": \"3\"}, {\"gridData\": {\"i\": \"4\", \"h\": 8, \"y\": 0, \"w\": 12, \"x\": 36}, \"panelRefName\": \"panel_3\", \"version\": \"7.3.0\", \"panelIndex\": \"4\"}, {\"gridData\": {\"i\": \"5\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 0}, \"panelRefName\": \"panel_4\", \"version\": \"7.3.0\", \"panelIndex\": \"5\"}, {\"gridData\": {\"i\": \"6\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 16}, \"panelRefName\": \"panel_5\", \"version\": \"7.3.0\", \"panelIndex\": \"6\"}, {\"gridData\": {\"i\": \"7\", \"h\": 12, \"y\": 8, \"w\": 16, \"x\": 32}, \"panelRefName\": \"panel_6\", \"version\": \"7.3.0\", \"panelIndex\": \"7\"}, {\"gridData\": {\"i\": \"8\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 0}, \"panelRefName\": \"panel_7\", \"version\": \"7.3.0\", \"panelIndex\": \"8\"}, {\"gridData\": {\"i\": \"9\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 16}, \"panelRefName\": \"panel_8\", \"version\": \"7.3.0\", \"panelIndex\": \"9\"}, {\"gridData\": {\"i\": \"10\", \"h\": 12, \"y\": 20, \"w\": 16, \"x\": 32}, \"panelRefName\": \"panel_9\", \"version\": \"7.3.0\", \"panelIndex\": \"10\"}]", 
-                "timeRestore": false, 
-                "title": "Icingabeat-Status", 
+                    "searchSourceJSON": "{\"filter\": [], \"highlightAll\": true, \"query\": {\"language\": \"lucene\", \"query\": \"\"}, \"version\": true}"
+                },
+                "optionsJSON": "{\"darkTheme\": false, \"hidePanelTitles\": false, \"useMargins\": true}",
+                "panelsJSON": "[{\"gridData\": {\"h\": 8, \"i\": \"1\", \"w\": 12, \"x\": 0, \"y\": 0}, \"panelIndex\": \"1\", \"panelRefName\": \"panel_0\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 8, \"i\": \"2\", \"w\": 12, \"x\": 12, \"y\": 0}, \"panelIndex\": \"2\", \"panelRefName\": \"panel_1\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 8, \"i\": \"3\", \"w\": 12, \"x\": 24, \"y\": 0}, \"panelIndex\": \"3\", \"panelRefName\": \"panel_2\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 8, \"i\": \"4\", \"w\": 12, \"x\": 36, \"y\": 0}, \"panelIndex\": \"4\", \"panelRefName\": \"panel_3\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"5\", \"w\": 16, \"x\": 0, \"y\": 8}, \"panelIndex\": \"5\", \"panelRefName\": \"panel_4\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"6\", \"w\": 16, \"x\": 16, \"y\": 8}, \"panelIndex\": \"6\", \"panelRefName\": \"panel_5\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"7\", \"w\": 16, \"x\": 32, \"y\": 8}, \"panelIndex\": \"7\", \"panelRefName\": \"panel_6\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"8\", \"w\": 16, \"x\": 0, \"y\": 20}, \"panelIndex\": \"8\", \"panelRefName\": \"panel_7\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"9\", \"w\": 16, \"x\": 16, \"y\": 20}, \"panelIndex\": \"9\", \"panelRefName\": \"panel_8\", \"version\": \"7.3.0\"}, {\"gridData\": {\"h\": 12, \"i\": \"10\", \"w\": 16, \"x\": 32, \"y\": 20}, \"panelIndex\": \"10\", \"panelRefName\": \"panel_9\", \"version\": \"7.3.0\"}]",
+                "timeRestore": false,
+                "title": "Icingabeat-Status",
                 "version": 1
-            }, 
-            "id": "a13f1a80-e4cf-11e7-b4d1-8383451ae5a4", 
+            },
+            "id": "a13f1a80-e4cf-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "dashboard": "7.3.0"
-            }, 
+            },
             "references": [
                 {
-                    "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_0", 
+                    "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_0",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_1", 
+                    "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_1",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_2", 
+                    "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_2",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_3", 
+                    "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_3",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_4", 
+                    "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_4",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_5", 
+                    "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_5",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_6", 
+                    "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_6",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_7", 
+                    "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_7",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_8", 
+                    "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_8",
                     "type": "visualization"
-                }, 
+                },
                 {
-                    "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4", 
-                    "name": "panel_9", 
+                    "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4",
+                    "name": "panel_9",
                     "type": "visualization"
                 }
-            ], 
-            "type": "dashboard", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            ],
+            "type": "dashboard",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0NCwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "Icinga Logo", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"markdown\", \"params\": {\"markdown\": \"![Icinga Logo](https://www.icinga.com/wp-content/uploads/2014/06/icinga_logo.png)\", \"fontSize\": 12}, \"aggs\": [], \"title\": \"Icinga Logo\"}"
-            }, 
-            "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "Icinga Logo",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"fontSize\": 12, \"markdown\": \"![Icinga Logo](https://www.icinga.com/wp-content/uploads/2014/06/icinga_logo.png)\"}, \"title\": \"Icinga Logo\", \"type\": \"markdown\"}"
+            },
+            "id": "77052890-e4c0-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0NSwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
-                }, 
-                "savedSearchRefName": "search_0", 
-                "title": "Icinga Version", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.icingaapplication.app.version\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Icinga Version\"}"
-            }, 
-            "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4", 
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"language\": \"lucene\", \"query\": \"\"}}"
+                },
+                "savedSearchRefName": "search_0",
+                "title": "Icinga Version",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [{\"enabled\": true, \"id\": \"1\", \"params\": {}, \"schema\": \"metric\", \"type\": \"count\"}, {\"enabled\": true, \"id\": \"2\", \"params\": {\"field\": \"icinga.status.icingaapplication.app.version\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"order\": \"desc\", \"orderBy\": \"_key\", \"otherBucket\": false, \"otherBucketLabel\": \"Other\", \"size\": 5}, \"schema\": \"segment\", \"type\": \"terms\"}], \"params\": {\"addLegend\": true, \"addTooltip\": true, \"isDonut\": true, \"labels\": {\"last_level\": true, \"show\": false, \"truncate\": 100, \"values\": true}, \"legendPosition\": \"top\", \"type\": \"pie\"}, \"title\": \"Icinga Version\", \"type\": \"pie\"}"
+            },
+            "id": "bebb81b0-e4c1-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
+            },
             "references": [
                 {
-                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4", 
-                    "name": "search_0", 
+                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+                    "name": "search_0",
                     "type": "search"
                 }
-            ], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            ],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0NiwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
-                }, 
-                "savedSearchRefName": "search_0", 
-                "title": "MySQL Schema Version", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.idomysqlconnection.ido-mysql.version\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"MySQL Schema Version\"}"
-            }, 
-            "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4", 
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"language\": \"lucene\", \"query\": \"\"}}"
+                },
+                "savedSearchRefName": "search_0",
+                "title": "MySQL Schema Version",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [{\"enabled\": true, \"id\": \"1\", \"params\": {}, \"schema\": \"metric\", \"type\": \"count\"}, {\"enabled\": true, \"id\": \"2\", \"params\": {\"field\": \"icinga.status.idomysqlconnection.ido-mysql.version\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"order\": \"desc\", \"orderBy\": \"_key\", \"otherBucket\": false, \"otherBucketLabel\": \"Other\", \"size\": 5}, \"schema\": \"segment\", \"type\": \"terms\"}], \"params\": {\"addLegend\": true, \"addTooltip\": true, \"isDonut\": true, \"labels\": {\"last_level\": true, \"show\": false, \"truncate\": 100, \"values\": true}, \"legendPosition\": \"top\", \"type\": \"pie\"}, \"title\": \"MySQL Schema Version\", \"type\": \"pie\"}"
+            },
+            "id": "73cd6b40-e4c2-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
+            },
             "references": [
                 {
-                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4", 
-                    "name": "search_0", 
+                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+                    "name": "search_0",
                     "type": "search"
                 }
-            ], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            ],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0NywxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"\", \"language\": \"lucene\"}}"
-                }, 
-                "savedSearchRefName": "search_0", 
-                "title": "Nodes", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"pie\", \"params\": {\"isDonut\": true, \"addTooltip\": true, \"labels\": {\"values\": true, \"last_level\": true, \"truncate\": 100, \"show\": false}, \"legendPosition\": \"top\", \"addLegend\": true, \"type\": \"pie\"}, \"aggs\": [{\"params\": {}, \"type\": \"count\", \"enabled\": true, \"id\": \"1\", \"schema\": \"metric\"}, {\"params\": {\"orderBy\": \"_key\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"field\": \"icinga.status.icingaapplication.app.node_name\", \"otherBucketLabel\": \"Other\", \"otherBucket\": false, \"order\": \"desc\", \"size\": 5}, \"type\": \"terms\", \"enabled\": true, \"id\": \"2\", \"schema\": \"segment\"}], \"title\": \"Nodes\"}"
-            }, 
-            "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4", 
+                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"language\": \"lucene\", \"query\": \"\"}}"
+                },
+                "savedSearchRefName": "search_0",
+                "title": "Nodes",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [{\"enabled\": true, \"id\": \"1\", \"params\": {}, \"schema\": \"metric\", \"type\": \"count\"}, {\"enabled\": true, \"id\": \"2\", \"params\": {\"field\": \"icinga.status.icingaapplication.app.node_name\", \"missingBucket\": false, \"missingBucketLabel\": \"Missing\", \"order\": \"desc\", \"orderBy\": \"_key\", \"otherBucket\": false, \"otherBucketLabel\": \"Other\", \"size\": 5}, \"schema\": \"segment\", \"type\": \"terms\"}], \"params\": {\"addLegend\": true, \"addTooltip\": true, \"isDonut\": true, \"labels\": {\"last_level\": true, \"show\": false, \"truncate\": 100, \"values\": true}, \"legendPosition\": \"top\", \"type\": \"pie\"}, \"title\": \"Nodes\", \"type\": \"pie\"}"
+            },
+            "id": "b37471e0-e4c6-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
+            },
             "references": [
                 {
-                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4", 
-                    "name": "search_0", 
+                    "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
+                    "name": "search_0",
                     "type": "search"
                 }
-            ], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            ],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0OCwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "Hostchecks by time", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.active_host_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Hostchecks\\\"),.es(metric='avg:icinga.status.active_host_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_host_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"Hostchecks by time\"}"
-            }, 
-            "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "Hostchecks by time",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.status.active_host_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Hostchecks\\\"),.es(metric='avg:icinga.status.active_host_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_host_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\", \"interval\": \"1m\"}, \"title\": \"Hostchecks by time\", \"type\": \"timelion\"}"
+            },
+            "id": "16cd5a60-e4c0-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI0OSwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "Servicechecks by time", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.active_service_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Servicechecks\\\"),.es(metric='avg:icinga.status.active_service_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_service_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"Servicechecks by time\"}"
-            }, 
-            "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "Servicechecks by time",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.status.active_service_checks_1min').color(#070F4E).label(\\\"1 min\\\").title(\\\"Amount of Servicechecks\\\"),.es(metric='avg:icinga.status.active_service_checks_5min').color(#2772DB).label(\\\"5 min\\\"),.es(metric='avg:icinga.status.active_service_checks_15min').color(#3AB1C8).label(\\\"15 min\\\")\", \"interval\": \"1m\"}, \"title\": \"Servicechecks by time\", \"type\": \"timelion\"}"
+            },
+            "id": "fbb4acc0-e4cd-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1MCwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "Endpoints comparisson", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.api.num_endpoints').label(\\\"Endpoints\\\"), .es(metric='avg:icinga.status.api.num_not_conn_endpoints').label(\\\"Endpoints not connected\\\").title(\\\"Connected Endpoints\\\")\"}, \"aggs\": [], \"title\": \"Endpoints comparisson\"}"
-            }, 
-            "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "Endpoints comparisson",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.status.api.num_endpoints').label(\\\"Endpoints\\\"), .es(metric='avg:icinga.status.api.num_not_conn_endpoints').label(\\\"Endpoints not connected\\\").title(\\\"Connected Endpoints\\\")\", \"interval\": \"1m\"}, \"title\": \"Endpoints comparisson\", \"type\": \"timelion\"}"
+            },
+            "id": "0c0685d0-e4bf-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1MSwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "States of Hosts", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.num_hosts_up').color(#3EC8AC).label(\\\"Up\\\").title(\\\"States of Hosts\\\"),.es(metric='avg:icinga.status.num_hosts_down').color(#E94822).label(\\\"Down\\\"),.es(metric='avg:icinga.status.num_hosts_unreachable').color(#6E60A0).label(\\\"Unreachable\\\")\"}, \"aggs\": [], \"title\": \"States of Hosts\"}"
-            }, 
-            "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "States of Hosts",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.status.num_hosts_up').color(#3EC8AC).label(\\\"Up\\\").title(\\\"States of Hosts\\\"),.es(metric='avg:icinga.status.num_hosts_down').color(#E94822).label(\\\"Down\\\"),.es(metric='avg:icinga.status.num_hosts_unreachable').color(#6E60A0).label(\\\"Unreachable\\\")\", \"interval\": \"1m\"}, \"title\": \"States of Hosts\", \"type\": \"timelion\"}"
+            },
+            "id": "0d44fb70-e4ce-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1MiwxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "States of Services", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.status.num_services_ok').color(#3EC8AC).label(\\\"Ok\\\").title(\\\"States of Services\\\"),.es(metric='avg:icinga.status.num_services_warning').color(#F2910A).label(\\\"Warning\\\"),.es(metric='avg:icinga.status.num_services_critical').color(#E94822).label(\\\"Critical\\\")\"}, \"aggs\": [], \"title\": \"States of Services\"}"
-            }, 
-            "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "States of Services",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.status.num_services_ok').color(#3EC8AC).label(\\\"Ok\\\").title(\\\"States of Services\\\"),.es(metric='avg:icinga.status.num_services_warning').color(#F2910A).label(\\\"Warning\\\"),.es(metric='avg:icinga.status.num_services_critical').color(#E94822).label(\\\"Critical\\\")\", \"interval\": \"1m\"}, \"title\": \"States of Services\", \"type\": \"timelion\"}"
+            },
+            "id": "204750b0-e4ce-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1MywxXQ=="
-        }, 
+        },
         {
             "attributes": {
-                "description": "", 
+                "description": "",
                 "kibanaSavedObjectMeta": {
                     "searchSourceJSON": "{}"
-                }, 
-                "title": "MySQL Queries", 
-                "uiStateJSON": "{}", 
-                "version": 1, 
-                "visState": "{\"type\": \"timelion\", \"params\": {\"interval\": \"1m\", \"expression\": \".es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_1min.value').color(#616EEF).label(\\\"1 min\\\").title(\\\"MySQL Queries\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_5mins.value').color(#09A8FA).label(\\\"5 min\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_15mins.value').color(#41C5D3).label(\\\"15 min\\\")\"}, \"aggs\": [], \"title\": \"MySQL Queries\"}"
-            }, 
-            "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4", 
+                },
+                "title": "MySQL Queries",
+                "uiStateJSON": "{}",
+                "version": 1,
+                "visState": "{\"aggs\": [], \"params\": {\"expression\": \".es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_1min.value').color(#616EEF).label(\\\"1 min\\\").title(\\\"MySQL Queries\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_5mins.value').color(#09A8FA).label(\\\"5 min\\\"), .es(metric='avg:icinga.perfdata.idomysqlconnection_ido-mysql_queries_15mins.value').color(#41C5D3).label(\\\"15 min\\\")\", \"interval\": \"1m\"}, \"title\": \"MySQL Queries\", \"type\": \"timelion\"}"
+            },
+            "id": "4d4cda00-e4c2-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "visualization": "7.4.2"
-            }, 
-            "references": [], 
-            "type": "visualization", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            },
+            "references": [],
+            "type": "visualization",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1NCwxXQ=="
-        }, 
+        },
         {
             "attributes": {
                 "columns": [
                     "_source"
-                ], 
-                "description": "", 
-                "hits": 0, 
+                ],
+                "description": "",
+                "hits": 0,
                 "kibanaSavedObjectMeta": {
-                    "searchSourceJSON": "{\"filter\": [], \"query\": {\"query\": \"type:icingabeat.status*\", \"language\": \"lucene\"}, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"version\": true, \"highlightAll\": true}"
-                }, 
+                    "searchSourceJSON": "{\"filter\": [], \"highlightAll\": true, \"indexRefName\": \"kibanaSavedObjectMeta.searchSourceJSON.index\", \"query\": {\"language\": \"lucene\", \"query\": \"type:icingabeat.status*\"}, \"version\": true}"
+                },
                 "sort": [
                     [
-                        "@timestamp", 
+                        "@timestamp",
                         "desc"
                     ]
-                ], 
-                "title": "Statuspoller", 
+                ],
+                "title": "Statuspoller",
                 "version": 1
-            }, 
-            "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4", 
+            },
+            "id": "091fd610-e4be-11e7-b4d1-8383451ae5a4",
             "migrationVersion": {
                 "search": "7.4.0"
-            }, 
+            },
             "references": [
                 {
-                    "id": "icingabeat-*", 
-                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index", 
+                    "id": "icingabeat-*",
+                    "name": "kibanaSavedObjectMeta.searchSourceJSON.index",
                     "type": "index-pattern"
                 }
-            ], 
-            "type": "search", 
-            "updated_at": "2019-11-07T11:25:35.948Z", 
+            ],
+            "type": "search",
+            "updated_at": "2019-11-07T11:25:35.948Z",
             "version": "WzI1NSwxXQ=="
         }
-    ], 
+    ],
     "version": "7.4.2"
 }
