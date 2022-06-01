@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/magefile/mage/mg"
-	"github.com/magefile/mage/sh"
 
 	devtools "github.com/elastic/beats/v7/dev-tools/mage"
 	"github.com/elastic/beats/v7/dev-tools/mage/target/build"
@@ -34,6 +33,7 @@ func Package() {
 	defer func() { fmt.Println("package ran for", time.Since(start)) }()
 
 	devtools.UseCommunityBeatPackaging()
+	devtools.PackageKibanaDashboardsFromBuildDir()
 
 	mg.Deps(Update)
 	mg.Deps(build.CrossBuild, build.CrossBuildGoDaemon)
@@ -41,8 +41,8 @@ func Package() {
 }
 
 // Update updates the generated files (aka make update).
-func Update() error {
-	return sh.Run("make", "update")
+func Update() {
+	mg.SerialDeps(Fields, Dashboards, Config, includeList, fieldDocs)
 }
 
 // Fields generates a fields.yml for the Beat.
@@ -55,6 +55,13 @@ func Config() error {
 	p := devtools.DefaultConfigFileParams()
 	p.Templates = append(p.Templates, "_meta/config/*.tmpl")
 	return devtools.Config(devtools.AllConfigTypes, p, ".")
+}
+
+func includeList() error {
+	options := devtools.DefaultIncludeListOptions()
+	options.ImportDirs = []string{"protos/*"}
+	options.ModuleDirs = nil
+	return devtools.GenerateIncludeListGo(options)
 }
 
 // Clean cleans all generated files and build artifacts.
@@ -97,4 +104,15 @@ func BuildGoDaemon() error {
 // Do not use directly, use crossBuild instead.
 func GolangCrossBuild() error {
 	return build.GolangCrossBuild()
+}
+
+// Fields generates fields.yml and fields.go files for the Beat.
+
+func fieldDocs() error {
+	return devtools.Docs.FieldDocs("fields.yml")
+}
+
+// Dashboards collects all the dashboards and generates index patterns.
+func Dashboards() error {
+	return devtools.KibanaDashboards("protos")
 }

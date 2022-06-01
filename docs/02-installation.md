@@ -79,17 +79,12 @@ We have dashboards prepared that you can use when getting started with
 Icingabeat. They are meant to give you some inspiration before you start
 exploring the data by yourself.
 
-**Note:** The dashboards require Kibana >= 6.0
+Starting with icingabeat v7.17.4 you have to download and import the dashboards manually.
 
-Import dashboards and index pattern:
-``` shell
-icingabeat setup
-```
+Download and upack `dashboards.zip` from the [latest release](https://github.com/Icinga/icingabeat/releases/latest) page.
 
-Set Kibana host, user and password if necessary:
-``` shell
-icingabeat setup -E setup.kibana.host=127.0.0.1:5601 -E setup.kibana.username=elastic -E setup.kibana.password=secret
-```
+Use Kibana's Import functionality to upload the `*.ndjson` files which will
+import a bunch of saved objects, including dashboards and single visualizations.
 
 ## Manual Installation
 
