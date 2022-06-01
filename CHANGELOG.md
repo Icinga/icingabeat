@@ -1,5 +1,13 @@
 # Icingabeat CHANGELOG
 
+## v7.17.4
+
+### Features
+* Update libbeat to version 7.14.2
+
+### Breaking Changes
+* Dashboards now must be importaed manually using Kibana
+
 ## v7.14.2
 
 ### Features
