@@ -10,7 +10,7 @@ or Logstash.
 > Elasticsearch, either directly or via Logstash, so it can be visualized with
 > Kibana.
 
-![CheckResults](../screenshots/checkresults.png) | ![Status](../screenshots/status.png)
+![CheckResults](../screenshots/checkresults.png) | ![Status](../screenshots/notifications.png)
 -------------------------------------------------|-------------------------------------
 
 ## Eventstream
