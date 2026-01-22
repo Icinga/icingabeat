@@ -112,5 +112,5 @@ Download and install a package or tarball from the
 [latest release](https://github.com/Icinga/icingabeat/releases/latest) page.
 
 ## Development
-Please follow [README.md](https://github.com/icinga/icingabeat/README.md) for
+Please follow [README.md](https://github.com/Icinga/icingabeat/blob/master/README.md) for
 instructions about how to build icingabeat.
